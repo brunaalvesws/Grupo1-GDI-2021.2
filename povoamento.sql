@@ -1,5 +1,32 @@
 CREATE SEQUENCE servico_id INCREMENT BY 1 START WITH 1;
 
+-- povoamento de Pessoa
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32145678900', 'Bruna Alves',to_date('15/07/2001', 'dd/mm/yy'),'F');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32146678900', 'Artur Carvalho',to_date('28/08/2001', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32146670900', 'Gustavo Campos',to_date('10/12/2001', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('12146678900', 'Lucas Cavalcanti',to_date('07/03/2001', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32146679900', 'Matheus Frej',to_date('10/10/2001', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32146578900', 'Raissa Heimann',to_date('30/03/2001', 'dd/mm/yy'),'F');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32246678900', 'Maria do Socorro Alves',to_date('09/09/2001', 'dd/mm/yy'),'F');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32146677900', 'Ana Carla Guerra',to_date('26/03/2001', 'dd/mm/yy'),'F');
+
+    
+
 INSERT INTO Funcionario(cpf, cargo, salario, data_de_admissao )
     VALUES ('321', '100',to_date('05/07/2021', 'dd/mm/yy'),'Supervisor', 2000.00);
 
