@@ -1,6 +1,7 @@
 CREATE SEQUENCE servico_id INCREMENT BY 1 START WITH 1;
 
--- povoamento de Pessoa
+-- POVOAMENTO PESSOA
+
 INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
     VALUES ('32145678900', 'Bruna Alves',to_date('15/07/2001', 'dd/mm/yy'),'F');
 
@@ -25,8 +26,28 @@ INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
 INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
     VALUES ('32146677900', 'Ana Carla Guerra',to_date('26/03/2001', 'dd/mm/yy'),'F');
 
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('67885321900', 'Tiago Medeiros',to_date('30/05/1977', 'dd/mm/yy'),'M');
 
--- povoamento de Endereço
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('17846781900', 'Sabrina Rocha',to_date('02/07/1967', 'dd/mm/yy'),'F');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('12246221900', 'Walmir Bispo',to_date('05/10/1972', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('55511121900', 'Jean Carlos',to_date('02/11/1992', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32217721111', 'Meiry Lanunce',to_date('02/11/1969', 'dd/mm/yy'),'F');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('32177765322', 'Gilberto Luiz',to_date('02/10/1980', 'dd/mm/yy'),'M');
+
+INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
+    VALUES ('55566621111', 'Junior Tavares',to_date('07/05/1992', 'dd/mm/yy'),'M');
+
+-- POVOAMENTO ENDEREÇO
 
 INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
     VALUES ('32145678900', 'Recife', 'Jaguaribe', '78', 'Casa', 'Pernambuco', '50610510');
@@ -52,8 +73,29 @@ INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
 INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
     VALUES ('32146677900', 'Recife', 'Engenheiro Sampaio', '199', 'Casa', 'Pernambuco', '58881599');    
 
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('67885321900', 'Recife', 'Boa Viagem', '220', 'Casa', 'Pernambuco', '51111221');
 
--- povoamento de Telefone
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('17846781900', 'Recife', 'Ilha do Leite', '333', 'Casa', 'Pernambuco', '51121221');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('12246221900', 'Recife', 'Cajueiro', '111', 'Casa', 'Pernambuco', '51155521');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('55511121900', 'Recife', 'Rosa e Silva', '95', 'Casa', 'Pernambuco', '57740821');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32217721111', 'Olinda', 'Peixinhos', '95', 'Casa', 'Pernambuco', '57123821');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32177765322', 'Camaragibe', 'Estação Nova', '100', 'Casa', 'Pernambuco', '57161111');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('55566621111', 'Olinda', 'Rio Doce', '05', 'Casa', 'Pernambuco', '57178899');
+
+-- POVOAMENTO TELEFONE
+
 INSERT INTO Telefone(cpf_p, telefone)
     VALUES ('32145678900', '992199222');
 
@@ -90,39 +132,98 @@ INSERT INTO Telefone(cpf_p, telefone)
 INSERT INTO Telefone(cpf_p, telefone)
     VALUES ('32146677900', '994025554');
 
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('67885321900', '992155111');
 
--- povoamento de Cliente
-INSERT INTO Cliente(cpf_p, plano_de_saude)
-    VALUES ('32145678900', 'Unimed');
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('17846781900', '993345211');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('12246221900', '993100017');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('55511121900', '993103010');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32217721111', '993111010');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32177765322', '993777710');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('55566621111', '993277733');
+
+
+-- POVOAMENTO CLIENTE
 
 INSERT INTO Cliente(cpf_p, plano_de_saude)
-    VALUES ('32146678900', 'Sulamerica');
+    VALUES ('32145678900', 'Unimed');  
 
 INSERT INTO Cliente(cpf_p, plano_de_saude)
-    VALUES ('32146670900', 'Hapvida');
+    VALUES ('32146678900', 'Sulamerica');  
+
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('32146670900', 'Hapvida');   
     
 INSERT INTO Cliente(cpf_p, plano_de_saude)
-    VALUES ('12146678900', 'Notredame');
+    VALUES ('12146678900', 'Notredame'); 
 
 INSERT INTO Cliente(cpf_p, plano_de_saude)
-    VALUES ('32146677900', 'Fachesf');
+    VALUES ('32146677900', 'Fachesf');  
 
 
--- povoamento funcionario
-INSERT INTO Funcionario(cpf, cargo, salario, data_de_admissao )
-    VALUES ('321', '100',to_date('05/07/2021', 'dd/mm/yy'),'Supervisor', 2000.00);
+-- POVOAMENTO FUNCIONARIO
 
-INSERT INTO Funcionario(cpf, matricula, data_de_admissao, cargo, salario, cpf_supervisor)
-    VALUES ('558', '101',to_date('05/08/2020', 'dd/mm/yy'),'Veterinário', 1200.00, '123');
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('32146679900', 'Recepcionista', 2200.00, TO_DATE('01/02/2022', 'dd/mm/yy'));
 
-INSERT INTO Funcionario(cpf, matricula, data_de_admissao, cargo, salario, cpf_supervisor)
-    VALUES ('609', '102',to_date('05/10/2020', 'dd/mm/yy'),'Veterinário', 1200.00, '123');
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('32146578900', 'Recepcionista', 2200.00, TO_DATE('05/08/2021', 'dd/mm/yy'));
 
-INSERT INTO Funcionario(cpf, matricula, data_de_admissao, cargo, salario,cpf_supervisor)
-    VALUES ('777', '103',to_date('15/07/2021', 'dd/mm/yy'),'Veterinário', 2000.00, '123');
-    
-INSERT INTO Funcionario(cpf, matricula, data_de_admissao, cargo, salario, cpf_supervisor)
-    VALUES ('888', '104',to_date('25/07/2021', 'dd/mm/yy'),'Atendente', 1200.00, '123');
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('32246678900', 'Médico', 3000.00, TO_DATE('07/07/2018', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('67885321900', 'Médico', 2000.00, TO_DATE('01/10/2019', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('17846781900', 'Médico', 2000.00, TO_DATE('01/10/2019', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('12246221900', 'Médico', 3500.00, TO_DATE('22/04/2020', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('55511121900', 'Médico', 4500.00, TO_DATE('09/09/2019', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('32217721111', 'Médico', 2500.00, TO_DATE('15/03/2022', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('32177765322', 'Segurança', 3200.00, TO_DATE('25/05/2019', 'dd/mm/yy'));
+
+INSERT INTO Funcionario(cpf, cargo, salario, data_admissao)
+    VALUES ('55566621111', 'Segurança', 3200.00, TO_DATE('22/07/2020', 'dd/mm/yy'));
+
+-- POVOAMENTO MÉDICO 
+
+INSERT INTO Medico(cpf, crm) VALUES ('32246678900', '123');
+INSERT INTO Medico(cpf, crm) VALUES ('67885321900', '345');
+INSERT INTO Medico(cpf, crm) VALUES ('17846781900', '567');
+INSERT INTO Medico(cpf, crm) VALUES ('12246221900', '789');
+INSERT INTO Medico(cpf, crm) VALUES ('55511121900', '999');
+INSERT INTO Medico(cpf, crm) VALUES ('32217721111', '111');
+
+-- POVOAMENTO SERVICO
+
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Consulta');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Dermatoscopia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Toxina botulínica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Biópsia'); 
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Exames básicos');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cauterização química');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Crioterapia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Curetagem');
 
 /*povoamento de Preco_servicos*/
 
