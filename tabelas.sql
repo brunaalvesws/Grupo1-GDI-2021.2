@@ -82,7 +82,7 @@ CREATE TABLE Servico (
 -- Tabela que contem o preco de um servico
 CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
-    preco_servico INTEGER NOT NULL,
+    preco_servico NUMBER(10, 2) NOT NULL,
 
     CONSTRAINT preco_servico_pkey PRIMARY KEY (tipo_servico),
     CONSTRAINT preco_servico CHECK (preco_servico >= 0)

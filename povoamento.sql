@@ -219,13 +219,45 @@ INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Consulta');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Dermatoscopia');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Toxina botulínica');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Biópsia'); 
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Biópsia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Consulta'); 
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Exames básicos');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cauterização química');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Crioterapia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Curetagem');
 
-/*povoamento de Preco_servicos*/
+/* povoamento de Preco_servicos */
+
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Consulta', 150.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Dermatoscopia', 240.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Cirurgia Dermatológica', 500.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Toxina botulínica', 100.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Biópsia', 120.00); 
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Exames básicos', 400.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Cauterização química', 210.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Crioterapia', 500.00);
+INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Curetagem', 50.00);
+
+/* povoamento de Medicamentos */
+
+INSERT INTO Medicamento(nome) VALUES ('Xeomin');
+INSERT INTO Medicamento(nome) VALUES ('Aloxidil');
+INSERT INTO Medicamento(nome) VALUES ('Pantogar Neo');
+INSERT INTO Medicamento(nome) VALUES ('Avicis');
+INSERT INTO Medicamento(nome) VALUES ('Finalop');
+INSERT INTO Medicamento(nome) VALUES ('Finasterida');
+INSERT INTO Medicamento(nome) VALUES ('Restylane');
+INSERT INTO Medicamento(nome) VALUES ('Helioral');
+
+/* povoamento de Fornecedor */
+
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("44328278000168", "Grupo Acripel");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("54640597000168", "Dermage");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("44037886000113", "Pharmapele");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("67873558000152", "DISTRIFARMA");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("72727498000108", "Amigo Fiel");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ("56823657000103", "Centralerg");
 
 /* povoamento de Produto */
 INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
