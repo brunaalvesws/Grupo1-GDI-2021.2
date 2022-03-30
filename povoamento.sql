@@ -53,7 +53,62 @@ INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
     VALUES ('32146677900', 'Recife', 'Engenheiro Sampaio', '199', 'Casa', 'Pernambuco', '58881599');    
 
 
+-- povoamento de Telefone
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32145678900', '992199222');
 
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146678900', '991681119');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146678900', '988886543');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146670900', '988346613');
+    
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('12146678900', '988338212');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('12146678900', '988335566');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146679900', '994022444');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146578900', '994022333');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32246678900', '999287566');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32246678900', '999287500');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32246678900', '999547566');
+
+INSERT INTO Telefone(cpf_p, telefone)
+    VALUES ('32146677900', '994025554');
+
+
+-- povoamento de Cliente
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('32145678900', 'Unimed');
+
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('32146678900', 'Sulamerica');
+
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('32146670900', 'Hapvida');
+    
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('12146678900', 'Notredame');
+
+INSERT INTO Cliente(cpf_p, plano_de_saude)
+    VALUES ('32146677900', 'Fachesf');
+
+
+-- povoamento funcionario
 INSERT INTO Funcionario(cpf, cargo, salario, data_de_admissao )
     VALUES ('321', '100',to_date('05/07/2021', 'dd/mm/yy'),'Supervisor', 2000.00);
 
