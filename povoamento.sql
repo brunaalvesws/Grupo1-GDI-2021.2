@@ -25,7 +25,34 @@ INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
 INSERT INTO Pessoa(cpf, nome, data_nascimento, genero)
     VALUES ('32146677900', 'Ana Carla Guerra',to_date('26/03/2001', 'dd/mm/yy'),'F');
 
-    
+
+-- povoamento de Endereço
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32145678900', 'Recife', 'Jaguaribe', '78', 'Casa', 'Pernambuco', '50610510');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32146678900', 'Recife', 'Santos Dumont', '456', 'Apartamento', 'Pernambuco', '50350510');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32146670900', 'Recife', 'Tabaiares', '886', 'Apartamento', 'Pernambuco', '50350511');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('12146678900', 'Recife', 'Sport Clube do Recife', '586', 'Apartamento', 'Pernambuco', '50351511');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32146679900', 'Recife', 'Sigismundo Gonçalves', '230', 'Apartamento', 'Pernambuco', '51351511');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32146578900', 'Recife', 'Boa Viagem', '20', 'Apartamento', 'Pernambuco', '51371511');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32246678900', 'Recife', 'Dom Manoel da Costa', '117', 'Casa', 'Pernambuco', '58881511');
+
+INSERT INTO Endereco(cpf_p, cidade, rua, numero, complemento, estado, cep)
+    VALUES ('32146677900', 'Recife', 'Engenheiro Sampaio', '199', 'Casa', 'Pernambuco', '58881599');    
+
+
 
 INSERT INTO Funcionario(cpf, cargo, salario, data_de_admissao )
     VALUES ('321', '100',to_date('05/07/2021', 'dd/mm/yy'),'Supervisor', 2000.00);
