@@ -71,16 +71,6 @@ CREATE TABLE Medico (
     CONSTRAINT medico_fkey FOREIGN KEY (cpf_med) REFERENCES Funcionario(cpf)
 );
 
-CREATE TABLE Servico (
-   id INTEGER NOT NULL,
-   tipo_servico VARCHAR2(255) NOT NULL,
-
-   CONSTRAINT servico_pkey PRIMARY KEY (id),
-   CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
-);
-
--- Preco_servicos, Medicamento, Fornecedor 
-
 -- Tabela que contem o preco de um serviço
 CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
@@ -88,6 +78,14 @@ CREATE TABLE Preco_servicos (
 
     CONSTRAINT preco_servico_pkey PRIMARY KEY (tipo_servico),
     CONSTRAINT preco_servico CHECK (preco_servico >= 0)
+);
+
+CREATE TABLE Servico (
+   id INTEGER NOT NULL,
+   tipo_servico VARCHAR2(255) NOT NULL,
+
+   CONSTRAINT servico_pkey PRIMARY KEY (id),
+   CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
 
 -- Tabela de medicamentos
@@ -133,10 +131,9 @@ CREATE TABLE Compra (
     cpf_cliente VARCHAR2(11) NOT NULL,
     cnpj_fornecedor VARCHAR2(14) NOT NULL,
     nome_comercial VARCHAR2(255) NOT NULL,
-    data_compra DATE NOT NULL,
-    hora VARCHAR2(255) NOT NULL,
+    datahora_compra TIMESTAMP NOT NULL,
     
-    CONSTRAINT compra_pkey PRIMARY KEY (cpf_cliente, cnpj_fornecedor, nome_comercial, data_compra, hora),
+    CONSTRAINT compra_pkey PRIMARY KEY (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra),
     CONSTRAINT compra_fkey1 FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
     CONSTRAINT compra_fkey2 FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj),
     CONSTRAINT compra_fkey3 FOREIGN KEY (nome_comercial) REFERENCES Produto(nome_comercial)
@@ -159,11 +156,10 @@ CREATE TABLE Atende(
     cpf_funcionario VARCHAR2 (11) NOT NULL,
     cpf_cliente VARCHAR2 (11) NOT NULL,
     id_servico INTEGER NOT NULL,
-    data_atende DATE NOT NULL,
-    hora VARCHAR2 (255) NOT NULL,
+    datahora_atende TIMESTAMP NOT NULL,
     preco NUMBER NOT NULL,
     
-    CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, data_atende, hora),
+    CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, datahora_atende),
     CONSTRAINT atende_checkPreco CHECK (preco > 0),
     CONSTRAINT cpfFunc_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf),
     CONSTRAINT cpfCliente_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
@@ -175,11 +171,10 @@ CREATE TABLE Atende(
 CREATE TABLE Consulta(
     cpf_cliente VARCHAR2 (11) NOT NULL,
     cpf_medico VARCHAR2 (11) NOT NULL,
-    data_consulta DATE NOT NULL,
-    hora VARCHAR2 (255) NOT NULL,
+    datahora_consulta TIMESTAMP NOT NULL,
     nome_medicamento VARCHAR2 (255),
 
-    CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, data_consulta, hora),
+    CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, datahora_consulta),
     CONSTRAINT cpfCliente_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p), 
     CONSTRAINT cpfMedico_fkey FOREIGN KEY (cpf_medico) REFERENCES Medico(cpf_med)
 );
