@@ -75,7 +75,7 @@ CREATE TABLE Servico (
    id INTEGER NOT NULL,
    tipo_servico VARCHAR2(255) NOT NULL,
 
-   CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico),
+   CONSTRAINT servico_pkey PRIMARY KEY (id),
    CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
 
