@@ -135,8 +135,7 @@ CREATE TABLE Compra (
     
     CONSTRAINT compra_pkey PRIMARY KEY (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra),
     CONSTRAINT compra_fkey1 FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
-    CONSTRAINT compra_fkey2 FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj),
-    CONSTRAINT compra_fkey3 FOREIGN KEY (nome_comercial) REFERENCES Produto(nome_comercial)
+    CONSTRAINT compra_fkey3 FOREIGN KEY (cnpj_fornecedor, nome_comercial) REFERENCES Produto(cnpj_fornecedor, nome_comercial)
 );
 
 CREATE TABLE Supervisiona (
