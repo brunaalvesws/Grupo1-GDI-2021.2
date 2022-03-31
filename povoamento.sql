@@ -215,15 +215,15 @@ INSERT INTO Medico(cpf, crm) VALUES ('32217721111', '111');
 
 -- POVOAMENTO SERVICO
 
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Consulta');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Dermatoscopia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Toxina botulínica');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Biópsia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Exames básicos');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cauterização química');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Crioterapia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Curetagem');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Consulta');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Dermatoscopia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cirurgia Dermatológica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Toxina botulínica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Biópsia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Exames básicos');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cauterização química');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Crioterapia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Curetagem');
 
 /* povoamento de Preco_servicos */
 
