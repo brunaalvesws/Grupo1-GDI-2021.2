@@ -4,7 +4,7 @@
 cliente, médico ou funcionário
 */
 CREATE TABLE Pessoa(
-    cpf varchar2(11), 
+    cpf varchar2(11) NOT NULL, 
     nome varchar2(255), 
     data_nascimento date, 
     genero char,
@@ -17,7 +17,7 @@ CREATE TABLE Pessoa(
 */
 
 CREATE TABLE Endereco(
-    cpf_p varchar2(11),
+    cpf_p varchar2(11) NOT NULL,
     cidade varchar2(20), 
     rua varchar2(255), 
     numero number, 
@@ -33,10 +33,10 @@ CREATE TABLE Endereco(
 */
 
 CREATE TABLE Telefone(
-    cpf_p varchar2(11),
-    telefone varchar2(9),
+    cpf_p varchar2(11) NOT NULL,
+    telefone varchar2(9) NOT NULL,
 
-    CONSTRAINT telefone_pkey PRIMARY KEY (cpf,telefone),    
+    CONSTRAINT telefone_pkey PRIMARY KEY (cpf_p,telefone),    
     CONSTRAINT telefone_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
 );
 
@@ -44,14 +44,14 @@ CREATE TABLE Telefone(
 */
 
 CREATE TABLE Cliente(
-    cpf_p varchar2(11),
+    cpf_p varchar2(11) NOT NULL,
     plano_de_saude varchar2(255),
 
     CONSTRAINT cliente_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT cliente_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
 );
 
--- Carlos Funcionario, Medico e Servico.
+-- Funcionario, Medico e Servico.
 
 CREATE TABLE Funcionario (
     cpf VARCHAR2(11) NOT NULL,
@@ -59,27 +59,27 @@ CREATE TABLE Funcionario (
     salario INTEGER,
     data_admissao DATE NOT NULL,
 
-    CONSTRAINT funcionario_pkey PRIMARY KEY (cpf) REFERENCES Pessoa(cpf)
-    CONSTRAINT funcionario_fkey FOREIGN KEY (cpf) REFERENCES Pessoa(cpf), 
+    CONSTRAINT funcionario_pkey PRIMARY KEY (cpf) REFERENCES Pessoa(cpf),
+    CONSTRAINT funcionario_fkey FOREIGN KEY (cpf) REFERENCES Pessoa(cpf)
 );
 
 CREATE TABLE Medico (
     cpf VARCHAR2(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
     CONSTRAINT medico_pkey PRIMARY KEY (cpf) REFERENCES Funcionario(cpf),
-    CONSTRAINT medico_fkey FOREIGN KEY (cpf) REFERENCES Funcionario(cpf),
+    CONSTRAINT medico_fkey FOREIGN KEY (cpf) REFERENCES Funcionario(cpf)
 );
 
 CREATE TABLE Servico (
    id INTEGER NOT NULL,
    tipo_servico VARCHAR2(255) NOT NULL,
-   CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
+   CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico),
    CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
 
--- Filipe Melo -> Preco_servicos, Medicamento, Fornecedor 
+-- Preco_servicos, Medicamento, Fornecedor 
 
--- Tabela que contem o preco de um servico
+-- Tabela que contem o preco de um serviço
 CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
     preco_servico NUMBER(10, 2) NOT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE Compra (
     hora varchar2(255),
     
     CONSTRAINT compra_pkey PRIMARY KEY (cpf_cliente, cnpj_fornecedor, nome_comercial, data_compra, hora),
-    CONSTRAINT compra_fkey1 FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf),
+    CONSTRAINT compra_fkey1 FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
     CONSTRAINT compra_fkey2 FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj),
     CONSTRAINT compra_fkey3 FOREIGN KEY (nome_comercial) REFERENCES Produto(nome_comercial)
 );
