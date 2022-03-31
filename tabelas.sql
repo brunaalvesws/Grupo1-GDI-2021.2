@@ -64,11 +64,11 @@ CREATE TABLE Funcionario (
 );
 
 CREATE TABLE Medico (
-    cpf VARCHAR2(11) NOT NULL,
+    cpf_med VARCHAR2(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
-    
-    CONSTRAINT medico_pkey PRIMARY KEY (cpf),
-    CONSTRAINT medico_fkey FOREIGN KEY (cpf) REFERENCES Funcionario(cpf)
+
+    CONSTRAINT medico_pkey PRIMARY KEY (cpf_med),
+    CONSTRAINT medico_fkey FOREIGN KEY (cpf_med) REFERENCES Funcionario(cpf)
 );
 
 CREATE TABLE Servico (
