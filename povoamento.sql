@@ -345,3 +345,5 @@ INSERT INTO Consulta(cpf_cliente, cpf_medico, data_consulta, hora, nome_medicame
     VALUES ('32146677900', '32217721111', to_date('12/02/2022', 'dd/mm/yyyy'), '10:50', 'Aloxidil');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, data_consulta, hora, nome_medicamento)
     VALUES ('12146678900', '67885321900', to_date('30/02/2022', 'dd/mm/yyyy'), '09:18', 'Finalop');
+INSERT INTO Consulta(cpf_cliente, cpf_medico, data_consulta, hora, nome_medicamento)
+    VALUES ('12146678900', '55511121900', to_date('14/03/2022', 'dd/mm/yyyy'), '10:50', NULL);
