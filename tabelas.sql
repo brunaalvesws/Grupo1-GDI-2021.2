@@ -56,7 +56,7 @@ CREATE TABLE Cliente(
 CREATE TABLE Funcionario (
     cpf VARCHAR2(11) NOT NULL,
     cargo VARCHAR2(255) NOT NULL,
-    salario NUMBER,
+    salario NUMBER(*,2),
     data_admissao DATE NOT NULL,
 
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf),
@@ -66,6 +66,7 @@ CREATE TABLE Funcionario (
 CREATE TABLE Medico (
     cpf VARCHAR2(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
+    
     CONSTRAINT medico_pkey PRIMARY KEY (cpf),
     CONSTRAINT medico_fkey FOREIGN KEY (cpf) REFERENCES Funcionario(cpf)
 );
@@ -73,6 +74,7 @@ CREATE TABLE Medico (
 CREATE TABLE Servico (
    id INTEGER NOT NULL,
    tipo_servico VARCHAR2(255) NOT NULL,
+
    CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico),
    CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
@@ -146,8 +148,8 @@ CREATE TABLE Supervisiona (
     avaliacao VARCHAR2(255),
     
     CONSTRAINT supervisiona_pkey PRIMARY KEY (cpf_supervisor, cpf_supervisionado),
-    CONSTRAINT supervisiona_fkey1 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario(cpf_funcionario),
-    CONSTRAINT supervisiona_fkey2 FOREIGN KEY (cpf_supervisionado) REFERENCES Funcionario(cpf_funcionario)
+    CONSTRAINT supervisiona_fkey1 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario(cpf),
+    CONSTRAINT supervisiona_fkey2 FOREIGN KEY (cpf_supervisionado) REFERENCES Funcionario(cpf)
 );
 
 
@@ -163,7 +165,7 @@ CREATE TABLE Atende(
     
     CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, data_atende, hora),
     CONSTRAINT atende_checkPreco CHECK (preco > 0),
-    CONSTRAINT cpfFunc_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf_funcionario),
+    CONSTRAINT cpfFunc_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf),
     CONSTRAINT cpfCliente_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
     CONSTRAINT idServico_fkey FOREIGN KEY (id_servico) REFERENCES Servico(id)
 );
