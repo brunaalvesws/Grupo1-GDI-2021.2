@@ -220,11 +220,9 @@ INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Dermatoscopia');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Toxina botulínica');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Biópsia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Consulta'); 
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Exames básicos');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cauterização química');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Crioterapia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Cirurgia Dermatológica');
 INSERT INTO Servico(id, tipo_servico) VALUES (servico_id, 'Curetagem');
 
 /* povoamento de Preco_servicos */
