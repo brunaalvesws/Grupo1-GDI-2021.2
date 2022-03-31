@@ -4,7 +4,7 @@
 cliente, médico ou funcionário
 */
 CREATE TABLE Pessoa(
-    cpf VARCHAR2(11) NOT NULL, 
+    cpf CHAR(11) NOT NULL, 
     nome VARCHAR2(255), 
     data_nascimento DATE, 
     genero CHAR,
@@ -17,13 +17,13 @@ CREATE TABLE Pessoa(
 */
 
 CREATE TABLE Endereco(
-    cpf_p VARCHAR2(11) NOT NULL,
+    cpf_p CHAR(11) NOT NULL,
     cidade VARCHAR2(20), 
     rua VARCHAR2(255), 
-    numero number, 
+    numero NUMBER, 
     complemento VARCHAR2(255), 
     estado VARCHAR2(20), 
-    cep VARCHAR2(9),
+    cep CHAR(9),
 
     CONSTRAINT endereco_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT endereco_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
@@ -33,7 +33,7 @@ CREATE TABLE Endereco(
 */
 
 CREATE TABLE Telefone(
-    cpf_p VARCHAR2(11) NOT NULL,
+    cpf_p CHAR(11) NOT NULL,
     telefone VARCHAR2(9) NOT NULL,
 
     CONSTRAINT telefone_pkey PRIMARY KEY (cpf_p,telefone),    
@@ -44,7 +44,7 @@ CREATE TABLE Telefone(
 */
 
 CREATE TABLE Cliente(
-    cpf_p VARCHAR2(11) NOT NULL,
+    cpf_p CHAR(11) NOT NULL,
     plano_de_saude VARCHAR2(255),
 
     CONSTRAINT cliente_pkey PRIMARY KEY (cpf_p),
@@ -54,7 +54,7 @@ CREATE TABLE Cliente(
 -- Funcionario, Medico e Servico.
 
 CREATE TABLE Funcionario (
-    cpf VARCHAR2(11) NOT NULL,
+    cpf CHAR(11) NOT NULL,
     cargo VARCHAR2(255) NOT NULL,
     salario NUMBER(*,2),
     data_admissao DATE NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE Funcionario (
 );
 
 CREATE TABLE Medico (
-    cpf_med VARCHAR2(11) NOT NULL,
+    cpf_med CHAR(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
 
     CONSTRAINT medico_pkey PRIMARY KEY (cpf_med),
@@ -74,7 +74,7 @@ CREATE TABLE Medico (
 -- Tabela que contem o preco de um serviço
 CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
-    preco_servico NUMBER(10, 2) NOT NULL,
+    preco_servico NUMBER(*, 2) NOT NULL,
 
     CONSTRAINT preco_servico_pkey PRIMARY KEY (tipo_servico),
     CONSTRAINT preco_servico CHECK (preco_servico >= 0)
@@ -97,7 +97,7 @@ CREATE TABLE Medicamento (
 
 -- Tabela de fornecedores
 CREATE TABLE Fornecedor (
-    cnpj VARCHAR2(14) NOT NULL,
+    cnpj CHAR(14) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
 
     CONSTRAINT fornecedor_pkey PRIMARY KEY (cnpj)   
@@ -105,7 +105,7 @@ CREATE TABLE Fornecedor (
 
 -- TipoProduto, Produtos
 CREATE TABLE TipoProduto (
-    cnpj_fornecedor VARCHAR2(14) NOT NULL,
+    cnpj_fornecedor CHAR(14) NOT NULL,
     tipo_produto VARCHAR2(30) NOT NULL,
 
     CONSTRAINT tipo_produto_pkey PRIMARY KEY (cnpj_fornecedor, tipo_produto),
@@ -113,10 +113,10 @@ CREATE TABLE TipoProduto (
 );
 
 CREATE TABLE Produto (
-    cnpj_fornecedor VARCHAR2(14) NOT NULL,
+    cnpj_fornecedor CHAR(14) NOT NULL,
     nome_comercial VARCHAR2(30) NOT NULL,
-    preco_de_compra NUMBER(10, 2),
-    preco_de_revenda NUMBER(10, 2),
+    preco_de_compra NUMBER(*, 2),
+    preco_de_revenda NUMBER(*, 2),
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
@@ -128,8 +128,8 @@ CREATE TABLE Produto (
 
 -- Compra, Supervisiona
 CREATE TABLE Compra (
-    cpf_cliente VARCHAR2(11) NOT NULL,
-    cnpj_fornecedor VARCHAR2(14) NOT NULL,
+    cpf_cliente CHAR(11) NOT NULL,
+    cnpj_fornecedor CHAR(14) NOT NULL,
     nome_comercial VARCHAR2(255) NOT NULL,
     datahora_compra TIMESTAMP NOT NULL,
     
@@ -139,8 +139,8 @@ CREATE TABLE Compra (
 );
 
 CREATE TABLE Supervisiona (
-    cpf_supervisor VARCHAR2(11) NOT NULL,
-    cpf_supervisionado VARCHAR2(11) NOT NULL,
+    cpf_supervisor CHAR(11) NOT NULL,
+    cpf_supervisionado CHAR(11) NOT NULL,
     avaliacao VARCHAR2(255),
     
     CONSTRAINT supervisiona_pkey PRIMARY KEY (cpf_supervisor, cpf_supervisionado),
@@ -152,8 +152,8 @@ CREATE TABLE Supervisiona (
 
 -- Atende, Consulta
 CREATE TABLE Atende(
-    cpf_funcionario VARCHAR2(11) NOT NULL,
-    cpf_cliente VARCHAR2(11) NOT NULL,
+    cpf_funcionario CHAR(11) NOT NULL,
+    cpf_cliente CHAR(11) NOT NULL,
     id_servico INTEGER NOT NULL,
     datahora_atende TIMESTAMP NOT NULL,
     preco NUMBER NOT NULL,
@@ -168,8 +168,8 @@ CREATE TABLE Atende(
 
 
 CREATE TABLE Consulta(
-    cpf_cliente VARCHAR2(11) NOT NULL,
-    cpf_medico VARCHAR2(11) NOT NULL,
+    cpf_cliente CHAR(11) NOT NULL,
+    cpf_medico CHAR(11) NOT NULL,
     datahora_consulta TIMESTAMP NOT NULL,
     nome_medicamento VARCHAR2(255),
 
