@@ -4,10 +4,10 @@
 cliente, médico ou funcionário
 */
 CREATE TABLE Pessoa(
-    cpf varchar2(11) NOT NULL, 
-    nome varchar2(255), 
-    data_nascimento date, 
-    genero char,
+    cpf VARCHAR2(11) NOT NULL, 
+    nome VARCHAR2(255), 
+    data_nascimento DATE, 
+    genero CHAR,
 
     CONSTRAINT pessoa_pkey PRIMARY KEY (cpf),
     CONSTRAINT pessoa_checkGenero CHECK (genero = 'M' OR genero = 'F')
@@ -17,13 +17,13 @@ CREATE TABLE Pessoa(
 */
 
 CREATE TABLE Endereco(
-    cpf_p varchar2(11) NOT NULL,
-    cidade varchar2(20), 
-    rua varchar2(255), 
+    cpf_p VARCHAR2(11) NOT NULL,
+    cidade VARCHAR2(20), 
+    rua VARCHAR2(255), 
     numero number, 
-    complemento varchar2(255), 
-    estado varchar2 (20), 
-    cep varchar2(9),
+    complemento VARCHAR2(255), 
+    estado VARCHAR2 (20), 
+    cep VARCHAR2(9),
 
     CONSTRAINT endereco_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT endereco_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
@@ -33,8 +33,8 @@ CREATE TABLE Endereco(
 */
 
 CREATE TABLE Telefone(
-    cpf_p varchar2(11) NOT NULL,
-    telefone varchar2(9) NOT NULL,
+    cpf_p VARCHAR2(11) NOT NULL,
+    telefone VARCHAR2(9) NOT NULL,
 
     CONSTRAINT telefone_pkey PRIMARY KEY (cpf_p,telefone),    
     CONSTRAINT telefone_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
@@ -44,8 +44,8 @@ CREATE TABLE Telefone(
 */
 
 CREATE TABLE Cliente(
-    cpf_p varchar2(11) NOT NULL,
-    plano_de_saude varchar2(255),
+    cpf_p VARCHAR2(11) NOT NULL,
+    plano_de_saude VARCHAR2(255),
 
     CONSTRAINT cliente_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT cliente_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
@@ -56,24 +56,24 @@ CREATE TABLE Cliente(
 CREATE TABLE Funcionario (
     cpf VARCHAR2(11) NOT NULL,
     cargo VARCHAR2(255) NOT NULL,
-    salario INTEGER,
+    salario NUMBER,
     data_admissao DATE NOT NULL,
 
-    CONSTRAINT funcionario_pkey PRIMARY KEY (cpf) REFERENCES Pessoa(cpf),
+    CONSTRAINT funcionario_pkey PRIMARY KEY (cpf),
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf) REFERENCES Pessoa(cpf)
 );
 
 CREATE TABLE Medico (
     cpf VARCHAR2(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
-    CONSTRAINT medico_pkey PRIMARY KEY (cpf) REFERENCES Funcionario(cpf),
+    CONSTRAINT medico_pkey PRIMARY KEY (cpf),
     CONSTRAINT medico_fkey FOREIGN KEY (cpf) REFERENCES Funcionario(cpf)
 );
 
 CREATE TABLE Servico (
    id INTEGER NOT NULL,
    tipo_servico VARCHAR2(255) NOT NULL,
-   CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico),
+   CONSTRAINT servico_pkey PRIMARY KEY (tipo_servico),
    CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
 
@@ -103,7 +103,7 @@ CREATE TABLE Fornecedor (
     CONSTRAINT fornecedor_pkey PRIMARY KEY (cnpj)   
 );
 
--- Gustavo Farani - TipoProduto, Produtos
+-- TipoProduto, Produtos
 CREATE TABLE TipoProduto (
     cnpj_fornecedor VARCHAR2(14) NOT NULL,
     tipo_produto VARCHAR2(30) NOT NULL,
@@ -126,13 +126,13 @@ CREATE TABLE Produto (
     CONSTRAINT produto_fkey FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj)
 );
 
---Rodrigo - Compra, Supervisiona
+-- Compra, Supervisiona
 CREATE TABLE Compra (
-    cpf_cliente varchar2(11) NOT NULL,
-    cnpj_fornecedor varchar2(14) NOT NULL,
-    nome_comercial varchar2(255) NOT NULL,
-    data_compra DATE,
-    hora varchar2(255),
+    cpf_cliente VARCHAR2(11) NOT NULL,
+    cnpj_fornecedor VARCHAR2(14) NOT NULL,
+    nome_comercial VARCHAR2(255) NOT NULL,
+    data_compra DATE NOT NULL,
+    hora VARCHAR2(255) NOT NULL,
     
     CONSTRAINT compra_pkey PRIMARY KEY (cpf_cliente, cnpj_fornecedor, nome_comercial, data_compra, hora),
     CONSTRAINT compra_fkey1 FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
@@ -141,9 +141,9 @@ CREATE TABLE Compra (
 );
 
 CREATE TABLE Supervisiona (
-    cpf_supervisor varchar2(11) NOT NULL,
-    cpf_supervisionado varchar2(11) NOT NULL,
-    avaliacao varchar2(255),
+    cpf_supervisor VARCHAR2(11) NOT NULL,
+    cpf_supervisionado VARCHAR2(11) NOT NULL,
+    avaliacao VARCHAR2(255),
     
     CONSTRAINT supervisiona_pkey PRIMARY KEY (cpf_supervisor, cpf_supervisionado),
     CONSTRAINT supervisiona_fkey1 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario(cpf_funcionario),
@@ -157,8 +157,8 @@ CREATE TABLE Atende(
     cpf_funcionario VARCHAR2 (11) NOT NULL,
     cpf_cliente VARCHAR2 (11) NOT NULL,
     id_servico INTEGER NOT NULL,
-    data_atende DATE,
-    hora VARCHAR2 (255),
+    data_atende DATE NOT NULL,
+    hora VARCHAR2 (255) NOT NULL,
     preco NUMBER NOT NULL,
     
     CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, data_atende, hora),
@@ -173,8 +173,8 @@ CREATE TABLE Atende(
 CREATE TABLE Consulta(
     cpf_cliente VARCHAR2 (11) NOT NULL,
     cpf_medico VARCHAR2 (11) NOT NULL,
-    data_consulta DATE,
-    hora VARCHAR2 (255),
+    data_consulta DATE NOT NULL,
+    hora VARCHAR2 (255) NOT NULL,
     nome_medicamento VARCHAR2 (255),
 
     CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, data_consulta, hora),
