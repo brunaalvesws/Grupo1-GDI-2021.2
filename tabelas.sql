@@ -156,10 +156,8 @@ CREATE TABLE Atende(
     cpf_cliente CHAR(11) NOT NULL,
     id_servico INTEGER NOT NULL,
     datahora_atende TIMESTAMP NOT NULL,
-    preco NUMBER NOT NULL,
     
     CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, datahora_atende),
-    CONSTRAINT atende_checkPreco CHECK (preco > 0),
     CONSTRAINT cpfFunc_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf),
     CONSTRAINT cpfClienteat_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
     CONSTRAINT idServico_fkey FOREIGN KEY (id_servico) REFERENCES Servico(id)
