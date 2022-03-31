@@ -257,10 +257,50 @@ INSERT INTO Fornecedor(cnpj, nome) VALUES ("67873558000152", "DISTRIFARMA");
 INSERT INTO Fornecedor(cnpj, nome) VALUES ("72727498000108", "Amigo Fiel");
 INSERT INTO Fornecedor(cnpj, nome) VALUES ("56823657000103", "Centralerg");
 
+/* povoamento de TipoProduto */
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("44328278000168", "Acne");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("54640597000168", "Acne");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("54640597000168", "Hidratante");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("44037886000113", "Acne");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("56823657000103", "Filtro Solar");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("67873558000152", "Filtro Solar");
+
+INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
+    VALUES ("72727498000108", "Pomada");
+
 /* povoamento de Produto */
 INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('REFERENCE', );
-/* povoamento de TipoProduto */
+    VALUES ('44328278000168', 'Actine', 5.99, 109.99, 10, to_date('12/12/2021', 'dd/mm/yyyy'), to_date('12/12/2026', 'dd/mm/yyyy'), 876);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('54640597000168', 'Acnen', 8.99, 200.00, 5, to_date('08/10/2021', 'dd/mm/yyyy'), to_date('20/07/2025', 'dd/mm/yyyy'), 9591);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('54640597000168', 'Hidramais', 5.99, 30.00, 40, to_date('01/04/2020', 'dd/mm/yyyy'), to_date('12/08/2023', 'dd/mm/yyyy'), 109);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('44037886000113', 'Acnex', 1.99, 110.98, 3, to_date('03/06/2018', 'dd/mm/yyyy'), to_date('21/03/2025', 'dd/mm/yyyy'), 74);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('56823657000103', 'Sunless', 20.50, 50.98, 40, to_date('02/09/2021', 'dd/mm/yyyy'), to_date('11/04/2024', 'dd/mm/yyyy'), 1756);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('67873558000152', 'UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887);
+
+INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
+    VALUES ('72727498000108', 'Hipoalergenico', 12.50, 40.99, 69, to_date('02/05/2020', 'dd/mm/yyyy'), to_date('11/03/2026', 'dd/mm/yyyy'), 975);
+
 
 /*povoamento compra*/
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, data_compra, h)
