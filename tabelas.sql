@@ -22,7 +22,7 @@ CREATE TABLE Endereco(
     rua VARCHAR2(255), 
     numero number, 
     complemento VARCHAR2(255), 
-    estado VARCHAR2 (20), 
+    estado VARCHAR2(20), 
     cep VARCHAR2(9),
 
     CONSTRAINT endereco_pkey PRIMARY KEY (cpf_p),
@@ -116,7 +116,7 @@ CREATE TABLE Produto (
     cnpj_fornecedor VARCHAR2(14) NOT NULL,
     nome_comercial VARCHAR2(30) NOT NULL,
     preco_de_compra NUMBER(10, 2),
-    preco_de_revenda NUMBER (10, 2),
+    preco_de_revenda NUMBER(10, 2),
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
@@ -152,8 +152,8 @@ CREATE TABLE Supervisiona (
 
 -- Atende, Consulta
 CREATE TABLE Atende(
-    cpf_funcionario VARCHAR2 (11) NOT NULL,
-    cpf_cliente VARCHAR2 (11) NOT NULL,
+    cpf_funcionario VARCHAR2(11) NOT NULL,
+    cpf_cliente VARCHAR2(11) NOT NULL,
     id_servico INTEGER NOT NULL,
     datahora_atende TIMESTAMP NOT NULL,
     preco NUMBER NOT NULL,
@@ -168,10 +168,10 @@ CREATE TABLE Atende(
 
 
 CREATE TABLE Consulta(
-    cpf_cliente VARCHAR2 (11) NOT NULL,
-    cpf_medico VARCHAR2 (11) NOT NULL,
+    cpf_cliente VARCHAR2(11) NOT NULL,
+    cpf_medico VARCHAR2(11) NOT NULL,
     datahora_consulta TIMESTAMP NOT NULL,
-    nome_medicamento VARCHAR2 (255),
+    nome_medicamento VARCHAR2(255),
 
     CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, datahora_consulta),
     CONSTRAINT cpfClientecs_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p), 
