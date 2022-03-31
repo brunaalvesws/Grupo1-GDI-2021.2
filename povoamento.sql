@@ -319,7 +319,7 @@ INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compr
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
     VALUES ('32145678900', '54640597000168', 'Acnen', TO_TIMESTAMP('30-01-2022 11:35', 'DD-MM-YYYY HH24:MI'));
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('12146678900', 67873558000152', 'UVSafe, TO_TIMESTAMP('26-03-2022 17:23', 'DD-MM-YYYY HH24:MI'));
+    VALUES ('12146678900', '67873558000152', 'UVSafe', TO_TIMESTAMP('26-03-2022 17:23', 'DD-MM-YYYY HH24:MI'));
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
     VALUES ('32146678900', '67873558000152', 'UVSafe', TO_TIMESTAMP('19-02-2022 07:43', 'DD-MM-YYYY HH24:MI'));
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
