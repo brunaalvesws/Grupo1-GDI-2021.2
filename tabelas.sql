@@ -162,7 +162,7 @@ CREATE TABLE Atende(
     CONSTRAINT atende_pkey PRIMARY KEY (cpf_funcionario, cpf_cliente, id_servico, datahora_atende),
     CONSTRAINT atende_checkPreco CHECK (preco > 0),
     CONSTRAINT cpfFunc_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf),
-    CONSTRAINT cpfCliente_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
+    CONSTRAINT cpfClienteat_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p),
     CONSTRAINT idServico_fkey FOREIGN KEY (id_servico) REFERENCES Servico(id)
 );
 
@@ -175,7 +175,7 @@ CREATE TABLE Consulta(
     nome_medicamento VARCHAR2 (255),
 
     CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, datahora_consulta),
-    CONSTRAINT cpfCliente_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p), 
+    CONSTRAINT cpfClientecs_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p), 
     CONSTRAINT cpfMedico_fkey FOREIGN KEY (cpf_medico) REFERENCES Medico(cpf_med)
 );
     
