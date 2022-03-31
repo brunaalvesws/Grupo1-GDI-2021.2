@@ -214,18 +214,6 @@ INSERT INTO Medico(cpf_med, crm) VALUES ('12246221900', '789');
 INSERT INTO Medico(cpf_med, crm) VALUES ('55511121900', '999');
 INSERT INTO Medico(cpf_med, crm) VALUES ('32217721111', '111');
 
--- POVOAMENTO SERVICO
-
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Consulta');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Dermatoscopia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cirurgia Dermatológica');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Toxina botulínica');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Biópsia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Exames básicos');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cauterização química');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Crioterapia');
-INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Curetagem');
-
 /* povoamento de Preco_servicos */
 
 INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Consulta', 150.00);
@@ -237,6 +225,18 @@ INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Exames básicos
 INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Cauterização química', 210.00);
 INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Crioterapia', 500.00);
 INSERT INTO Preco_servicos(tipo_servico, preco_servico) VALUES ('Curetagem', 50.00);
+
+-- POVOAMENTO SERVICO
+
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Consulta');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Dermatoscopia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cirurgia Dermatológica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Toxina botulínica');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Biópsia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Exames básicos');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Cauterização química');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Crioterapia');
+INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Curetagem');
 
 /* povoamento de Medicamentos */
 
