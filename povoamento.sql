@@ -286,8 +286,17 @@ INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao) VALUES 
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao) VALUES ('00000000000', '00000000000', 'avaliação')
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao) VALUES ('00000000000', '00000000000', 'avaliação')
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao) VALUES ('00000000000', '00000000000', 'avaliação')
+
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('00000000000', '00000000000', 'xxx', to_date('17/11/2021', 'dd/mm/yyyy'), '14:20', '100');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146679900', '32145678900', '01', to_date('06/02/2022', 'dd/mm/yyyy'), '14:20', '150');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146578900', '32146678900', '03', to_date('07/08/2021', 'dd/mm/yyyy'), '09:32', '500');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146578900', '32145678900', '02', to_date('07/08/2021', 'dd/mm/yyyy'), '10:47', '240');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146578900', '32146670900', '04', to_date('10/09/2021', 'dd/mm/yyyy'), '16:08', '100');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146679900', '12146678900', '09', to_date('08/02/2022', 'dd/mm/yyyy'), '07:15', '50');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146578900', '32145678900', '09', to_date('15/11/2021', 'dd/mm/yyyy'), '08:53', '50');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146578900', '12146678900', '06', to_date('01/10/2021', 'dd/mm/yyyy'), '13:30', '400');
+INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, data_atende, hora, preco) VALUES ('32146679900', '32146670900', '05', to_date('11/02/2022', 'dd/mm/yyyy'), '15:12', '120');
+
 
 /*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
 INSERT INTO Consulta(cpf_cliente, cpf_medico, data_consulta, hora, nome_medicamento) VALUES ('00000000000', '00000000000', to_date('16/11/2021', 'dd/mm/yyyy'), '10:00', 'XXXXX');
