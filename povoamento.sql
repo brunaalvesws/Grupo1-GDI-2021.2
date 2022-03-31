@@ -370,7 +370,7 @@ INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, pr
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, preco)
     VALUES ('32146578900', '32146678900', '01', TO_TIMESTAMP('06-01-2021 07:00', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, preco)
-    VALUES ('32146679900', '12146678900', '01', TO_TIMESTAMP('30-02-2022 09:10', 'DD-MM-YYYY HH24:MI'), '150');
+    VALUES ('32146679900', '12146678900', '01', TO_TIMESTAMP('27-02-2022 09:10', 'DD-MM-YYYY HH24:MI'), '150');
 
 
 /*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
@@ -385,6 +385,6 @@ INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicament
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
     VALUES ('32146677900', '32217721111', TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI'), 'Aloxidil');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('30-02-2022 09:18', 'DD-MM-YYYY HH24:MI'), 'Finalop');
+    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('27-02-2022 09:18', 'DD-MM-YYYY HH24:MI'), 'Finalop');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
     VALUES ('12146678900', '55511121900', TO_TIMESTAMP('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI'), NULL);
