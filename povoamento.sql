@@ -305,46 +305,46 @@ INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_
 
 /*povoamento compra*/
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32145678900', '54640597000168', 'Acnex', TO_TIMESTAMP('12-02-22 15:25', 'DD-MM-YYY HH24:MI')
+    VALUES ('32145678900', '54640597000168', 'Acnex', TO_TIMESTAMP('12-02-22 15:25', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('12146678900', '67873558000152', 'Hidramais', TO_TIMESTAMP('13-02-22 09:15', 'DD-MM-YYY HH24:MI')
+    VALUES ('12146678900', '67873558000152', 'Hidramais', TO_TIMESTAMP('13-02-22 09:15', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32146670900', '56823657000103', 'Acnen', TO_TIMESTAMP('05-03-22 16:26', 'DD-MM-YYY HH24:MI')
+    VALUES ('32146670900', '56823657000103', 'Acnen', TO_TIMESTAMP('05-03-22 16:26', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32146677900', '44328278000168', 'Actine', TO_TIMESTAMP('25-01-22 14:17', 'DD-MM-YYY HH24:MI')
+    VALUES ('32146677900', '44328278000168', 'Actine', TO_TIMESTAMP('25-01-22 14:17', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32146678900', '44037886000113', 'Hipoalergenico', TO_TIMESTAMP('16-03-22 08:13', 'DD-MM-YYY HH24:MI')
+    VALUES ('32146678900', '44037886000113', 'Hipoalergenico', TO_TIMESTAMP('16-03-22 08:13', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32146677900', '72727498000108', 'Hidramais', TO_TIMESTAMP('24-02-22 10:05', 'DD-MM-YYY HH24:MI')
+    VALUES ('32146677900', '72727498000108', 'Hidramais', TO_TIMESTAMP('24-02-22 10:05', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32145678900', '56823657000103', 'Actine', TO_TIMESTAMP('30-01-22 11:35', 'DD-MM-YYY HH24:MI')
+    VALUES ('32145678900', '56823657000103', 'Actine', TO_TIMESTAMP('30-01-22 11:35', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('12146678900', '44328278000168', 'Sunless', TO_TIMESTAMP('26-03-22 17:23', 'DD-MM-YYY HH24:MI')
+    VALUES ('12146678900', '44328278000168', 'Sunless', TO_TIMESTAMP('26-03-22 17:23', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32146678900', '54640597000168', 'UVSafe', TO_TIMESTAMP('19-02-22 07:43', 'DD-MM-YYY HH24:MI')
+    VALUES ('32146678900', '54640597000168', 'UVSafe', TO_TIMESTAMP('19-02-22 07:43', 'DD-MM-YYY HH24:MI');
 INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra, h)
-    VALUES ('32145678900', '67873558000152', 'Acnen', TO_TIMESTAMP('17-03-22 09:57', 'DD-MM-YYY HH24:MI')
+    VALUES ('32145678900', '67873558000152', 'Acnen', TO_TIMESTAMP('17-03-22 09:57', 'DD-MM-YYY HH24:MI');
 /*povoamento supervisiona*/
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146679900', '32177765322', 'Boa')
+    VALUES ('32146679900', '32177765322', 'Boa');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146578900', '32146679900', 'Ótimo')
+    VALUES ('32146578900', '32146679900', 'Ótimo');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('55511121900', '67885321900', 'Desejável')
+    VALUES ('55511121900', '67885321900', 'Desejável');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('12246221900', '17846781900', 'Desejável')
+    VALUES ('12246221900', '17846781900', 'Desejável');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32177765322', '67885321900', 'Boa')
+    VALUES ('32177765322', '67885321900', 'Boa');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('55566621111', '32217721111', 'Boa')
+    VALUES ('55566621111', '32217721111', 'Boa');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('12246221900', '32146679900', 'Ótimo')
+    VALUES ('12246221900', '32146679900', 'Ótimo');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146578900', '17846781900', 'Boa')
+    VALUES ('32146578900', '17846781900', 'Boa');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32246678900', '12246221900', 'Desejável')
+    VALUES ('32246678900', '12246221900', 'Desejável');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('67885321900', '17846781900', 'Ótimo')
+    VALUES ('67885321900', '17846781900', 'Ótimo');
 
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
