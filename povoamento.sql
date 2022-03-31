@@ -348,43 +348,43 @@ INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
 
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146679900', '32145678900', '01', to_date('06/02/2022', 'dd/mm/yyyy'), '14:20', '150');
+    VALUES ('32146679900', '32145678900', '01', TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32146678900', '03', to_date('07/08/2021', 'dd/mm/yyyy'), '09:32', '500');
+    VALUES ('32146578900', '32146678900', '03', TO_TIMESTAMP('07-08-2021 09:32', 'DD-MM-YYYY HH24:MI'), '500');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32145678900', '02', to_date('07/08/2021', 'dd/mm/yyyy'), '10:47', '240');
+    VALUES ('32146578900', '32145678900', '02', TO_TIMESTAMP('07-08-2021 10:47', 'DD-MM-YYYY HH24:MI'), '240');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32146670900', '04', to_date('10/09/2021', 'dd/mm/yyyy'), '16:08', '100');
+    VALUES ('32146578900', '32146670900', '04', TO_TIMESTAMP('10-09-2021 16:08', 'DD-MM-YYYY HH24:MI'), '100');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146679900', '12146678900', '09', to_date('08/02/2022', 'dd/mm/yyyy'), '07:15', '50');
+    VALUES ('32146679900', '12146678900', '09', TO_TIMESTAMP('08-02-2022 10:47', 'DD-MM-YYYY HH24:MI'), '50');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32145678900', '09', to_date('15/11/2021', 'dd/mm/yyyy'), '08:53', '50');
+    VALUES ('32146578900', '32145678900', '09', TO_TIMESTAMP('15-11-2021 08:53', 'DD-MM-YYYY HH24:MI'), '50');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '12146678900', '01', to_date('01/10/2021', 'dd/mm/yyyy'), '13:30', '150');
+    VALUES ('32146578900', '12146678900', '01', TO_TIMESTAMP('01-10-2021 13:30', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146679900', '32146670900', '05', to_date('11/02/2022', 'dd/mm/yyyy'), '15:12', '120');
+    VALUES ('32146679900', '32146670900', '05', TO_TIMESTAMP('11-02-2022 15:12', 'DD-MM-YYYY HH24:MI'), '120');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146679900', '32146677900', '01', to_date('12/02/2022', 'dd/mm/yyyy'), '10:47', '150');
+    VALUES ('32146679900', '32146677900', '01', TO_TIMESTAMP('12-02-2021 10:47', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32145678900', '01', to_date('06/12/2021', 'dd/mm/yyyy'), '11:00', '150');
+    VALUES ('32146578900', '32145678900', '01', TO_TIMESTAMP('06-12-2021 11:00', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146578900', '32146678900', '01', to_date('06/01/2022', 'dd/mm/yyyy'), '07:00', '150');
+    VALUES ('32146578900', '32146678900', '01', TO_TIMESTAMP('06-01-2021 07:00', 'DD-MM-YYYY HH24:MI'), '150');
 INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende, hora, preco)
-    VALUES ('32146679900', '12146678900', '01', to_date('30/02/2022', 'dd/mm/yyyy'), '09:10', '150');
+    VALUES ('32146679900', '12146678900', '01', TO_TIMESTAMP('30-02-2022 09:10', 'DD-MM-YYYY HH24:MI'), '150');
 
 
 /*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('12146678900', '67885321900', to_timestamp('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI'), 'Xeomin');
+    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI'), 'Xeomin');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('32145678900', '17846781900', to_timestamp('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI'), 'Finasterida');
+    VALUES ('32145678900', '17846781900', TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI'), 'Finasterida');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('32146678900', '12246221900', to_timestamp('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI'), 'Avicis');
+    VALUES ('32146678900', '12246221900', TO_TIMESTAMP('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI'), 'Avicis');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('32145678900', '55511121900', to_timestamp('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI'), 'Restylane');
+    VALUES ('32145678900', '55511121900', TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI'), 'Restylane');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('32146677900', '32217721111', to_timestamp('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI'), 'Aloxidil');
+    VALUES ('32146677900', '32217721111', TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI'), 'Aloxidil');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('12146678900', '67885321900', to_timestamp('30-02-2022 09:18', 'DD-MM-YYYY HH24:MI'), 'Finalop');
+    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('30-02-2022 09:18', 'DD-MM-YYYY HH24:MI'), 'Finalop');
 INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, hora, nome_medicamento)
-    VALUES ('12146678900', '55511121900', to_timestamp('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI'), NULL);
+    VALUES ('12146678900', '55511121900', TO_TIMESTAMP('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI'), NULL);
