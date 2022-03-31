@@ -251,34 +251,34 @@ INSERT INTO Medicamento(nome) VALUES ('Helioral');
 
 /* povoamento de Fornecedor */
 
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("44328278000168", "Grupo Acripel");
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("54640597000168", "Dermage");
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("44037886000113", "Pharmapele");
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("67873558000152", "DISTRIFARMA");
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("72727498000108", "Amigo Fiel");
-INSERT INTO Fornecedor(cnpj, nome) VALUES ("56823657000103", "Centralerg");
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('44328278000168', 'Grupo Acripel');
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('54640597000168', 'Dermage');
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('44037886000113', 'Pharmapele');
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('67873558000152', 'DISTRIFARMA');
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('72727498000108', 'Amigo Fiel');
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('56823657000103', 'Centralerg');
 
 /* povoamento de TipoProduto */
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("44328278000168", "Acne");
+    VALUES ('44328278000168', 'Acne');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("54640597000168", "Acne");
+    VALUES ('54640597000168', 'Acne');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("54640597000168", "Hidratante");
+    VALUES ('54640597000168', 'Hidratante');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("44037886000113", "Acne");
+    VALUES ('44037886000113', 'Acne');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("56823657000103", "Filtro Solar");
+    VALUES ('56823657000103', 'Filtro Solar');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("67873558000152", "Filtro Solar");
+    VALUES ('67873558000152', 'Filtro Solar');
 
 INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ("72727498000108", "Pomada");
+    VALUES ('72727498000108', 'Pomada');
 
 /* povoamento de Produto */
 INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
