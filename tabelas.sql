@@ -59,6 +59,7 @@ CREATE TABLE Funcionario (
     salario NUMBER(*,2),
     data_admissao DATE NOT NULL,
 
+    CONSTRAINT funcionario_check CHECK (salario >= 1212.00),
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf),
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf) REFERENCES Pessoa(cpf)
 );
@@ -76,6 +77,7 @@ CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
     preco_servico NUMBER(*, 2) NOT NULL,
 
+    CONSTRAINT preco_servicos_check CHECK (preco_servico >= 0.00),
     CONSTRAINT preco_servico_pkey PRIMARY KEY (tipo_servico),
     CONSTRAINT preco_servico CHECK (preco_servico >= 0)
 );
@@ -122,6 +124,10 @@ CREATE TABLE Produto (
     data_de_vencimento DATE,
     lote INTEGER,
 
+    CONSTRAINT produto_preco_de_compra_check CHECK (preco_de_compra >= 0.00),
+    CONSTRAINT produto_preco_de_revenda_check CHECK (preco_de_revenda > preco_de_compra),
+    CONSTRAINT produto_estoque_check CHECK (estoque > 0),
+    CONSTRAINT produto_lote_check CHECK (lote > 0 AND lote < 10000),
     CONSTRAINT produto_pkey PRIMARY KEY (cnpj_fornecedor, nome_comercial),
     CONSTRAINT produto_fkey FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj)
 );
