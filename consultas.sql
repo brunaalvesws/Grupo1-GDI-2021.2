@@ -1,0 +1,12 @@
+/* Bruna
+1. ALTER TABLE - colocar check caso nao ache erro
+7. BETWEEN
+13. MIN
+19. SUBCONSULTA COM ANY
+25. CREATE VIEW
+
+PL
+3. BLOCO ANÔNIMO
+9. CASE WHEN
+15. EXCEPTION WHEN
+*/
