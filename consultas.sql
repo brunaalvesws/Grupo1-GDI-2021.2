@@ -17,6 +17,11 @@ Set serveroutput on;
 ALTER TABLE Supervisiona 
 ADD CHECK (cpf_supervisionado != cpf_supervisor);
 
+--ALTER TABLE
+--Adicionarr chave estrangeira que ficou faltando na tabela consulta em relação à tabela Medicamento
+ALTER TABLE Consulta 
+ADD CONSTRAINT nomeMedicamento_fkey FOREIGN KEY (nome_medicamento) REFERENCES Medicamento(nome);
+
 -- BETWEEN - operador que substitui >= e <=
 -- Consulta: selecionar os serviços que custam entre 100 e 300 reais
 
