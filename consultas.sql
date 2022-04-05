@@ -90,3 +90,97 @@ SELECT genero, COUNT(*) FROM Pessoa
 WHERE nome IN(SELECT nome FROM Pessoa 
 WHERE nome like 'A%' or nome like 'M%')
 GROUP BY genero HAVING COUNT(*) > 1;
+
+/*Carlos 
+
+SQL
+2. CREATE INDEX
+8. IN
+14. AVG
+20. SUBCONSULTA COM ALL  
+26. GRANT / REVOKE       
+
+PL
+4. CREATE PROCEDURE      
+10. LOOP EXIT WHEN       
+16. USO DE PARÂMETROS (IN, OUT ou IN OUT) 
+*/
+
+/*2. CREATE INDEX
+Descrição: Cria uma estrutura mais otimizada, quando comparado com a leitura padrão de uma tabela, para consulta do campo que foi indexado, neste caso nome_comercial. */
+
+CREATE INDEX idx_nome_comercial ON Compra(nome_comercial);
+
+/*2. IN
+Descrição: Retorna os CPFs dos supervisionados que obtiveram uma avaliação Ótima ou Boa. */
+
+SELECT cpf_supervisionado FROM Supervisiona WHERE avaliacao IN ('Ótimo', 'Boa');
+
+/*14. AVG
+Descrição: Retorna a média do precos dos serviços ofertados pela clínica. */
+
+SELECT AVG(preco_servico) FROM Preco_servicos;
+
+/*20. SUBCONSULTA COM ALL  
+Descrição: Selecionando o CPF, cargo e salário dos médicos que ganham menos do que todos os funcionários que não são médicos. */
+
+SELECT cpf, cargo, salario FROM Funcionario WHERE salario  <ALL ( SELECT salario FROM Funcionario WHERE cargo NOT LIKE 'Médico'); 
+
+/*
+26. GRANT E REVOKE
+Descrição: Concedendo todos os privilégios de acesso (SELECT, INSERT, DELETE,
+UPDATE), para todos os usuário, sobre a tabela Funcionario e removendo em seguida a permissão para deleção, para todos os usuários, sobre a tabela Funcionario.
+*/
+
+GRANT ALL PRIVILEGES ON Funcionario TO PUBLIC;
+REVOKE DELETE ON Funcionario FROM PUBLIC;
+
+/*PL*/
+
+/*
+.4 CREATE PROCEDURE E .16 USO DE PARÂMETROS (IN, OUT ou IN OUT)
+Descrição: Criando procedure com parâmetro IN para inserir um medicamento na tabela de Mendicamento.
+*/
+
+CREATE OR REPLACE PROCEDURE InserirMedicamento (
+nomeMedicamento IN Medicamento.nome%TYPE
+) IS
+BEGIN
+    INSERT INTO Medicamento (nome) VALUES (nomeMedicamento);
+END InserirMedicamento;
+
+/*Bloco que chama o procedimento.*/
+BEGIN
+    InserirMedicamento('Flebon');
+END; 
+
+/*10. LOOP EXIT WHEN 
+Descrição: Usando como condição de parada a falta de dados no cursor declarado (cursor_func), o LOOP foi programado para armazenar em uma variável (cpfESalario_func) o CPF e o salário dos funcionários que recebem um salário de 2500.00 ou mais. */
+DECLARE
+    
+    i BINARY_INTEGER := 0;
+    func_cpf Funcionario.cpf%TYPE;
+    func_salario Funcionario.salario%TYPE;
+    TYPE funcInfo IS RECORD (salario INTEGER,cpf CHAR(11));
+    TYPE TabelaFunc IS TABLE OF funcInfo INDEX BY BINARY_INTEGER;
+    cpfESalario_func TabelaFunc;
+    CURSOR cursor_func IS SELECT cpf, salario FROM Funcionario;
+    
+BEGIN
+    DBMS_OUTPUT.Put_line('Funcionários que recebem 2500.00 ou mais');
+    OPEN cursor_func;
+    
+        LOOP
+            FETCH cursor_func INTO func_cpf, func_salario;
+            IF func_salario >= 2500.00 THEN
+                cpfESalario_func(i).cpf := func_cpf;
+                cpfESalario_func(i).salario := func_salario;
+                DBMS_OUTPUT.Put_line(cpfESalario_func(i).cpf || ' ' || cpfESalario_func(i).salario);
+                i := i+1;
+            END IF;
+            EXIT WHEN cursor_func%NOTFOUND;
+        END LOOP;
+    
+    CLOSE cursor_func;
+    
+END;
