@@ -184,3 +184,80 @@ BEGIN
     CLOSE cursor_func;
     
 END;
+/*
+Rodrigo
+1. USO DE RECORD
+7. %ROWTYPE
+13. SELECT … INTO
+19. CREATE OR REPLACE TRIGGER (COMANDO)*/
+
+/*1. USO DE RECORD
+Descrição: Será criado uma nova pessoa e está será inserida na tabela Pessoa, atraves de RECORD.*/
+ <<recod_block>>
+ DECLARE
+    TYPE n_pessoa IS RECORD(
+        cpf CHAR(11), 
+        nome VARCHAR2(255), 
+        data_nascimento DATE, 
+        genero CHAR);
+        nova_pessoa n_pessoa;
+BEGIN
+    nova_pessoa.cpf := '54566621611';
+    nova_pessoa.nome := 'Perna Longa';
+    nova_pessoa.data_nascimento := to_date('28/07/2001', 'dd/mm/yy');
+    nova_pessoa.genero := 'M';
+    INSERT INTO Pessoa VALUES nova_pessoa;
+END recod_block;        
+
+
+/*13. SELECT … INTO
+Descrição: A função ira retornar se foi recitado algum medicamento para o paciente.*/
+CREATE OR REPLACE FUNCTION verconsulta (cpfcliente Consulta.cpf_cliente%type, cpfmedico Consulta.cpf_medico%type)
+RETURN VARCHAR2
+IS
+    medicamento Consulta.nome_medicamento%type;
+    retorna VARCHAR2(255);
+BEGIN
+    SELECT C.nome_medicamento INTO medicamento
+    FROM Consulta C
+    WHERE C.cpf_cliente = cpfcliente AND C.cpf_medico = cpfmedico;
+
+    IF medicamento is NULL THEN
+        retorna := 'Nenhum medicamento foi receitado!';
+    ELSIF medicamento = 'Xeomin' THEN
+        retorna := 'O medicamento Xeomin foi receitado!';
+    ELSIF medicamento = 'Aloxidil' THEN
+        retorna := 'O medicamento Aloxidil foi receitado!';
+    ELSIF medicamento = 'Pantogar Neo' THEN
+        retorna := 'O medicamento Pantogar Neo foi receitado!';
+    ELSIF medicamento = 'Avicis' THEN
+        retorna := 'O medicamento Avicis foi receitado!';
+    ELSIF medicamento = 'Finalop' THEN
+        retorna := 'O medicamento Finalop foi receitado!';
+    ELSIF medicamento = 'Finasterida' THEN
+        retorna := 'O medicamento Finasterida foi receitado!';
+    ELSIF medicamento = 'Restylane' THEN
+        retorna := 'O medicamento Restylane foi receitado!';
+    ELSIF medicamento = 'Helioral' THEN
+        retorna := 'O medicamento Helioral foi receitado!'; 
+    END IF;
+    RETURN retorna;
+END;
+
+/*19. CREATE OR REPLACE TRIGGER (COMANDO)
+Descrição: Será retornado uma mensagem de erro caso tente fazer uma compra fora do horário.*/
+CREATE OR REPLACE TRIGGER compra_fora_do_horario
+BEFORE INSERT ON Compra
+DECLARE
+    hora NUMBER;
+    compra_fora_do_horario EXCEPTION;
+BEGIN
+    SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'HH24')) INTO hora FROM dual;
+    IF hora > 21 OR hora < 7
+    THEN
+        RAISE compra_fora_do_horario;
+    END IF;
+EXCEPTION
+WHEN compra_fora_do_horario THEN
+    Raise_application_error(-20202, 'FORA DO HORÁrio DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
+END;
