@@ -17,6 +17,11 @@ Set serveroutput on;
 ALTER TABLE Supervisiona 
     ADD CHECK (cpf_supervisionado != cpf_supervisor);
 
+--ALTER TABLE
+--Adicionarr chave estrangeira que ficou faltando na tabela consulta em relação à tabela Medicamento
+ALTER TABLE Consulta 
+ADD CONSTRAINT nomeMedicamento_fkey FOREIGN KEY (nome_medicamento) REFERENCES Medicamento(nome);
+
 -- BETWEEN - operador que substitui >= e <=
 -- Consulta: selecionar os serviços que custam entre 100 e 300 reais
 
@@ -220,3 +225,177 @@ CREATE OR REPLACE PACKAGE BODY cadastros AS
         INSERT INTO Medico(cpf_med, crm) VALUES (aux.cpf, crm);
     END new_medico;
 END cadastros;
+WHERE nome IN(SELECT nome FROM Pessoa 
+WHERE nome like 'A%' or nome like 'M%')
+GROUP BY genero HAVING COUNT(*) > 1;
+
+/*Carlos 
+
+SQL
+2. CREATE INDEX
+8. IN
+14. AVG
+20. SUBCONSULTA COM ALL  
+26. GRANT / REVOKE       
+
+PL
+4. CREATE PROCEDURE      
+10. LOOP EXIT WHEN       
+16. USO DE PARÂMETROS (IN, OUT ou IN OUT) 
+*/
+
+/*2. CREATE INDEX
+Descrição: Cria uma estrutura mais otimizada, quando comparado com a leitura padrão de uma tabela, para consulta do campo que foi indexado, neste caso nome_comercial. */
+
+CREATE INDEX idx_nome_comercial ON Compra(nome_comercial);
+
+/*2. IN
+Descrição: Retorna os CPFs dos supervisionados que obtiveram uma avaliação Ótima ou Boa. */
+
+SELECT cpf_supervisionado FROM Supervisiona WHERE avaliacao IN ('Ótimo', 'Boa');
+
+/*14. AVG
+Descrição: Retorna a média do precos dos serviços ofertados pela clínica. */
+
+SELECT AVG(preco_servico) FROM Preco_servicos;
+
+/*20. SUBCONSULTA COM ALL  
+Descrição: Selecionando o CPF, cargo e salário dos médicos que ganham menos do que todos os funcionários que não são médicos. */
+
+SELECT cpf, cargo, salario FROM Funcionario WHERE salario  <ALL ( SELECT salario FROM Funcionario WHERE cargo NOT LIKE 'Médico'); 
+
+/*
+26. GRANT E REVOKE
+Descrição: Concedendo todos os privilégios de acesso (SELECT, INSERT, DELETE,
+UPDATE), para todos os usuário, sobre a tabela Funcionario e removendo em seguida a permissão para deleção, para todos os usuários, sobre a tabela Funcionario.
+*/
+
+GRANT ALL PRIVILEGES ON Funcionario TO PUBLIC;
+REVOKE DELETE ON Funcionario FROM PUBLIC;
+
+/*PL*/
+
+/*
+.4 CREATE PROCEDURE E .16 USO DE PARÂMETROS (IN, OUT ou IN OUT)
+Descrição: Criando procedure com parâmetro IN para inserir um medicamento na tabela de Mendicamento.
+*/
+
+CREATE OR REPLACE PROCEDURE InserirMedicamento (
+nomeMedicamento IN Medicamento.nome%TYPE
+) IS
+BEGIN
+    INSERT INTO Medicamento (nome) VALUES (nomeMedicamento);
+END InserirMedicamento;
+
+/*Bloco que chama o procedimento.*/
+BEGIN
+    InserirMedicamento('Flebon');
+END; 
+
+/*10. LOOP EXIT WHEN 
+Descrição: Usando como condição de parada a falta de dados no cursor declarado (cursor_func), o LOOP foi programado para armazenar em uma variável (cpfESalario_func) o CPF e o salário dos funcionários que recebem um salário de 2500.00 ou mais. */
+DECLARE
+    
+    i BINARY_INTEGER := 0;
+    func_cpf Funcionario.cpf%TYPE;
+    func_salario Funcionario.salario%TYPE;
+    TYPE funcInfo IS RECORD (salario INTEGER,cpf CHAR(11));
+    TYPE TabelaFunc IS TABLE OF funcInfo INDEX BY BINARY_INTEGER;
+    cpfESalario_func TabelaFunc;
+    CURSOR cursor_func IS SELECT cpf, salario FROM Funcionario;
+    
+BEGIN
+    DBMS_OUTPUT.Put_line('Funcionários que recebem 2500.00 ou mais');
+    OPEN cursor_func;
+    
+        LOOP
+            FETCH cursor_func INTO func_cpf, func_salario;
+            IF func_salario >= 2500.00 THEN
+                cpfESalario_func(i).cpf := func_cpf;
+                cpfESalario_func(i).salario := func_salario;
+                DBMS_OUTPUT.Put_line(cpfESalario_func(i).cpf || ' ' || cpfESalario_func(i).salario);
+                i := i+1;
+            END IF;
+            EXIT WHEN cursor_func%NOTFOUND;
+        END LOOP;
+    
+    CLOSE cursor_func;
+    
+END;
+/*
+Rodrigo
+1. USO DE RECORD
+7. %ROWTYPE
+13. SELECT … INTO
+19. CREATE OR REPLACE TRIGGER (COMANDO)*/
+
+/*1. USO DE RECORD
+Descrição: Será criado uma nova pessoa e está será inserida na tabela Pessoa, atraves de RECORD.*/
+ <<recod_block>>
+ DECLARE
+    TYPE n_pessoa IS RECORD(
+        cpf CHAR(11), 
+        nome VARCHAR2(255), 
+        data_nascimento DATE, 
+        genero CHAR);
+        nova_pessoa n_pessoa;
+BEGIN
+    nova_pessoa.cpf := '54566621611';
+    nova_pessoa.nome := 'Perna Longa';
+    nova_pessoa.data_nascimento := to_date('28/07/2001', 'dd/mm/yy');
+    nova_pessoa.genero := 'M';
+    INSERT INTO Pessoa VALUES nova_pessoa;
+END recod_block;        
+
+
+/*13. SELECT … INTO
+Descrição: A função ira retornar se foi recitado algum medicamento para o paciente.*/
+CREATE OR REPLACE FUNCTION verconsulta (cpfcliente Consulta.cpf_cliente%type, cpfmedico Consulta.cpf_medico%type)
+RETURN VARCHAR2
+IS
+    medicamento Consulta.nome_medicamento%type;
+    retorna VARCHAR2(255);
+BEGIN
+    SELECT C.nome_medicamento INTO medicamento
+    FROM Consulta C
+    WHERE C.cpf_cliente = cpfcliente AND C.cpf_medico = cpfmedico;
+
+    IF medicamento is NULL THEN
+        retorna := 'Nenhum medicamento foi receitado!';
+    ELSIF medicamento = 'Xeomin' THEN
+        retorna := 'O medicamento Xeomin foi receitado!';
+    ELSIF medicamento = 'Aloxidil' THEN
+        retorna := 'O medicamento Aloxidil foi receitado!';
+    ELSIF medicamento = 'Pantogar Neo' THEN
+        retorna := 'O medicamento Pantogar Neo foi receitado!';
+    ELSIF medicamento = 'Avicis' THEN
+        retorna := 'O medicamento Avicis foi receitado!';
+    ELSIF medicamento = 'Finalop' THEN
+        retorna := 'O medicamento Finalop foi receitado!';
+    ELSIF medicamento = 'Finasterida' THEN
+        retorna := 'O medicamento Finasterida foi receitado!';
+    ELSIF medicamento = 'Restylane' THEN
+        retorna := 'O medicamento Restylane foi receitado!';
+    ELSIF medicamento = 'Helioral' THEN
+        retorna := 'O medicamento Helioral foi receitado!'; 
+    END IF;
+    RETURN retorna;
+END;
+
+/*19. CREATE OR REPLACE TRIGGER (COMANDO)
+Descrição: Será retornado uma mensagem de erro caso tente fazer uma compra fora do horário.*/
+CREATE OR REPLACE TRIGGER compra_fora_do_horario
+BEFORE INSERT ON Compra
+DECLARE
+    hora NUMBER;
+    compra_fora_do_horario EXCEPTION;
+BEGIN
+    SELECT TO_NUMBER(TO_CHAR(SYSDATE, 'HH24')) INTO hora FROM dual;
+    IF hora > 21 OR hora < 7
+    THEN
+        RAISE compra_fora_do_horario;
+    END IF;
+EXCEPTION
+WHEN compra_fora_do_horario THEN
+    Raise_application_error(-20202, 'FORA DO HORÁrio DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
+END;
