@@ -407,11 +407,18 @@ WHEN compra_fora_do_horario THEN
 END;
 /
 
-/* Walmir
-6.
-12.
-18.
-24.
+/*WALMIR
+SQL
+6. SELECT-FROM-WHERE (✔)
+12. MAX (✔)
+18. SUBCONSULTA COM IN (✔)
+24. UNION ou INTERSECT ou MINUS (✔)
+
+PL
+2. USO DE ESTRUTURA DE DADOS DO TIPO TABLE
+8. IF ELSIF (✔)
+14. CURSOR (OPEN, FETCH e CLOSE)
+20. CREATE OR REPLACE TRIGGER (LINHA) (✔)
 */
 
 /* SELECT-FROM-WHERE 
@@ -426,6 +433,46 @@ SELECT * FROM Funcionario WHERE salario IN (SELECT MAX(salario) FROM Funcionario
 Retorna todos os funcionarios com salarios acima de 3000 reais OU abaixo de 2500*/
 SELECT * FROM Funcionario WHERE salario > 3000 UNION SELECT * FROM Funcionario;
 
+-- CREATE OR REPLACE TRIGGER (LINHA) + IF ELSIF
+    -- Impede que seja inserido um salário negativo na base
+CREATE OR REPLACE TRIGGER salario_neg BEFORE UPDATE ON Funcionario FOR EACH ROW
+    BEGIN
+    IF :NEW.salario < 0 THEN
+        RAISE_APPLICATION_ERROR(-20101, 'Salario não pode ser menor que 0');
+    END IF;
+END;
+/
+-- CURSOR + ESTRUTURA TABLE
+-- Retorna todas as compras feitas antes de fevereiro de 2022
+DECLARE
+    i BINARY_INTEGER := 0;
+    cpf_compra Compra.cpf_cliente%TYPE;
+    nome_compra Compra.nome_comercial%TYPE;
+    data_compra Compra.datahora_compra%TYPE;
+    
+    TYPE compraInfo IS RECORD (cpf_cliente CHAR(11), nome_comercial VARCHAR2(255));
+    TYPE TabelaCompra IS TABLE OF compraInfo INDEX BY BINARY_INTEGER;
+    cpf_nome_compra TabelaCompra;
+    CURSOR cursor_compra IS SELECT cpf_cliente, nome_comercial, datahora_compra FROM Compra;
+    
+BEGIN
+    DBMS_OUTPUT.Put_line('Compras realizadas antes de fevereiro de 2022');
+    OPEN cursor_compra;
+    
+        LOOP
+            FETCH cursor_compra INTO cpf_compra, nome_compra, data_compra;
+            IF data_compra < TO_TIMESTAMP('01-02-2022 00:00', 'DD-MM-YYYY HH24:MI') THEN
+                cpf_nome_compra(i).cpf_cliente := cpf_compra;
+                cpf_nome_compra(i).nome_comercial := nome_compra;
+                DBMS_OUTPUT.Put_line(cpf_nome_compra(i).cpf_cliente || ' ' || cpf_nome_compra(i).nome_comercial);
+                i := i+1;
+            END IF;
+            EXIT WHEN cursor_compra%NOTFOUND;
+        END LOOP;
+    
+    CLOSE cursor_compra;
+END;
+/
 
 /* Gustavo */
 
