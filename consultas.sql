@@ -430,6 +430,14 @@ SELECT * FROM Funcionario WHERE salario > 3000 UNION SELECT * FROM Funcionario;
 /* Gustavo */
 
 /*
+4. UPDATE
+Convertendo os preços dos produtos de real para dólar
+*/
+
+UPDATE Produto SET preco_de_compra = preco_de_compra/4.74;
+UPDATE Produto SET preco_de_revenda = preco_de_revenda/4.74;
+
+/*
 16. LEFT ou RIGHT ou FULL OUTER JOIN
 Lista os produtos de cada fornecedor
 */
@@ -446,6 +454,22 @@ SELECT cpf_cliente, cpf_medico, datahora_consulta FROM Consulta
     WHERE nome_medicamento IS NULL;
 
 /*
-6. %TYPE
 12. FOR IN LOOP
+Funcionários que não possuem supervisor (autogerenciáveis)
 */
+DECLARE
+    grau BINARY_INTEGER;
+BEGIN
+    FOR func_cur IN (SELECT cpf FROM Funcionario) LOOP
+        grau := 0;
+        FOR supervisiona_cur IN (SELECT cpf_supervisionado FROM Supervisiona) LOOP
+            IF func_cur.cpf = supervisiona_cur.cpf_supervisionado THEN
+                grau := grau + 1;
+            END IF;
+        END LOOP;
+        IF grau = 0 THEN
+            DBMS_OUTPUT.PUT_LINE(func_cur.cpf);
+        END IF;
+    END LOOP;
+END;
+/
