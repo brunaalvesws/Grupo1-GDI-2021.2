@@ -61,6 +61,7 @@ EXCEPTION
     WHEN NO_DATA_FOUND THEN
     dbms_output.put('Não houve serviço realizado nesse dia e horário.');
 END;
+/
 
 /*Rodrigo
 5. DELETE
@@ -71,8 +72,8 @@ END;
 
 /*5.DELETE
 Descrição: Remoção de um medicamento da tabela Medicamento.*/
-DELETE FROM Medicamento
-    WHERE nome = 'Xeomin';
+DELETE FROM Supervisiona
+    WHERE cpf_supervisor = '32146679900' AND cpf_supervisionado = '32177765322';
 
 /*11. INNER JOIN
 Descrição: Será retornado o cpf o nome e o telefone das pessoas.*/
@@ -146,6 +147,7 @@ BEGIN
 
     RETURN retorno;
 END totalGastoCliente;
+/
 
 /*
 11. WHILE LOOP
@@ -177,6 +179,7 @@ BEGIN
     
     RETURN total_serv;
 END countServicos;
+/
 
 /*
 17. CREATE OR REPLACE PACKAGE
@@ -192,7 +195,7 @@ CREATE OR REPLACE PACKAGE cadastros AS
     PROCEDURE new_medico(aux Pessoa%ROWTYPE, cargo Funcionario.cargo%TYPE,
         salario Funcionario.salario%TYPE, data_admissao Funcionario.data_admissao%TYPE, crm Medico.crm%TYPE);
 END cadastros;
-
+/
 CREATE OR REPLACE PACKAGE BODY cadastros AS
     PROCEDURE new_cliente(aux Pessoa%ROWTYPE, plano_de_saude Cliente.plano_de_saude%TYPE) IS
     BEGIN
@@ -225,9 +228,7 @@ CREATE OR REPLACE PACKAGE BODY cadastros AS
         INSERT INTO Medico(cpf_med, crm) VALUES (aux.cpf, crm);
     END new_medico;
 END cadastros;
-WHERE nome IN(SELECT nome FROM Pessoa 
-WHERE nome like 'A%' or nome like 'M%')
-GROUP BY genero HAVING COUNT(*) > 1;
+/
 
 /*Carlos 
 
@@ -286,11 +287,13 @@ nomeMedicamento IN Medicamento.nome%TYPE
 BEGIN
     INSERT INTO Medicamento (nome) VALUES (nomeMedicamento);
 END InserirMedicamento;
+/
 
 /*Bloco que chama o procedimento.*/
 BEGIN
     InserirMedicamento('Flebon');
 END; 
+/
 
 /*10. LOOP EXIT WHEN 
 Descrição: Usando como condição de parada a falta de dados no cursor declarado (cursor_func), o LOOP foi programado para armazenar em uma variável (cpfESalario_func) o CPF e o salário dos funcionários que recebem um salário de 2500.00 ou mais. */
@@ -322,6 +325,8 @@ BEGIN
     CLOSE cursor_func;
     
 END;
+/
+
 /*
 Rodrigo
 1. USO DE RECORD
@@ -331,8 +336,8 @@ Rodrigo
 
 /*1. USO DE RECORD
 Descrição: Será criado uma nova pessoa e está será inserida na tabela Pessoa, atraves de RECORD.*/
- <<recod_block>>
- DECLARE
+<<recod_block>>
+DECLARE
     TYPE n_pessoa IS RECORD(
         cpf CHAR(11), 
         nome VARCHAR2(255), 
@@ -345,20 +350,20 @@ BEGIN
     nova_pessoa.data_nascimento := to_date('28/07/2001', 'dd/mm/yy');
     nova_pessoa.genero := 'M';
     INSERT INTO Pessoa VALUES nova_pessoa;
-END recod_block;        
-
+END recod_block;
+/     
 
 /*13. SELECT … INTO
 Descrição: A função ira retornar se foi recitado algum medicamento para o paciente.*/
-CREATE OR REPLACE FUNCTION verconsulta (cpfcliente Consulta.cpf_cliente%type, cpfmedico Consulta.cpf_medico%type)
+CREATE OR REPLACE FUNCTION verconsulta (cpfcliente Consulta.cpf_cliente%type, cpfmedico Consulta.cpf_medico%type, datahoraconsulta Consulta.datahora_consulta%TYPE)
 RETURN VARCHAR2
 IS
     medicamento Consulta.nome_medicamento%type;
     retorna VARCHAR2(255);
 BEGIN
     SELECT C.nome_medicamento INTO medicamento
-    FROM Consulta C
-    WHERE C.cpf_cliente = cpfcliente AND C.cpf_medico = cpfmedico;
+        FROM Consulta C
+        WHERE C.cpf_cliente = cpfcliente AND C.cpf_medico = cpfmedico AND C.datahora_consulta = datahoraconsulta;
 
     IF medicamento is NULL THEN
         retorna := 'Nenhum medicamento foi receitado!';
@@ -381,9 +386,10 @@ BEGIN
     END IF;
     RETURN retorna;
 END;
-
+/
 /*19. CREATE OR REPLACE TRIGGER (COMANDO)
-Descrição: Será retornado uma mensagem de erro caso tente fazer uma compra fora do horário.*/
+Descrição: Será retornado uma mensagem de erro caso tente inserir uma compra fora do horário de funcionamento da loja
+(a inserção é feita fora do horário, não a compra feita fora do horário).*/
 CREATE OR REPLACE TRIGGER compra_fora_do_horario
 BEFORE INSERT ON Compra
 DECLARE
@@ -399,3 +405,23 @@ EXCEPTION
 WHEN compra_fora_do_horario THEN
     Raise_application_error(-20202, 'FORA DO HORÁrio DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
 END;
+/
+
+/* Walmir
+6.
+12.
+18.
+24.
+*/
+
+/* SELECT-FROM-WHERE 
+Retorna todos Médicos com salarios acima de 3000 reais*/
+SELECT * FROM Funcionario WHERE salario > 3000 AND cargo = 'Médico';
+
+/* MAX + SUBCONSULTA IN 
+Retorna o maior salario dentre todos os funcionarios*/
+SELECT * FROM Funcionario WHERE salario IN (SELECT MAX(salario) FROM Funcionario);
+
+/*UNION ou INTERSECT ou MINUS 
+Retorna todos os funcionarios com salarios acima de 3000 reais OU abaixo de 2500*/
+SELECT * FROM Funcionario WHERE salario > 3000 UNION SELECT * FROM Funcionario;
