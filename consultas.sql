@@ -399,3 +399,27 @@ EXCEPTION
 WHEN compra_fora_do_horario THEN
     Raise_application_error(-20202, 'FORA DO HORÁrio DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
 END;
+
+
+/* Gustavo */
+
+/*
+16. LEFT ou RIGHT ou FULL OUTER JOIN
+Lista os produtos de cada fornecedor
+*/
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('18053593100139', 'Avene');
+
+SELECT F.nome, P.nome_comercial, P.preco_de_revenda FROM Fornecedor F LEFT OUTER JOIN Produto P
+    ON F.cnpj = P.cnpj_fornecedor;
+
+/*
+10. IS NULL ou IS NOT NULL
+Consultas em que nenhum medicamento foi passado
+*/
+SELECT cpf_cliente, cpf_medico, datahora_consulta FROM Consulta
+    WHERE nome_medicamento IS NULL;
+
+/*
+6. %TYPE
+12. FOR IN LOOP
+*/
