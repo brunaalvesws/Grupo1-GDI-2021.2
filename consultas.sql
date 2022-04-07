@@ -443,7 +443,7 @@ Lista os produtos de cada fornecedor
 */
 INSERT INTO Fornecedor(cnpj, nome) VALUES ('18053593100139', 'Avene');
 
-SELECT F.nome, P.nome_comercial, P.preco_de_revenda FROM Fornecedor F LEFT OUTER JOIN Produto P
+SELECT F.nome, P.nome_comercial, (P.preco_de_revenda - P.preco_de_compra) AS Lucro FROM Fornecedor F LEFT OUTER JOIN Produto P
     ON F.cnpj = P.cnpj_fornecedor;
 
 /*
@@ -457,9 +457,11 @@ SELECT cpf_cliente, cpf_medico, datahora_consulta FROM Consulta
 12. FOR IN LOOP
 Funcionários que não possuem supervisor (autogerenciáveis)
 */
+
 DECLARE
     grau BINARY_INTEGER;
 BEGIN
+    DBMS_OUTPUT.PUT_LINE('Funcionários auto-gerenciáveis (CPF):');
     FOR func_cur IN (SELECT cpf FROM Funcionario) LOOP
         grau := 0;
         FOR supervisiona_cur IN (SELECT cpf_supervisionado FROM Supervisiona) LOOP
