@@ -425,3 +425,27 @@ SELECT * FROM Funcionario WHERE salario IN (SELECT MAX(salario) FROM Funcionario
 /*UNION ou INTERSECT ou MINUS 
 Retorna todos os funcionarios com salarios acima de 3000 reais OU abaixo de 2500*/
 SELECT * FROM Funcionario WHERE salario > 3000 UNION SELECT * FROM Funcionario;
+
+
+/* Gustavo */
+
+/*
+16. LEFT ou RIGHT ou FULL OUTER JOIN
+Lista os produtos de cada fornecedor
+*/
+INSERT INTO Fornecedor(cnpj, nome) VALUES ('18053593100139', 'Avene');
+
+SELECT F.nome, P.nome_comercial, P.preco_de_revenda FROM Fornecedor F LEFT OUTER JOIN Produto P
+    ON F.cnpj = P.cnpj_fornecedor;
+
+/*
+10. IS NULL ou IS NOT NULL
+Consultas em que nenhum medicamento foi passado
+*/
+SELECT cpf_cliente, cpf_medico, datahora_consulta FROM Consulta
+    WHERE nome_medicamento IS NULL;
+
+/*
+6. %TYPE
+12. FOR IN LOOP
+*/
