@@ -12,33 +12,37 @@ PL
 15. EXCEPTION WHEN
 */
 Set serveroutput on;
---ALTER TABLE
+--ALTER TABLE - faz alterações na definição da tabela
 --Restrição para evitar que o mesmo funcionário seja seu próprio supervisor
 ALTER TABLE Supervisiona 
     ADD CHECK (cpf_supervisionado != cpf_supervisor);
 
 --ALTER TABLE
---Adicionarr chave estrangeira que ficou faltando na tabela consulta em relação à tabela Medicamento
+--Adicionar chave estrangeira que ficou faltando na tabela Consulta em relação à tabela Medicamento
 ALTER TABLE Consulta 
 ADD CONSTRAINT nomeMedicamento_fkey FOREIGN KEY (nome_medicamento) REFERENCES Medicamento(nome);
 
--- BETWEEN - operador que substitui >= e <=
+-- BETWEEN - operador que substitui >= e <= (entre)
 -- Consulta: selecionar os serviços que custam entre 100 e 300 reais
 
 SELECT * FROM Preco_servicos WHERE preco_servico BETWEEN 100.00 AND 300.00;
 
--- SUBCONSULTA COM ANY
+-- SUBCONSULTA COM ANY - operador que indica qualquer um entre uma série de valores (listados ou vindo de subselect)
 -- Consulta: selecionar o nome e salário das funcionárias que ganham mais que algum funcionário
 SELECT P.nome, F.salario FROM Pessoa P, Funcionario F 
     WHERE P.cpf = F.cpf AND P.genero = 'F' and F.salario > ANY 
     (SELECT F.salario FROM Funcionario F, Pessoa P WHERE P.genero = 'M');
 
---MIN, CREATE VIEW
--- Criar uma view que mostre o estoque que tá mais perto de acabar
+-- MIN - operador que retorna o mínimo entre uma série de valores
+-- CREATE VIEW - cria uma view (tabela virtual que não ocupa memória)
+-- Criar uma view que mostre o estoque que está mais perto de acabar (usando min)
 CREATE VIEW Estoque_critico(nome_comercial,estoque) AS SELECT nome_comercial, estoque 
     FROM Produto WHERE estoque IN (SELECT MIN(estoque) FROM Produto);
+-- Para ver a view: SELECT * FROM Estoque_critico
 
---BLOCO ANONIMO, CASE WHEN, EXCEPTION WHEN
+--BLOCO ANONIMO: bloco de operações sem um nome, 
+--CASE WHEN: comando condicional para que seja feito uma determinada ação caso a variável de controle assuma o valor definido, 
+--EXCEPTION WHEN: bloco de tratamento de exceção
 -- Informar o serviço realizado em um dia e horário
 DECLARE 
     v_datetime TIMESTAMP := TO_TIMESTAMP('15-11-2021 08:53', 'DD-MM-YYYY HH24:MI');
@@ -70,25 +74,25 @@ END;
 23. HAVING
 */
 
-/*5.DELETE
+/*5.DELETE - Remover elementos de uma tabela
 Descrição: Remoção de um medicamento da tabela Medicamento.*/
 DELETE FROM Supervisiona
     WHERE cpf_supervisor = '32146679900' AND cpf_supervisionado = '32177765322';
 
-/*11. INNER JOIN
-Descrição: Será retornado o cpf o nome e o telefone das pessoas.*/
+/*11. INNER JOIN - une duas ou mais tabelas a partir de um atributo identificador
+Descrição: Será retornado o cpf, o nome e o telefone das pessoas.*/
 SELECT P.cpf, P.nome, T.telefone FROM Pessoa P
     INNER JOIN Telefone T
     ON P.cpf = T.cpf_p
     ORDER BY P.nome;
 
-/*17. SUBCONSULTA COM OPERADOR RELACIONAL
+/*17. SUBCONSULTA COM OPERADOR RELACIONAL - operador escolhido: <=
 Descrição: Será retornado o nome comercial, o estoque e o lote da tabela produto que forem vencer antes da data estimada.*/
 SELECT Pr.nome_comercial, Pr.estoque, Pr.lote FROM Produto Pr
     WHERE data_de_vencimento <= to_date('21/03/2025', 'dd/mm/yyyy')
     ORDER BY Pr.estoque;
 
-/*23. HAVING
+/*23. HAVING - expressa a condição de agrupamento
 Descrição: Retorna o genero e o número de pessoas, onde os nomes começam com A ou M, caso haja mais que uma.*/
 SELECT genero, COUNT(*) FROM Pessoa
     WHERE nome IN(SELECT nome FROM Pessoa 
@@ -101,18 +105,18 @@ SELECT genero, COUNT(*) FROM Pessoa
 21. ORDER BY
 */
 
-/* 9. LIKE
+/* 9. LIKE - comando que relaciona uma expressão geral para ser parâmetro de busca de expressões parecidas
 Descrição: Seleciona todos cpfs de cliente para consultas que aconteceram no mês de fevereiro de 2022 */
 SELECT Consulta.cpf_cliente FROM Consulta 
     WHERE TO_CHAR(Consulta.datahora_consulta,'DD-MM-YYYY HH24:MI') LIKE '__-02-2022%'
     GROUP BY Consulta.cpf_cliente;
 
-/* 15. COUNT
+/* 15. COUNT - comando para contar o número de tuplas
 Descrição: Mostra a quantidade de supervisionados para cada supervisor */
 SELECT Supervisiona.cpf_supervisor, COUNT(Supervisiona.cpf_supervisionado)
     FROM Supervisiona GROUP BY Supervisiona.cpf_supervisor ORDER BY COUNT(Supervisiona.cpf_supervisionado);
 
-/* 21. ORDER BY
+/* 21. ORDER BY - comando para ordenar as tuplas na tabela dado critério especificado
 Descrição: Mostra os produtos em ordem crescente de lucro */
 SELECT Produto.nome_comercial, (Produto.preco_de_revenda-Produto.preco_de_compra) as Lucro FROM Produto
     ORDER BY (Produto.preco_de_revenda-Produto.preco_de_compra);
@@ -124,7 +128,7 @@ SELECT Produto.nome_comercial, (Produto.preco_de_revenda-Produto.preco_de_compra
 */
 
 /*
-5. CREATE FUNCTION
+5. CREATE FUNCTION - cria uma função com parâmetros e retornos
 Descrição: Calcula todo o gasto do cliente com serviços e compras
 */
 CREATE OR REPLACE FUNCTION totalGastoCliente(cpf_cliente Cliente.cpf_p%TYPE)
@@ -150,7 +154,7 @@ END totalGastoCliente;
 /
 
 /*
-11. WHILE LOOP
+11. WHILE LOOP - comando de repetição com condição
 Descrição: 
 */
 CREATE OR REPLACE FUNCTION countServicos(cpf_cliente Cliente.cpf_p%TYPE)
@@ -182,11 +186,11 @@ END countServicos;
 /
 
 /*
-17. CREATE OR REPLACE PACKAGE
+17. CREATE OR REPLACE PACKAGE - cria pacotes de funções, métodos e procedures que podem ser usadas para um fim específico
 Descrição: Criação do PACKAGE responsável por criar clientes, funcionarios ou médicos
 */
 
-/* 3. INSERT INTO
+/* 3. INSERT INTO - comando para inserir uma tupla noav na tabela
 Descrição: Pacote contem comandos insert para inserir clientes, funcionarios ou médicos*/
 CREATE OR REPLACE PACKAGE cadastros AS
     PROCEDURE new_cliente(aux Pessoa%ROWTYPE, plano_de_saude Cliente.plano_de_saude%TYPE);
@@ -245,28 +249,28 @@ PL
 16. USO DE PARÂMETROS (IN, OUT ou IN OUT) 
 */
 
-/*2. CREATE INDEX
+/*2. CREATE INDEX - cria um índice, normalmente numério para uma tabela
 Descrição: Cria uma estrutura mais otimizada, quando comparado com a leitura padrão de uma tabela, para consulta do campo que foi indexado, neste caso nome_comercial. */
 
 CREATE INDEX idx_nome_comercial ON Compra(nome_comercial);
 
-/*2. IN
+/*2. IN - operador que verifica a existência do valor na estrutura correspondente
 Descrição: Retorna os CPFs dos supervisionados que obtiveram uma avaliação Ótima ou Boa. */
 
 SELECT cpf_supervisionado FROM Supervisiona WHERE avaliacao IN ('Ótimo', 'Boa');
 
-/*14. AVG
+/*14. AVG - operador que calcula a média aritmetica entre numeros
 Descrição: Retorna a média do precos dos serviços ofertados pela clínica. */
 
 SELECT AVG(preco_servico) FROM Preco_servicos;
 
-/*20. SUBCONSULTA COM ALL  
+/*20. SUBCONSULTA COM ALL - operador que compara com todos os valores de uma série (listados ou de subselect)
 Descrição: Selecionando o CPF, cargo e salário dos médicos que ganham menos do que todos os funcionários que não são médicos. */
 
 SELECT cpf, cargo, salario FROM Funcionario WHERE salario  <ALL ( SELECT salario FROM Funcionario WHERE cargo NOT LIKE 'Médico'); 
 
 /*
-26. GRANT E REVOKE
+26. GRANT E REVOKE - Ceder e revogar privilégios de acesso
 Descrição: Concedendo todos os privilégios de acesso (SELECT, INSERT, DELETE,
 UPDATE), para todos os usuário, sobre a tabela Funcionario e removendo em seguida a permissão para deleção, para todos os usuários, sobre a tabela Funcionario.
 */
@@ -277,7 +281,7 @@ REVOKE DELETE ON Funcionario FROM PUBLIC;
 /*PL*/
 
 /*
-.4 CREATE PROCEDURE E .16 USO DE PARÂMETROS (IN, OUT ou IN OUT)
+.4 CREATE PROCEDURE(cria uma função sem retornos) E .16 USO DE PARÂMETROS (IN, OUT ou IN OUT)(parâmetros utilizados em funções)
 Descrição: Criando procedure com parâmetro IN para inserir um medicamento na tabela de Mendicamento.
 */
 
@@ -295,8 +299,9 @@ BEGIN
 END; 
 /
 
-/*10. LOOP EXIT WHEN 
-Descrição: Usando como condição de parada a falta de dados no cursor declarado (cursor_func), o LOOP foi programado para armazenar em uma variável (cpfESalario_func) o CPF e o salário dos funcionários que recebem um salário de 2500.00 ou mais. */
+/*10. LOOP EXIT WHEN - comando de repetição com critério de saída definido
+Descrição: Usando como condição de parada a falta de dados no cursor declarado (cursor_func), o LOOP foi programado para 
+armazenar em uma variável (cpfESalario_func) o CPF e o salário dos funcionários que recebem um salário de 2500.00 ou mais. */
 DECLARE
     
     i BINARY_INTEGER := 0;
@@ -334,9 +339,9 @@ Rodrigo
 13. SELECT … INTO
 19. CREATE OR REPLACE TRIGGER (COMANDO)*/
 
-/*1. USO DE RECORD
+/*1. USO DE RECORD - criação de um tipo de registro com atributos específicos
 Descrição: Será criado uma nova pessoa e está será inserida na tabela Pessoa, atraves de RECORD.*/
-<<recod_block>>
+<<record_block>>
 DECLARE
     TYPE n_pessoa IS RECORD(
         cpf CHAR(11), 
@@ -350,10 +355,10 @@ BEGIN
     nova_pessoa.data_nascimento := to_date('28/07/2001', 'dd/mm/yy');
     nova_pessoa.genero := 'M';
     INSERT INTO Pessoa VALUES nova_pessoa;
-END recod_block;
+END record_block;
 /     
 
-/*13. SELECT … INTO
+/*13. SELECT … INTO - comando de atribuição do retorno de um select a uma variável
 Descrição: A função ira retornar se foi recitado algum medicamento para o paciente.*/
 CREATE OR REPLACE FUNCTION verconsulta (cpfcliente Consulta.cpf_cliente%type, cpfmedico Consulta.cpf_medico%type, datahoraconsulta Consulta.datahora_consulta%TYPE)
 RETURN VARCHAR2
@@ -387,7 +392,8 @@ BEGIN
     RETURN retorna;
 END;
 /
-/*19. CREATE OR REPLACE TRIGGER (COMANDO)
+
+/*19. CREATE OR REPLACE TRIGGER (COMANDO) - comando gatilho, a ação é realizada dado a ocorrência de um evento especificado
 Descrição: Será retornado uma mensagem de erro caso tente inserir uma compra fora do horário de funcionamento da loja
 (a inserção é feita fora do horário, não a compra feita fora do horário).*/
 CREATE OR REPLACE TRIGGER compra_fora_do_horario
@@ -403,7 +409,7 @@ BEGIN
     END IF;
 EXCEPTION
 WHEN compra_fora_do_horario THEN
-    Raise_application_error(-20202, 'FORA DO HORÁrio DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
+    Raise_application_error(-20202, 'FORA DO HORÁRIO DE FUNCIONAMENTO' || 'A clínica funciona entre 7 e 21h. Tente novante em outro horario.');
 END;
 /
 
@@ -421,28 +427,30 @@ PL
 20. CREATE OR REPLACE TRIGGER (LINHA) (✔)
 */
 
-/* SELECT-FROM-WHERE 
+/* SELECT-FROM-WHERE - comando que seleciona tuplas de uma tabela mediante uma condição
 Retorna todos Médicos com salarios acima de 3000 reais*/
 SELECT * FROM Funcionario WHERE salario > 3000 AND cargo = 'Médico';
 
-/* MAX + SUBCONSULTA IN 
+/* MAX (operador que retorna o máximo entre uma lista de valores) + SUBCONSULTA IN (subselect com operador in, que verifica pertencimento)
 Retorna o maior salario dentre todos os funcionarios*/
 SELECT * FROM Funcionario WHERE salario IN (SELECT MAX(salario) FROM Funcionario);
 
-/*UNION ou INTERSECT ou MINUS 
+/*UNION ou INTERSECT ou MINUS - operadores de conjuntos (união, interseção ou complemento)
 Retorna todos os funcionarios com salarios acima de 3000 reais OU abaixo de 2500*/
 SELECT * FROM Funcionario WHERE salario > 3000 UNION SELECT * FROM Funcionario;
 
--- CREATE OR REPLACE TRIGGER (LINHA) + IF ELSIF
+-- CREATE OR REPLACE TRIGGER (LINHA)(gatilho ativado pela linha) + IF ELSIF (comando condicional)
     -- Impede que seja inserido um salário negativo na base
-CREATE OR REPLACE TRIGGER salario_neg BEFORE UPDATE ON Funcionario FOR EACH ROW
+CREATE OR REPLACE TRIGGER salario_neg 
+BEFORE UPDATE ON Funcionario 
+FOR EACH ROW
     BEGIN
     IF :NEW.salario < 0 THEN
         RAISE_APPLICATION_ERROR(-20101, 'Salario não pode ser menor que 0');
     END IF;
 END;
 /
--- CURSOR + ESTRUTURA TABLE
+-- CURSOR(estrutura que itera pelos retornos de uma consulta, podendo operar em cada um deles) + ESTRUTURA TABLE (tabela)
 -- Retorna todas as compras feitas antes de fevereiro de 2022
 DECLARE
     i BINARY_INTEGER := 0;
@@ -477,7 +485,7 @@ END;
 /* Gustavo */
 
 /*
-4. UPDATE
+4. UPDATE - atualiza os valores contidos na tabela
 Convertendo os preços dos produtos de real para dólar
 */
 
@@ -485,7 +493,7 @@ UPDATE Produto SET preco_de_compra = preco_de_compra/4.74;
 UPDATE Produto SET preco_de_revenda = preco_de_revenda/4.74;
 
 /*
-16. LEFT ou RIGHT ou FULL OUTER JOIN
+16. LEFT ou RIGHT ou FULL OUTER JOIN (variações dos comandos de junção de tabelas mediante condição)
 Lista os produtos de cada fornecedor
 */
 INSERT INTO Fornecedor(cnpj, nome) VALUES ('18053593100139', 'Avene');
@@ -494,14 +502,14 @@ SELECT F.nome, P.nome_comercial, (P.preco_de_revenda - P.preco_de_compra) AS Luc
     ON F.cnpj = P.cnpj_fornecedor;
 
 /*
-10. IS NULL ou IS NOT NULL
+10. IS NULL ou IS NOT NULL (comando que verifica se o valor é nulo ou é não nulo)
 Consultas em que nenhum medicamento foi passado
 */
 SELECT cpf_cliente, cpf_medico, datahora_consulta FROM Consulta
     WHERE nome_medicamento IS NULL;
 
 /*
-12. FOR IN LOOP
+12. FOR IN LOOP (comando de repetição com definições prévias de conclusão)
 Funcionários que não possuem supervisor (autogerenciáveis)
 */
 
