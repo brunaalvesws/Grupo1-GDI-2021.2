@@ -75,7 +75,7 @@ END;
 */
 
 /*5.DELETE - Remover elementos de uma tabela
-Descrição: Remoção de um medicamento da tabela Medicamento.*/
+Descrição: Remoção de uma tupla da tabela Supervisão.*/
 DELETE FROM Supervisiona
     WHERE cpf_supervisor = '32146679900' AND cpf_supervisionado = '32177765322';
 
