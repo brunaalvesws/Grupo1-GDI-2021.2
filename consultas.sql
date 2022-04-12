@@ -46,20 +46,20 @@ CREATE VIEW Estoque_critico(nome_comercial,estoque) AS SELECT nome_comercial, es
 -- Informar o serviço realizado em um dia e horário
 DECLARE 
     v_datetime TIMESTAMP := TO_TIMESTAMP('15-11-2021 08:53', 'DD-MM-YYYY HH24:MI');
-    v_idservico VARCHAR2(255);
+    v_idservico INTEGER;
     v_servico VARCHAR2(255);
 BEGIN
 SELECT id_servico INTO v_idservico FROM Atende WHERE datahora_atende = v_datetime;
 CASE v_idservico
-    WHEN 01 THEN v_servico := 'Consulta';
-    WHEN 02 THEN v_servico := 'Dermatoscopia';
-    WHEN 03 THEN v_servico := 'Cirurgia Dermatológica';
-    WHEN 04 THEN v_servico := 'Toxina botulínica';
-    WHEN 05 THEN v_servico := 'Biópsia';
-    WHEN 06 THEN v_servico := 'Exames básicos';
-    WHEN 07 THEN v_servico := 'Cauterização química';
-    WHEN 08 THEN v_servico := 'Crioterapia';
-    WHEN 09 THEN v_servico := 'Curetagem';
+    WHEN 1 THEN v_servico := 'Consulta';
+    WHEN 2 THEN v_servico := 'Dermatoscopia';
+    WHEN 3 THEN v_servico := 'Cirurgia Dermatológica';
+    WHEN 4 THEN v_servico := 'Toxina botulínica';
+    WHEN 5 THEN v_servico := 'Biópsia';
+    WHEN 6 THEN v_servico := 'Exames básicos';
+    WHEN 7 THEN v_servico := 'Cauterização química';
+    WHEN 8 THEN v_servico := 'Crioterapia';
+    WHEN 9 THEN v_servico := 'Curetagem';
 END CASE;
 EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -86,11 +86,11 @@ SELECT P.cpf, P.nome, T.telefone FROM Pessoa P
     ON P.cpf = T.cpf_p
     ORDER BY P.nome;
 
-/*17. SUBCONSULTA COM OPERADOR RELACIONAL - operador escolhido: <=
-Descrição: Será retornado o nome comercial, o estoque e o lote da tabela produto que forem vencer antes da data estimada.*/
+/*17. SUBCONSULTA COM OPERADOR RELACIONAL - operador escolhido: >
+Descrição: Será retornado o nome comercial, o estoque e o lote da tabela produto dos produtos com preço de revenda maior que a média
+de preços de revenda.*/
 SELECT Pr.nome_comercial, Pr.estoque, Pr.lote FROM Produto Pr
-    WHERE data_de_vencimento <= to_date('21/03/2025', 'dd/mm/yyyy')
-    ORDER BY Pr.estoque;
+    WHERE Pr.preco_de_revenda > (SELECT AVG(preco_de_revenda) FROM Produto);
 
 /*23. HAVING - expressa a condição de agrupamento
 Descrição: Retorna o genero e o número de pessoas, onde os nomes começam com A ou M, caso haja mais que uma.*/

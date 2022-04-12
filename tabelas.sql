@@ -51,7 +51,8 @@ CREATE TABLE Cliente(
     CONSTRAINT cliente_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
 );
 
--- Funcionario, Medico e Servico.
+/*Funcionário: tabela que herda de pessoa e define a entidade Funcionario
+*/
 
 CREATE TABLE Funcionario (
     cpf CHAR(11) NOT NULL,
@@ -64,6 +65,9 @@ CREATE TABLE Funcionario (
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf) REFERENCES Pessoa(cpf)
 );
 
+/*Médico: tabela que herda de pessoa e define a entidade Médico
+*/
+
 CREATE TABLE Medico (
     cpf_med CHAR(11) NOT NULL,
     crm VARCHAR2(255) NOT NULL,
@@ -72,7 +76,7 @@ CREATE TABLE Medico (
     CONSTRAINT medico_fkey FOREIGN KEY (cpf_med) REFERENCES Funcionario(cpf)
 );
 
--- Tabela que contem o preco de um serviço
+-- Tabela que contem o preco de um serviço (atributo multivalorado)
 CREATE TABLE Preco_servicos (
     tipo_servico VARCHAR2(255) NOT NULL,
     preco_servico NUMBER(*, 2) NOT NULL,
@@ -82,6 +86,9 @@ CREATE TABLE Preco_servicos (
     CONSTRAINT preco_servico CHECK (preco_servico >= 0)
 );
 
+/*Serviço: tabela que define a entidade Serviço
+*/
+
 CREATE TABLE Servico (
    id INTEGER NOT NULL,
    tipo_servico VARCHAR2(255) NOT NULL,
@@ -90,14 +97,18 @@ CREATE TABLE Servico (
    CONSTRAINT servico_fkey FOREIGN KEY (tipo_servico) REFERENCES Preco_servicos(tipo_servico)
 );
 
--- Tabela de medicamentos
+/*Medicamento: tabela que define a entidade Medicamento
+*/
+
 CREATE TABLE Medicamento (
     nome VARCHAR2(255) NOT NULL,
 
     CONSTRAINT medicamento_pkey PRIMARY KEY (nome)
 );
 
--- Tabela de fornecedores
+/*Fornecedor: tabela que define a entidade Fornecedor
+*/
+
 CREATE TABLE Fornecedor (
     cnpj CHAR(14) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
@@ -105,7 +116,8 @@ CREATE TABLE Fornecedor (
     CONSTRAINT fornecedor_pkey PRIMARY KEY (cnpj)   
 );
 
--- TipoProduto, Produtos
+/*TipoProduto: atributo multivalorado de Fornecedor
+*/
 CREATE TABLE TipoProduto (
     cnpj_fornecedor CHAR(14) NOT NULL,
     tipo_produto VARCHAR2(30) NOT NULL,
@@ -113,6 +125,9 @@ CREATE TABLE TipoProduto (
     CONSTRAINT tipo_produto_pkey PRIMARY KEY (cnpj_fornecedor, tipo_produto),
     CONSTRAINT tipo_produto_fkey FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj)
 );
+
+/*Produto: tabela que define a entidade Produto
+*/
 
 CREATE TABLE Produto (
     cnpj_fornecedor CHAR(14) NOT NULL,
@@ -128,11 +143,12 @@ CREATE TABLE Produto (
     CONSTRAINT produto_preco_de_revenda_check CHECK (preco_de_revenda > preco_de_compra),
     CONSTRAINT produto_estoque_check CHECK (estoque > 0),
     CONSTRAINT produto_lote_check CHECK (lote > 0 AND lote < 10000),
-    CONSTRAINT produto_pkey PRIMARY KEY (cnpj_fornecedor, nome_comercial),
+    CONSTRAINT produto_pkey PRIMARY KEY (cnpj_fornecedor, nome_comercial), --entidade fraca
     CONSTRAINT produto_fkey FOREIGN KEY (cnpj_fornecedor) REFERENCES Fornecedor(cnpj)
 );
 
--- Compra, Supervisiona
+/*Compra: tabela que define o relacionamento Compra
+*/
 CREATE TABLE Compra (
     cpf_cliente CHAR(11) NOT NULL,
     cnpj_fornecedor CHAR(14) NOT NULL,
@@ -144,6 +160,9 @@ CREATE TABLE Compra (
     CONSTRAINT compra_fkey3 FOREIGN KEY (cnpj_fornecedor, nome_comercial) REFERENCES Produto(cnpj_fornecedor, nome_comercial)
 );
 
+/*Suporvisiona: tabela que define o relacionamento Supervisiona
+*/
+
 CREATE TABLE Supervisiona (
     cpf_supervisor CHAR(11) NOT NULL,
     cpf_supervisionado CHAR(11) NOT NULL,
@@ -154,9 +173,9 @@ CREATE TABLE Supervisiona (
     CONSTRAINT supervisiona_fkey2 FOREIGN KEY (cpf_supervisionado) REFERENCES Funcionario(cpf)
 );
 
+/*Atende: tabela que define o relacionamento Atende
+*/
 
-
--- Atende, Consulta
 CREATE TABLE Atende(
     cpf_funcionario CHAR(11) NOT NULL,
     cpf_cliente CHAR(11) NOT NULL,
@@ -170,12 +189,14 @@ CREATE TABLE Atende(
 );
 
 
+/*Consulta: tabela que define o relacionamento Consulta
+*/
 
 CREATE TABLE Consulta(
     cpf_cliente CHAR(11) NOT NULL,
     cpf_medico CHAR(11) NOT NULL,
     datahora_consulta TIMESTAMP NOT NULL,
-    nome_medicamento VARCHAR2(255),
+    nome_medicamento VARCHAR2(255), -- Prescreve
 
     CONSTRAINT consulta_pkey PRIMARY KEY (cpf_cliente, cpf_medico, datahora_consulta),
     CONSTRAINT cpfClientecs_fkey FOREIGN KEY (cpf_cliente) REFERENCES Cliente(cpf_p), 
