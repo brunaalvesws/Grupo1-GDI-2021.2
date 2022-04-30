@@ -27,17 +27,46 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     genero CHAR,
     -- Referencias
     telefone tp_telefones,
-    endereco tp_endereco
+    endereco tp_endereco,
+
+    MEMBER PROCEDURE print_info
+
 ) NOT FINAL NOT INSTANTIABLE;
+
+/
+
+CREATE OR REPLACE TYPE BODY tp_pessoa AS
+    MEMBER PROCEDURE print_info IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(cpf)
+        DBMS_OUTPUT.PUT_LINE(nome)
+        DBMS_OUTPUT.PUT_LINE(data_nascimento)
+        DBMS_OUTPUT.PUT_LINE(genero)
+    End;
+END;
 
 /
 
 -- Cliente e Médico --
 
 CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa (
-    cpf_p CHAR(11),
-    plano_de_saude VARCHAR2(255)
+    plano_de_saude VARCHAR2(255),
+
+    OVERRIDING MEMBER PROCEDURE print_info
 );
+
+/
+
+CREATE OR REPLACE TYPE BODY tp_cliente AS
+    OVERRIDING MEMBER PROCEDURE print_info IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(cpf);
+        DBMS_OUTPUT.PUT_LINE(nome);
+        DBMS_OUTPUT.PUT_LINE(data_nascimento);
+        DBMS_OUTPUT.PUT_LINE(genero);
+        DBMS_OUTPUT.PUT_LINE(plano_de_saude);
+    End;
+END;
 
 /
 
@@ -45,7 +74,24 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
     salario NUMBER(*,2),
     data_admissao DATE
+
+    OVERRIDING MEMBER PROCEDURE print_info
 ) NOT FINAL;
+
+/
+
+CREATE OR REPLACE TYPE BODY tp_funcionario AS
+    OVERRIDING MEMBER PROCEDURE print_info IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(cpf);
+        DBMS_OUTPUT.PUT_LINE(nome);
+        DBMS_OUTPUT.PUT_LINE(data_nascimento);
+        DBMS_OUTPUT.PUT_LINE(genero);
+        DBMS_OUTPUT.PUT_LINE(cargo);
+        DBMS_OUTPUT.PUT_LINE(salario);
+        DBMS_OUTPUT.PUT_LINE(data_admissao);
+    End;
+END;
 
 /
 
@@ -59,9 +105,28 @@ CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_medico UNDER tp_funcionario (
     crm VARCHAR2(255)
+
+    OVERRIDING MEMBER PROCEDURE print_info
 );
 
 /
+
+CREATE OR REPLACE TYPE BODY tp_medico AS
+    OVERRIDING MEMBER PROCEDURE print_info IS
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE(cpf);
+        DBMS_OUTPUT.PUT_LINE(nome);
+        DBMS_OUTPUT.PUT_LINE(data_nascimento);
+        DBMS_OUTPUT.PUT_LINE(genero);
+        DBMS_OUTPUT.PUT_LINE(cargo);
+        DBMS_OUTPUT.PUT_LINE(salario);
+        DBMS_OUTPUT.PUT_LINE(data_admissao);
+        DBMS_OUTPUT.PUT_LINE(crm);
+    End;
+END;
+
+/
+
 
 -- Mendicamento --
 
@@ -144,17 +209,17 @@ Consulta
 /** Checklist de comandos
 
 1. CREATE OR REPLACE TYPE ✅
-2. CREATE OR REPLACE TYPE BODY
-3. MEMBER PROCEDURE
-4. MEMBER FUNCTION
-5. ORDER MEMBER FUNCTION
-6. MAP MEMBER FUNCTION
-7. CONSTRUCTOR FUNCTION
-8. OVERRIDING MEMBER
+2. CREATE OR REPLACE TYPE BODY (bruna) ✅
+3. MEMBER PROCEDURE (gustavo) ✅
+4. MEMBER FUNCTION (walmir)
+5. ORDER MEMBER FUNCTION (rodrigo)
+6. MAP MEMBER FUNCTION (carlos)
+7. CONSTRUCTOR FUNCTION (filipe)
+8. OVERRIDING MEMBER ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
 11. HERANÇA DE TIPOS (UNDER/NOT FINAL) ✅
-12. ALTER TYPE
+12. ALTER TYPE (altera a definição do tipo)
 13. CREATE TABLE OF (povoamento)
 14. WITH ROWID REFERENCES
 15. REF ✅
