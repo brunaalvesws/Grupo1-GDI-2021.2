@@ -29,7 +29,8 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     telefone tp_telefones,
     endereco tp_endereco,
 
-    MEMBER PROCEDURE print_info
+    MEMBER PROCEDURE print_info,
+    MAP MEMBER FUNCTION comparaSalario RETURN NUMBER  /*Será implementado no subtipo funcionario*/
 
 ) NOT FINAL NOT INSTANTIABLE;
 
@@ -73,9 +74,11 @@ END;
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
     salario NUMBER(*,2),
-    data_admissao DATE
-
-    OVERRIDING MEMBER PROCEDURE print_info
+    data_admissao DATE,
+    
+    OVERRIDING MEMBER PROCEDURE print_info,
+    MEMBER FUNCTION salarioAnual RETURN NUMBER,
+    OVERRIDING MAP MEMBER FUNCTION comparaSalario RETURN NUMBER
 ) NOT FINAL;
 
 /
@@ -90,6 +93,16 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         DBMS_OUTPUT.PUT_LINE(cargo);
         DBMS_OUTPUT.PUT_LINE(salario);
         DBMS_OUTPUT.PUT_LINE(data_admissao);
+    End;
+
+    MEMBER FUNCTION salarioAnual RETURN NUMBER IS
+    BEGIN
+        RETURN salario*12;
+    END;
+
+    OVERRIDING MAP MEMBER FUNCTION comparaSalario IS
+    BEGIN
+        RETURN salario;
     End;
 END;
 
