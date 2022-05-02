@@ -191,9 +191,9 @@ CREATE OR REPLACE TYPE tp_servico AS OBJECT (
 -- Atende --
 
 CREATE OR REPLACE TYPE tp_atende AS OBJECT (
-    cliente REF tp_cliente,
-    funcionario REF tp_funcionario,
-    servico REF tp_servico,
+    cliente_atendimento REF tp_cliente,
+    funcionario_atendimento REF tp_funcionario,
+    servico_atendimento REF tp_servico,
     datahora_atendimento TIMESTAMP
 )
 
