@@ -310,13 +310,10 @@ relacionamento forte fraco Fornecedor Produto
 3. MEMBER PROCEDURE (gustavo) ✅
 4. MEMBER FUNCTION (walmir) ✅
 5. ORDER MEMBER FUNCTION (rodrigo)✅
-<<<<<<< HEAD
 6. MAP MEMBER FUNCTION (carlos)
 7. CONSTRUCTOR FUNCTION (filipe) ✅
-=======
 6. MAP MEMBER FUNCTION (carlos) ✅
 7. CONSTRUCTOR FUNCTION (filipe)
->>>>>>> c2e7e8fba14f1d2ae5fcd8643d44ad0736afa1f6
 8. OVERRIDING MEMBER ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
