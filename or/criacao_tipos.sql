@@ -47,7 +47,7 @@ END;
 
 /
 
--- Cliente e Médico --
+-- Funcionário, Cliente e Médico --
 
 CREATE OR REPLACE TYPE tp_cliente UNDER tp_pessoa (
     plano_de_saude VARCHAR2(255),
@@ -95,14 +95,6 @@ END;
 
 /
 
-CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
-    supervisor REF tp_funcionario,
-    supervisionado REF tp_funcionario,
-    avaliacao VARCHAR2(255)
-);
-
-/
-
 CREATE OR REPLACE TYPE tp_medico UNDER tp_funcionario (
     crm VARCHAR2(255)
 
@@ -127,6 +119,15 @@ END;
 
 /
 
+-- Supervisiona --
+
+CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
+    supervisor REF tp_funcionario,
+    supervisionado REF tp_funcionario,
+    avaliacao VARCHAR2(255)
+);
+
+/
 
 -- Mendicamento --
 
@@ -135,7 +136,6 @@ CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (
 );
 
 -- Produto --
--- REVER ESSA PARTE COM OS MONITORES --
 CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     nome_comercial VARCHAR2(30),
     preco_de_compra NUMBER(*, 2),
@@ -144,8 +144,6 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
     lote INTEGER,
-    datahora_compra TIMESTAMP,
-    cliente_compra REF tp_cliente
 );
 
 /
@@ -174,19 +172,42 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
 
 /
 
--- Serviço --
+-- Compra -- 
 
-CREATE OR REPLACE TYPE tp_preco AS OBJECT (
-    valor NUMBER(*, 2)
-);
+CREATE OR REPLACE TYPE tp_compra AS OBJECT (
+    datahora_compra TIMESTAMP,
+    cliente_compra REF tp_cliente,
+    produto_compra REF tp_produto
+)
 
-CREATE OR REPLACE TYPE tp_precos AS VARRAY(5) OF tp_preco;
+-- Serviço e preço de serviço --
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER NOT NULL,
     tipo_servico VARCHAR2 (255),
-    preco_servico tp_precos
+    preco_servico NUMBER(*, 2)
 );
+
+-- Atende --
+
+CREATE OR REPLACE TYPE tp_atende AS OBJECT (
+    cliente REF tp_cliente,
+    funcionario REF tp_funcionario,
+    servico REF tp_servico,
+    datahora_atendimento TIMESTAMP
+)
+
+-- Consulta --
+
+CREATE OR REPLACE TYPE tp_nt_medicamentos AS TABLE OF tp_medicamento;
+
+CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
+    medico_consulta REF tp_medico,
+    cliente_consulta REF tp_cliente,
+    datahora_consulta TIMESTAMP,
+    medicamentos_prescritos tp_nt_medicamentos
+) NESTED TABLE medicamentos_prescritos STORE AS tp_medicamento;
+
 
  
 /** Checklist de tipos
@@ -215,8 +236,8 @@ Compra
 Verificar esse supervisiona
 Supervisiona ✅
 
-Atende
-Consulta
+Atende ✅
+Consulta ✅
 
 **/
 
