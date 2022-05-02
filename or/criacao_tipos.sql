@@ -75,7 +75,7 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
     salario NUMBER(*,2),
     data_admissao DATE,
-    
+
     OVERRIDING MEMBER PROCEDURE print_info,
     MEMBER FUNCTION salarioAnual RETURN NUMBER,
     OVERRIDING MAP MEMBER FUNCTION comparaSalario RETURN NUMBER
@@ -274,21 +274,21 @@ Consulta ✅
 1. CREATE OR REPLACE TYPE ✅
 2. CREATE OR REPLACE TYPE BODY (bruna) ✅
 3. MEMBER PROCEDURE (gustavo) ✅
-4. MEMBER FUNCTION (walmir)
+4. MEMBER FUNCTION (walmir) ✅
 5. ORDER MEMBER FUNCTION (rodrigo)✅
-6. MAP MEMBER FUNCTION (carlos)
+6. MAP MEMBER FUNCTION (carlos) ✅
 7. CONSTRUCTOR FUNCTION (filipe)
 8. OVERRIDING MEMBER ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
 11. HERANÇA DE TIPOS (UNDER/NOT FINAL) ✅
 12. ALTER TYPE (altera a definição do tipo) ✅
-13. CREATE TABLE OF (povoamento)
+13. CREATE TABLE OF (povoamento) ✅
 14. WITH ROWID REFERENCES
 15. REF ✅
 16. SCOPE IS
-17. INSERT INTO (povoamento)
-18. VALUE (em algum método)
+17. INSERT INTO (povoamento) ✅
+18. VALUE (em algum método) 
 19. VARRAY ✅
 20. NESTED TABLE ✅
 
