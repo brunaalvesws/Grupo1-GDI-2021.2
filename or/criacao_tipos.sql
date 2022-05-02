@@ -204,10 +204,10 @@ CREATE OR REPLACE TYPE tp_nt_medicamentos AS TABLE OF tp_medicamento;
 CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medico_consulta REF tp_medico,
     cliente_consulta REF tp_cliente,
-    datahora_consulta TIMESTAMP,
     medicamentos_prescritos tp_nt_medicamentos
 ) NESTED TABLE medicamentos_prescritos STORE AS tp_medicamento;
 
+ALTER TYPE tp_consulta ADD ATRIBUTE (datahora_consulta TIMESTAMP) CASCADE;
 
  
 /** Checklist de tipos
@@ -254,7 +254,7 @@ Consulta ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
 11. HERANÇA DE TIPOS (UNDER/NOT FINAL) ✅
-12. ALTER TYPE (altera a definição do tipo)
+12. ALTER TYPE (altera a definição do tipo) ✅
 13. CREATE TABLE OF (povoamento)
 14. WITH ROWID REFERENCES
 15. REF ✅
