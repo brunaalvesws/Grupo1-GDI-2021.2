@@ -186,8 +186,23 @@ CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER NOT NULL,
     tipo_servico VARCHAR2 (255),
     preco_servico NUMBER(*, 2)
+    ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER
 );
-
+/*Compara o preço do serviço e retorna 1 caso um serviço sejá mais barato que outro,
+ 0 caso um serviço sejá mais caro e -1 caso seja o mesmo preço*/
+CREATE OR REPLACE TYPE BODY tp_servico AS
+ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER IS
+    BEGIN 
+        IF SELF.preco_servico < p.tp_servico THEN
+            RETURN 1;
+        ELSIF SELF.preco_servico > p.tp_servico THEN
+            RETURN 0;
+        ELSE
+            RETURN -1;
+        END IF;
+    END;
+END;
+/ 
 -- Atende --
 
 CREATE OR REPLACE TYPE tp_atende AS OBJECT (
@@ -247,7 +262,7 @@ Consulta ✅
 2. CREATE OR REPLACE TYPE BODY (bruna) ✅
 3. MEMBER PROCEDURE (gustavo) ✅
 4. MEMBER FUNCTION (walmir)
-5. ORDER MEMBER FUNCTION (rodrigo)
+5. ORDER MEMBER FUNCTION (rodrigo)✅
 6. MAP MEMBER FUNCTION (carlos)
 7. CONSTRUCTOR FUNCTION (filipe)
 8. OVERRIDING MEMBER ✅
