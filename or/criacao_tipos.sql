@@ -29,7 +29,8 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     telefone tp_telefones,
     endereco tp_endereco,
 
-    MEMBER PROCEDURE print_info
+    MEMBER PROCEDURE print_info,
+    MAP MEMBER FUNCTION comparaSalario RETURN NUMBER  /*Será implementado no subtipo funcionario*/
 
 ) NOT FINAL NOT INSTANTIABLE;
 
@@ -73,10 +74,12 @@ END;
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
     salario NUMBER(*,2),
-    data_admissao DATE
+    data_admissao DATE,
 
     OVERRIDING MEMBER PROCEDURE print_info,
-    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT
+    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT,
+    MEMBER FUNCTION salarioAnual RETURN NUMBER,
+    OVERRIDING MAP MEMBER FUNCTION comparaSalario RETURN NUMBER    
 ) NOT FINAL;
 
 /
@@ -92,6 +95,7 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         DBMS_OUTPUT.PUT_LINE(salario);
         DBMS_OUTPUT.PUT_LINE(data_admissao);
     End;
+    
     CONSTRUCTOR FUNCTION tp_funcionario (new_func tp_funcionario) RETURN SELF AS RESULT BEGIN
         cpf := new_func.cpf;
         nome := new_func.nome;
@@ -104,6 +108,16 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         data_admissao := new_func.data_admissao;
         RETURN;
     END;
+
+    MEMBER FUNCTION salarioAnual RETURN NUMBER IS
+    BEGIN
+        RETURN salario*12;
+    END;
+
+    OVERRIDING MAP MEMBER FUNCTION comparaSalario IS
+    BEGIN
+        RETURN salario;
+    End;
 END;
 
 /
@@ -294,21 +308,26 @@ relacionamento forte fraco Fornecedor Produto
 1. CREATE OR REPLACE TYPE ✅
 2. CREATE OR REPLACE TYPE BODY (bruna) ✅
 3. MEMBER PROCEDURE (gustavo) ✅
-4. MEMBER FUNCTION (walmir)
+4. MEMBER FUNCTION (walmir) ✅
 5. ORDER MEMBER FUNCTION (rodrigo)✅
+<<<<<<< HEAD
 6. MAP MEMBER FUNCTION (carlos)
 7. CONSTRUCTOR FUNCTION (filipe) ✅
+=======
+6. MAP MEMBER FUNCTION (carlos) ✅
+7. CONSTRUCTOR FUNCTION (filipe)
+>>>>>>> c2e7e8fba14f1d2ae5fcd8643d44ad0736afa1f6
 8. OVERRIDING MEMBER ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
 11. HERANÇA DE TIPOS (UNDER/NOT FINAL) ✅
 12. ALTER TYPE (altera a definição do tipo) ✅
-13. CREATE TABLE OF (povoamento)
+13. CREATE TABLE OF (povoamento) ✅
 14. WITH ROWID REFERENCES
 15. REF ✅
 16. SCOPE IS
-17. INSERT INTO (povoamento)
-18. VALUE (em algum método)
+17. INSERT INTO (povoamento) ✅
+18. VALUE (em algum método) 
 19. VARRAY ✅
 20. NESTED TABLE ✅
 
