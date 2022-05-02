@@ -96,8 +96,8 @@ END;
 /
 
 CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
-    contratante REF tp_funcionario,
-    contratado REF tp_funcionario,
+    supervisor REF tp_funcionario,
+    supervisionado REF tp_funcionario,
     avaliacao VARCHAR2(255)
 );
 
@@ -143,7 +143,9 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
-    lote INTEGER
+    lote INTEGER,
+    datahora_compra TIMESTAMP,
+    cliente_compra REF tp_cliente
 );
 
 /
@@ -172,7 +174,19 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
 
 /
 
--- Compra --
+-- Serviço --
+
+CREATE OR REPLACE TYPE tp_preco AS OBJECT (
+    valor NUMBER(*, 2)
+);
+
+CREATE OR REPLACE TYPE tp_precos AS VARRAY(5) OF tp_preco;
+
+CREATE OR REPLACE TYPE tp_servico AS OBJECT (
+    id INTEGER NOT NULL,
+    tipo_servico VARCHAR2 (255),
+    preco_servico tp_precos
+);
 
  
 /** Checklist de tipos
@@ -186,15 +200,15 @@ Todo mundo:
     Funcionario ✅
     Medico ✅
 
-    Preco_servicos
-    Servico
+    Preco_servicos ✅
+    Servico ✅
     Medicamento ✅
 
 Fiquei em dúvida como fazer o 
 relacionamento forte fraco Fornecedor Produto
-    Fornecedor 
+    Fornecedor  ✅
     TipoProduto ✅
-    Produto
+    Produto ✅
 
 Compra
 
@@ -225,7 +239,7 @@ Consulta
 15. REF ✅
 16. SCOPE IS
 17. INSERT INTO (povoamento)
-18. VALUE
+18. VALUE (em algum método)
 19. VARRAY ✅
 20. NESTED TABLE ✅
 
