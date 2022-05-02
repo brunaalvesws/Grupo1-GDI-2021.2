@@ -75,7 +75,8 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     salario NUMBER(*,2),
     data_admissao DATE
 
-    OVERRIDING MEMBER PROCEDURE print_info
+    OVERRIDING MEMBER PROCEDURE print_info,
+    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT
 ) NOT FINAL;
 
 /
@@ -91,6 +92,18 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         DBMS_OUTPUT.PUT_LINE(salario);
         DBMS_OUTPUT.PUT_LINE(data_admissao);
     End;
+    CONSTRUCTOR FUNCTION tp_funcionario (new_func tp_funcionario) RETURN SELF AS RESULT BEGIN
+        cpf := new_func.cpf;
+        nome := new_func.nome;
+        data_nascimento := new_func.data_nascimento;
+        genero := new_func.genero;
+        tp_telefones := new_func.tp_telefones;
+        tp_endereco := new_func.tp_endereco;
+        cargo := new_func.cargo;
+        salario := new_func.salario;
+        data_admissao := new_func.data_admissao;
+        RETURN;
+    END;
 END;
 
 /
@@ -135,6 +148,8 @@ CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (
     nome VARCHAR2(255)
 );
 
+/
+
 -- Produto --
 CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     nome_comercial VARCHAR2(30),
@@ -158,7 +173,11 @@ CREATE OR REPLACE TYPE tp_tipo_produto AS OBJECT (
     tipo_produto VARCHAR2(30);
 );
 
+/
+
 CREATE OR REPLACE TYPE tp_varr_tipos_produto AS VARRAY (4) OF tp_tipo_produto;
+
+/
 
 --  Fornecedor --
 
@@ -178,16 +197,22 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
     produto_compra REF tp_produto
-)
+);
+
+/
 
 -- Serviço e preço de serviço --
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER NOT NULL,
     tipo_servico VARCHAR2 (255),
-    preco_servico NUMBER(*, 2)
+    preco_servico NUMBER(*, 2),
+
     ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER
 );
+
+/
+
 /*Compara o preço do serviço e retorna 1 caso um serviço sejá mais barato que outro,
  0 caso um serviço sejá mais caro e -1 caso seja o mesmo preço*/
 CREATE OR REPLACE TYPE BODY tp_servico AS
@@ -202,6 +227,7 @@ ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_serv
         END IF;
     END;
 END;
+
 / 
 -- Atende --
 
@@ -210,11 +236,15 @@ CREATE OR REPLACE TYPE tp_atende AS OBJECT (
     funcionario_atendimento REF tp_funcionario,
     servico_atendimento REF tp_servico,
     datahora_atendimento TIMESTAMP
-)
+);
+
+/
 
 -- Consulta --
 
 CREATE OR REPLACE TYPE tp_nt_medicamentos AS TABLE OF tp_medicamento;
+
+/
 
 CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medico_consulta REF tp_medico,
@@ -222,8 +252,11 @@ CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medicamentos_prescritos tp_nt_medicamentos
 ) NESTED TABLE medicamentos_prescritos STORE AS tp_medicamento;
 
+/
+
 ALTER TYPE tp_consulta ADD ATRIBUTE (datahora_consulta TIMESTAMP) CASCADE;
 
+/
  
 /** Checklist de tipos
 
@@ -246,13 +279,13 @@ relacionamento forte fraco Fornecedor Produto
     TipoProduto ✅
     Produto ✅
 
-Compra
+    Compra
 
-Verificar esse supervisiona
-Supervisiona ✅
+    Verificar esse supervisiona
+    Supervisiona ✅
 
-Atende ✅
-Consulta ✅
+    Atende ✅
+    Consulta ✅
 
 **/
 
@@ -264,7 +297,7 @@ Consulta ✅
 4. MEMBER FUNCTION (walmir)
 5. ORDER MEMBER FUNCTION (rodrigo)✅
 6. MAP MEMBER FUNCTION (carlos)
-7. CONSTRUCTOR FUNCTION (filipe)
+7. CONSTRUCTOR FUNCTION (filipe) ✅
 8. OVERRIDING MEMBER ✅
 9. FINAL MEMBER ✅
 10. NOT INSTANTIABLE TYPE/MEMBER ✅
