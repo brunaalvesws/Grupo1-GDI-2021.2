@@ -270,7 +270,7 @@ CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
 
 /
 
-ALTER TYPE tp_consulta ADD ATRIBUTE (datahora_consulta TIMESTAMP) CASCADE;
+ALTER TYPE tp_consulta ADD ATTRIBUTE (datahora_consulta TIMESTAMP) CASCADE;
 
 /
  
