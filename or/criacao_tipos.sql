@@ -198,8 +198,8 @@ CREATE OR REPLACE TYPE tp_varr_tipos_produto AS VARRAY (4) OF tp_tipo_produto;
 --  Fornecedor --
 
 CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
-    cnpj CHAR(14) NOT NULL,
-    nome VARCHAR2(255) NOT NULL,
+    cnpj CHAR(14),
+    nome VARCHAR2(255),
     tipos_produto tp_varr_tipos_produto,
     produtos tp_nt_produto
     
@@ -220,7 +220,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 -- Serviço e preço de serviço --
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
-    id INTEGER NOT NULL,
+    id INTEGER,
     tipo_servico VARCHAR2 (255),
     preco_servico NUMBER(4, 2),
 
