@@ -203,7 +203,7 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
     tipos_produto tp_varr_tipos_produto,
     produtos tp_nt_produto
     
-) NESTED TABLE produtos STORE AS tp_produto;
+);
 
 /
 
@@ -212,7 +212,7 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
 CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
-    produto_compra REF tp_produto
+    produto_compra tp_nt_produto
 );
 
 /
@@ -266,7 +266,7 @@ CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medico_consulta REF tp_medico,
     cliente_consulta REF tp_cliente,
     medicamentos_prescritos tp_nt_medicamentos
-) NESTED TABLE medicamentos_prescritos STORE AS tp_medicamento;
+);
 
 /
 
