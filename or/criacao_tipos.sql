@@ -1,11 +1,13 @@
+-- TODO Definir chaves primárias
+
 -- Pessoa --
-CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
+CREATE OR REPLACE TYPE tp_telefonek AS OBJECT (
     telefone VARCHAR(9)
 );
 
 /
 
-CREATE OR REPLACE TYPE tp_telefones AS VARRAY(5) OF tp_telefone;
+CREATE OR REPLACE TYPE tp_arr_telefones AS VARRAY(5) OF tp_telefonek;
 /
 
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
@@ -26,7 +28,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     data_nascimento DATE, 
     genero CHAR,
     -- Referencias
-    telefone tp_telefones,
+    telefones tp_arr_telefones,
     endereco tp_endereco,
 
     MEMBER PROCEDURE print_info,
@@ -73,7 +75,7 @@ END;
 
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
-    salario NUMBER(*,2),
+    salario NUMBER(4,2),
     data_admissao DATE,
 
     OVERRIDING MEMBER PROCEDURE print_info,
@@ -101,8 +103,8 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         nome := new_func.nome;
         data_nascimento := new_func.data_nascimento;
         genero := new_func.genero;
-        tp_telefones := new_func.tp_telefones;
-        tp_endereco := new_func.tp_endereco;
+        telefones := new_func.telefones;
+        endereco := new_func.endereco;
         cargo := new_func.cargo;
         salario := new_func.salario;
         data_admissao := new_func.data_admissao;
@@ -123,7 +125,7 @@ END;
 /
 
 CREATE OR REPLACE TYPE tp_medico UNDER tp_funcionario (
-    crm VARCHAR2(255)
+    crm VARCHAR2(255),
 
     OVERRIDING MEMBER PROCEDURE print_info
 );
@@ -167,12 +169,12 @@ CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (
 -- Produto --
 CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     nome_comercial VARCHAR2(30),
-    preco_de_compra NUMBER(*, 2),
-    preco_de_revenda NUMBER(*, 2),
+    preco_de_compra NUMBER(4, 2),
+    preco_de_revenda NUMBER(4, 2),
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
-    lote INTEGER,
+    lote INTEGER
 );
 
 /
@@ -184,7 +186,7 @@ CREATE OR REPLACE TYPE tp_nt_produto AS TABLE OF tp_produto;
 -- Tipo Produto --
 
 CREATE OR REPLACE TYPE tp_tipo_produto AS OBJECT (
-    tipo_produto VARCHAR2(30);
+    tipo_produto VARCHAR2(30)
 );
 
 /
@@ -199,7 +201,7 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
     cnpj CHAR(14) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
     tipos_produto tp_varr_tipos_produto,
-    produtos tp_nt_produto,
+    produtos tp_nt_produto
     
 ) NESTED TABLE produtos STORE AS tp_produto;
 
@@ -220,7 +222,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER NOT NULL,
     tipo_servico VARCHAR2 (255),
-    preco_servico NUMBER(*, 2),
+    preco_servico NUMBER(4, 2),
 
     ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER
 );

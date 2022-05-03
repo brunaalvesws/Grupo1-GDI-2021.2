@@ -1,6 +1,8 @@
 CREATE SEQUENCE servico_id INCREMENT BY 1 START WITH 1;
 ALTER SESSION SET NLS_TIMESTAMP_FORMAT='DD-MON-YY HH24:MI';
 
+-- TODO Nos atributos que são REF os povoamentos devem ser com select
+
 -- POVOAMENTO PESSOA
 
 INSERT INTO tb_cliente
