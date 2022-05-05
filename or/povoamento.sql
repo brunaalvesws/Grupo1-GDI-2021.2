@@ -255,52 +255,99 @@ INSERT INTO tb_supervisiona VALUES (
         'Boa')
 );
 
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146679900', '32177765322', 'Boa');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146578900', '32146679900', 'Ótimo');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('55511121900', '67885321900', 'Desejável');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('12246221900', '17846781900', 'Desejável');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32177765322', '67885321900', 'Boa');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('55566621111', '32217721111', 'Boa');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('12246221900', '32146679900', 'Ótimo');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32146578900', '17846781900', 'Boa');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('32246678900', '12246221900', 'Desejável');
-INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
-    VALUES ('67885321900', '17846781900', 'Ótimo');
+
 
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146679900', '32145678900', '01', TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32146678900', '03', TO_TIMESTAMP('07-08-2021 09:32', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32145678900', '02', TO_TIMESTAMP('07-08-2021 10:47', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32146670900', '04', TO_TIMESTAMP('10-09-2021 16:08', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146679900', '12146678900', '09', TO_TIMESTAMP('08-02-2022 10:47', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32145678900', '09', TO_TIMESTAMP('15-11-2021 08:53', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '12146678900', '01', TO_TIMESTAMP('01-10-2021 13:30', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146679900', '32146670900', '05', TO_TIMESTAMP('11-02-2022 15:12', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146679900', '32146677900', '01', TO_TIMESTAMP('12-02-2021 10:47', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32145678900', '01', TO_TIMESTAMP('06-12-2021 11:00', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146578900', '32146678900', '01', TO_TIMESTAMP('06-01-2021 07:00', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Atende(cpf_funcionario, cpf_cliente, id_servico, datahora_atende)
-    VALUES ('32146679900', '12146678900', '01', TO_TIMESTAMP('27-02-2022 09:10', 'DD-MM-YYYY HH24:MI'));
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '01' ),
+        TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '03' ),
+        TO_TIMESTAMP('07-08-2021 09:32', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '02' ),
+        TO_TIMESTAMP('07-08-2021 09:32', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '04' ),
+        TO_TIMESTAMP('10-09-2021 16:08', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '09' ),
+        TO_TIMESTAMP('08-02-2022 10:47', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '05' ),
+        TO_TIMESTAMP('11-02-2022 15:12', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '01' ),
+        TO_TIMESTAMP('27-02-2022 09:10', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '01' ),
+        TO_TIMESTAMP('06-01-2021 07:00', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
+
+INSERT INTO tb_atende VALUES (
+    tp_atende(
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
+        (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(s) FROM tb_servico s WHERE s.id = '01' ),
+        TO_TIMESTAMP('12-02-2021 10:47', 'DD-MM-YYYY HH24:MI')
+    )
+
+);
 
 
 /*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
