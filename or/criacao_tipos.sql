@@ -220,15 +220,15 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
     tipo_servico VARCHAR2 (255),
-    preco_servico NUMBER(4, 2)
-)
+    preco_servico NUMBER(4, 2),
+    ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER
+);
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER,
     tipo_servico VARCHAR2 (255),
     preco REF tp_preco_servico
 
-    ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER
 );
 
 /
@@ -236,7 +236,7 @@ CREATE OR REPLACE TYPE tp_servico AS OBJECT (
 /*Compara o preço do serviço e retorna 1 caso um serviço sejá mais barato que outro,
  0 caso um serviço sejá mais caro e -1 caso seja o mesmo preço*/
 CREATE OR REPLACE TYPE BODY tp_servico AS
-ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER IS
+ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER IS
     BEGIN 
         IF SELF.preco_servico < p.tp_servico THEN
             RETURN 1;
