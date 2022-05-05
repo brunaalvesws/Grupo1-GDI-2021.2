@@ -142,26 +142,44 @@ INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_
 
 
 /*povoamento compra*/
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32145678900', '44328278000168', 'Actine', TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('12146678900', '54640597000168', 'Acnen', TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32146670900', '54640597000168', 'Hidramais', TO_TIMESTAMP('05-03-2022 16:26', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32146677900', '44037886000113', 'Acnex', TO_TIMESTAMP('25-01-2022 14:17', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32146678900', '56823657000103', 'Sunless', TO_TIMESTAMP('16-03-2022 08:13', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32146677900', '67873558000152', 'UVSafe', TO_TIMESTAMP('24-02-2022 10:05', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32145678900', '54640597000168', 'Acnen', TO_TIMESTAMP('30-01-2022 11:35', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('12146678900', '67873558000152', 'UVSafe', TO_TIMESTAMP('26-03-2022 17:23', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32146678900', '67873558000152', 'UVSafe', TO_TIMESTAMP('19-02-2022 07:43', 'DD-MM-YYYY HH24:MI'));
-INSERT INTO Compra (cpf_cliente, cnpj_fornecedor, nome_comercial, datahora_compra)
-    VALUES ('32145678900', '44328278000168', 'Actine', TO_TIMESTAMP('17-03-2022 09:57', 'DD-MM-YYYY HH24:MI'));
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '32145678900'),
+    tp_nt_produto(tp_produto('Actine', 5.99, 109.99, 10, to_date('12/12/2021', 'dd/mm/yyyy'), to_date('12/12/2026', 'dd/mm/yyyy'), 876))
+);
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '12146678900'),
+    tp_nt_produto(tp_produto('Acnen', 8.99, 200.00, 5, to_date('08/10/2021', 'dd/mm/yyyy'), to_date('20/07/2025', 'dd/mm/yyyy'), 9591))
+);
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('05-03-2022 16:26', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '32146670900'),
+    tp_nt_produto(tp_produto('Hidramais', 5.99, 30.00, 40, to_date('01/04/2020', 'dd/mm/yyyy'), to_date('12/08/2023', 'dd/mm/yyyy'), 109))
+);
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('25-01-2022 14:17', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '32146677900'),
+    tp_nt_produto(tp_produto('Acnex', 1.99, 110.98, 3, to_date('03/06/2018', 'dd/mm/yyyy'), to_date('21/03/2025', 'dd/mm/yyyy'), 74))
+);
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('16-03-2022 08:13', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '32146678900'),
+    tp_nt_produto(tp_produto('Sunless', 20.50, 50.98, 40, to_date('02/09/2021', 'dd/mm/yyyy'), to_date('11/04/2024', 'dd/mm/yyyy'), 1756))
+);
+
+INSERT INTO tb_compra VALUES (
+    tp_compra (TO_TIMESTAMP('24-02-2022 10:05', 'DD-MM-YYYY HH24:MI')),
+    (SELECT REF(c) FROM tb tb_cliente c WHERE c.cpf = '32146677900'),
+    tp_nt_produto(tp_produto('UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887))
+);
+
+
 /*povoamento supervisiona*/
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
     VALUES ('32146679900', '32177765322', 'Boa');
