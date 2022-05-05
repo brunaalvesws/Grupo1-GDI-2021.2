@@ -59,10 +59,10 @@ CREATE TABLE tb_servico OF tp_servico (
 );
 
 CREATE TABLE tb_atende OF tp_atende (
-    cliente_atendimento WITH ROWID REFERENCES tp_cliente NOT NULL,
-    funcionario_atendimento WITH ROWID REFERENCES tp_funcionario NOT NULL,
-    servico_atendimento WITH ROWID REFERENCES tp_servico NOT NULL,
-    datahora_atendimento TIMESTAMP
+    cliente_atendimento SCOPE IS tb_cliente NOT NULL,
+    funcionario_atendimento SCOPE IS tb_funcionario NOT NULL,
+    servico_atendimento SCOPE IS tb_servico NOT NULL,
+    datahora_atendimento NOT NULL
 );
 
 CREATE TABLE tb_consulta OF tp_consulta(
