@@ -1,3 +1,6 @@
+-- TODO Definir chaves primárias
+
+
 CREATE TABLE tb_cliente OF tp_cliente (
     cpf PRIMARY KEY,
     nome NOT NULL,
@@ -47,10 +50,19 @@ CREATE TABLE tb_compra OF tp_compra (
     cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL
 )NESTED TABLE produto_compra STORE AS nt_produtos;
 
+
+
 CREATE TABLE tb_servico OF tp_servico (
     id PRIMARY KEY,
     tipo_servico NOT NULL,
     preco_servico NOT NULL
+);
+
+CREATE TABLE tb_atende OF tp_atende (
+    cliente_atendimento WITH ROWID REFERENCES tp_cliente NOT NULL,
+    funcionario_atendimento WITH ROWID REFERENCES tp_funcionario NOT NULL,
+    servico_atendimento WITH ROWID REFERENCES tp_servico NOT NULL,
+    datahora_atendimento TIMESTAMP
 );
 
 CREATE TABLE tb_consulta OF tp_consulta(
