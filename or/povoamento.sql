@@ -78,14 +78,38 @@ INSERT INTO Servico(id, tipo_servico) VALUES (servico_id.NEXTVAL, 'Curetagem');
 
 /* povoamento de Medicamentos */
 
-INSERT INTO Medicamento(nome) VALUES ('Xeomin');
-INSERT INTO Medicamento(nome) VALUES ('Aloxidil');
-INSERT INTO Medicamento(nome) VALUES ('Pantogar Neo');
-INSERT INTO Medicamento(nome) VALUES ('Avicis');
-INSERT INTO Medicamento(nome) VALUES ('Finalop');
-INSERT INTO Medicamento(nome) VALUES ('Finasterida');
-INSERT INTO Medicamento(nome) VALUES ('Restylane');
-INSERT INTO Medicamento(nome) VALUES ('Helioral');
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Xeomin')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Aloxidil')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Pantogar Neo')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Avicis')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Finalop')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Finasterida')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Restylane')
+);
+
+INSERT INTO tb_medicamento VALUES (
+    tp_medicamento('Helioral')
+);
+
 
 /* povoamento de Fornecedor */
 
@@ -181,6 +205,56 @@ INSERT INTO tb_compra VALUES (
 
 
 /*povoamento supervisiona*/
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32146679900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32177765322'),
+        'Boa')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32146679900'),
+        'Ótimo')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '55511121900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '67885321900'),
+        'Desejável')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '12246221900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '17846781900'),
+        'Desejável')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32177765322'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '67885321900'),
+        'Boa')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '12246221900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32146679900'),
+        'Ótimo')
+);
+
+INSERT INTO tb_supervisiona VALUES (
+    tp_supervisiona(
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '32146578900'),
+        (SELECT REF(f) FROM tp_funcionario f WHERE f.cpf = '17846781900'),
+        'Boa')
+);
+
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
     VALUES ('32146679900', '32177765322', 'Boa');
 INSERT INTO Supervisiona (cpf_supervisor, cpf_supervisionado, avaliacao)
