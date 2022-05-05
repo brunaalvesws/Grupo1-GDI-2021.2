@@ -73,3 +73,6 @@ CREATE TABLE tb_consulta OF tp_consulta(
 
 
 
+CREATE TABLE tb_medicamento OF tp_medicamento(
+    nome_medicamento NOT NULL
+);
