@@ -1,4 +1,3 @@
--- TODO Definir chaves primárias
 
 -- Pessoa --
 CREATE OR REPLACE TYPE tp_telefonek AS OBJECT (
@@ -219,10 +218,15 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 
 -- Serviço e preço de serviço --
 
+CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
+    tipo_servico VARCHAR2 (255),
+    preco_servico NUMBER(4, 2)
+)
+
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER,
     tipo_servico VARCHAR2 (255),
-    preco_servico NUMBER(4, 2),
+    preco REF tp_preco_servico
 
     ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_servico, p tp_servico) RETURN NUMBER
 );
@@ -320,7 +324,7 @@ relacionamento forte fraco Fornecedor Produto
 11. HERANÇA DE TIPOS (UNDER/NOT FINAL) ✅
 12. ALTER TYPE (altera a definição do tipo) ✅
 13. CREATE TABLE OF (povoamento) ✅
-14. WITH ROWID REFERENCES
+14. WITH ROWID REFERENCES  ✅
 15. REF ✅
 16. SCOPE IS
 17. INSERT INTO (povoamento) ✅
