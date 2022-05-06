@@ -226,9 +226,7 @@ CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER,
-    tipo_servico VARCHAR2 (255),
     preco REF tp_preco_servico
-
 );
 
 /
@@ -326,7 +324,7 @@ relacionamento forte fraco Fornecedor Produto
 13. CREATE TABLE OF (povoamento) ✅
 14. WITH ROWID REFERENCES  ✅
 15. REF ✅
-16. SCOPE IS
+16. SCOPE IS ✅
 17. INSERT INTO (povoamento) ✅
 18. VALUE (em algum método) 
 19. VARRAY ✅
