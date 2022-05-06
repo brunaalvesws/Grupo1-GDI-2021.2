@@ -1,12 +1,12 @@
 
 -- Pessoa --
-CREATE OR REPLACE TYPE tp_telefonek AS OBJECT (
+CREATE OR REPLACE TYPE tp_telefone AS OBJECT (
     telefone VARCHAR(9)
 );
 
 /
 
-CREATE OR REPLACE TYPE tp_arr_telefones AS VARRAY(5) OF tp_telefonek;
+CREATE OR REPLACE TYPE tp_arr_telefones AS VARRAY(5) OF tp_telefone;
 /
 
 CREATE OR REPLACE TYPE tp_endereco AS OBJECT (
@@ -223,6 +223,8 @@ CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
     preco_servico NUMBER(4, 2),
     ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER
 );
+
+/
 
 CREATE OR REPLACE TYPE tp_servico AS OBJECT (
     id INTEGER,

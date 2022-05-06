@@ -2,7 +2,7 @@ CREATE TABLE tb_cliente OF tp_cliente (
     cpf PRIMARY KEY,
     nome NOT NULL,
     data_nascimento NOT NULL, 
-    genero NOT NULL  CHECK (genero = 'M' OR genero = 'F'),
+    genero NOT NULL  CHECK (genero = 'M' OR genero = 'F')
     /*telefone, endereco e plano de saude são opcionais. Por isso não botei especifiquei na tabela. */
 );
 
@@ -29,8 +29,8 @@ CREATE TABLE tb_medico OF tp_medico (
 );
 
 CREATE TABLE tb_supervisiona OF tp_supervisiona (
-    supervisor  WITH ROWID REFERENCES tp_funcionario NOT NULL, 
-    supervisionado WITH ROWID REFERENCES tp_funcionario PRIMARY KEY,
+    supervisor  WITH ROWID REFERENCES tb_funcionario,
+    supervisionado WITH ROWID REFERENCES tb_funcionario,
     avaliacao NOT NULL
 );
 
@@ -39,13 +39,13 @@ CREATE TABLE tb_fornecedor OF tp_fornecedor (  /*usa produto como nt */
     cnpj PRIMARY KEY,
     nome NOT NULL,
     tipos_produto NOT NULL
-)NESTED TABLE produtos STORE AS nt_produtos; 
+)NESTED TABLE produtos STORE AS nt_produtos_fornecedor; 
 
 
 CREATE TABLE tb_compra OF tp_compra (
     datahora_compra PRIMARY KEY,
     cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL
-)NESTED TABLE produto_compra STORE AS nt_produtos;
+) NESTED TABLE produto_compra STORE AS nt_produtos_compra;
 
 CREATE TABLE tb_preco_servico OF tp_preco_servico (
     tipo_servico PRIMARY KEY,
@@ -54,7 +54,7 @@ CREATE TABLE tb_preco_servico OF tp_preco_servico (
 
 CREATE TABLE tb_servico OF tp_servico (
     id PRIMARY KEY,
-    preco_servico WITH ROWID REFERENCES tb_preco_servico
+    preco WITH ROWID REFERENCES tb_preco_servico
 );
 
 CREATE TABLE tb_atende OF tp_atende (
@@ -68,10 +68,10 @@ CREATE TABLE tb_consulta OF tp_consulta(
     medico_consulta WITH ROWID REFERENCES tb_medico NOT NULL,
     cliente_consulta WITH ROWID REFERENCES tb_cliente NOT NULL,
     datahora_consulta PRIMARY KEY                                    
-)NESTED TABLE medicamentos_prescritos STORE AS tp_medicamento;
+)NESTED TABLE medicamentos_prescritos STORE AS nt_medicamento_consulta;
 
 
 
 CREATE TABLE tb_medicamento OF tp_medicamento(
-    nome_medicamento PRIMARY KEY
+    nome PRIMARY KEY
 );
