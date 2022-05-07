@@ -370,7 +370,111 @@ INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_
 
 /* final quest */
 
+--FALTA PASSAR PARA OR:
+
+/* povoamento de Fornecedor - TODO falta ajeitar e fazer o select da ref de produto */
+
+/*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
+/*
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Xeomin') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Aloxidil') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Pantogar Neo') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Avicis') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Finalop') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Finasterida') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Restylane') );
+INSERT INTO tb_medicamento VALUES ( tp_medicamento('Helioral') );
 */
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Helioral'),
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Pantogar Neo')
+        ),
+        TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Xeomin')
+        ),
+        TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '67885321900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finasterida')
+        ),
+        TO_TIMESTAMP('06-12-2021 10:04', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Avicis')
+        ),
+        TO_TIMESTAMP('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Restylane')
+        ),
+        TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '12246221900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Aloxidil')
+        ),
+        TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '55511121900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
+        tp_prescreve( 
+            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finalop')
+        ),
+        TO_TIMESTAMP('27-02-2022 09:18', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+INSERT INTO tb_consulta VALUES (
+    tp_consulta(
+        (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '55511121900'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
+        tp_prescreve(),
+        TO_TIMESTAMP('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI')
+    )
+);
+
+
+/*
+
 
 INSERT INTO tb_compra VALUES (
     tp_compra(
@@ -416,22 +520,4 @@ INSERT INTO tb_compra VALUES (
     tp_nt_produto(tp_produto('UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887))
 );
 
---FALTA PASSAR PARA OR:
-
-/* povoamento de Fornecedor - TODO falta ajeitar e fazer o select da ref de produto */
-
-/*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI'), 'Xeomin');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('32145678900', '17846781900', TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI'), 'Finasterida');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('32146678900', '12246221900', TO_TIMESTAMP('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI'), 'Avicis');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('32145678900', '55511121900', TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI'), 'Restylane');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('32146677900', '32217721111', TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI'), 'Aloxidil');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('12146678900', '67885321900', TO_TIMESTAMP('27-02-2022 09:18', 'DD-MM-YYYY HH24:MI'), 'Finalop');
-INSERT INTO Consulta(cpf_cliente, cpf_medico, datahora_consulta, nome_medicamento)
-    VALUES ('12146678900', '55511121900', TO_TIMESTAMP('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI'), NULL);
+*/

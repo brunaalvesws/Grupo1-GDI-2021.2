@@ -207,7 +207,8 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
 CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
-    produto_compra REF tp_produto
+    -- produto_compra REF tp_produto
+    produto_compra tp_produto
 );
 
 /
@@ -258,7 +259,7 @@ CREATE OR REPLACE TYPE tp_atende AS OBJECT (
 
 -- Consulta --
 
-CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF tp_medicamento;
+CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF REF tp_medicamento;
 
 /
 
