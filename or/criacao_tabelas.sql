@@ -13,7 +13,8 @@ CREATE TABLE tb_funcionario OF tp_funcionario(
     genero NOT NULL CHECK (genero = 'M' OR genero = 'F'),
     cargo NOT NULL,
     salario NOT NULL CHECK (salario >= 1212.00),
-    data_admissao NOT NULL
+    data_admissao NOT NULL,
+    supervisor SCOPE IS tb_funcionario
 );
 
 
@@ -25,27 +26,39 @@ CREATE TABLE tb_medico OF tp_medico (
     cargo NOT NULL,
     salario NOT NULL,
     data_admissao NOT NULL,
+    supervisor SCOPE IS tb_medico,
     crm NOT NULL
 );
 
+/*
 CREATE TABLE tb_supervisiona OF tp_supervisiona (
     supervisor  WITH ROWID REFERENCES tb_funcionario,
     supervisionado WITH ROWID REFERENCES tb_funcionario,
     avaliacao NOT NULL
 );
+*/
 
+/*
+CREATE TABLE tb_produto OF tp_produto (
+    nome_comercial PRIMARY KEY,
+    preco_de_compra CHECK (preco_de_compra >= 0.00),
+    CHECK (preco_de_revenda > preco_de_compra),
+    estoque CHECK (estoque >= 0)
+);
+*/
 
 CREATE TABLE tb_fornecedor OF tp_fornecedor (  /*usa produto como nt */
     cnpj PRIMARY KEY,
-    nome NOT NULL,
-    tipos_produto NOT NULL
-)NESTED TABLE produtos STORE AS nt_produtos_fornecedor; 
+    nome NOT NULL
+) NESTED TABLE produtos STORE AS nt_produtos_fornecedor;
 
 
 CREATE TABLE tb_compra OF tp_compra (
     datahora_compra PRIMARY KEY,
-    cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL
-) NESTED TABLE produto_compra STORE AS nt_produtos_compra;
+    cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL,
+    -- produto_compra WITH ROWID REFERENCES tb_produto NOT NULL
+    produto_compra NOT NULL
+);
 
 CREATE TABLE tb_preco_servico OF tp_preco_servico (
     tipo_servico PRIMARY KEY,
@@ -58,20 +71,26 @@ CREATE TABLE tb_servico OF tp_servico (
 );
 
 CREATE TABLE tb_atende OF tp_atende (
-    cliente_atendimento SCOPE IS tb_cliente NOT NULL,
-    funcionario_atendimento SCOPE IS tb_funcionario NOT NULL,
-    servico_atendimento SCOPE IS tb_servico NOT NULL,
+    cliente_atendimento WITH ROWID REFERENCES tb_cliente NOT NULL,
+    funcionario_atendimento WITH ROWID REFERENCES tb_funcionario NOT NULL,
+    servico_atendimento WITH ROWID REFERENCES tb_servico NOT NULL,
     datahora_atendimento PRIMARY KEY
 );
 
-CREATE TABLE tb_consulta OF tp_consulta(
+CREATE TABLE tb_consulta OF tp_consulta (
     medico_consulta WITH ROWID REFERENCES tb_medico NOT NULL,
     cliente_consulta WITH ROWID REFERENCES tb_cliente NOT NULL,
     datahora_consulta PRIMARY KEY                                    
-)NESTED TABLE medicamentos_prescritos STORE AS nt_medicamento_consulta;
-
+) NESTED TABLE medicamentos_prescritos STORE AS nt_medicamentos_consulta;
 
 
 CREATE TABLE tb_medicamento OF tp_medicamento(
     nome PRIMARY KEY
 );
+
+/* novas */
+/*
+CREATE TABLE tb_tipo_produto OF tp_tipo_produto (
+    tipo_produto PRIMARY KEY
+);
+*/

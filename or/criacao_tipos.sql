@@ -74,15 +74,19 @@ END;
 
 CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     cargo VARCHAR2(255),
-    salario NUMBER(4,2),
+    salario NUMBER(20, 2),
     data_admissao DATE,
-
     OVERRIDING MEMBER PROCEDURE print_info,
     CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT,
     MEMBER FUNCTION salarioAnual RETURN NUMBER,
     OVERRIDING MAP MEMBER FUNCTION comparaSalario RETURN NUMBER    
 ) NOT FINAL;
 
+/
+
+ALTER TYPE tp_funcionario ADD ATTRIBUTE (supervisor REF tp_funcionario) CASCADE;
+/
+ALTER TYPE tp_funcionario ADD ATTRIBUTE (avaliacao_supervisor VARCHAR2(255)) CASCADE;
 /
 
 CREATE OR REPLACE TYPE BODY tp_funcionario AS
@@ -148,7 +152,7 @@ END;
 /
 
 -- Supervisiona --
-
+/*
 CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
     supervisor REF tp_funcionario,
     supervisionado REF tp_funcionario,
@@ -156,7 +160,7 @@ CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
 );
 
 /
-
+*/
 -- Mendicamento --
 
 CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (
@@ -168,8 +172,8 @@ CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (
 -- Produto --
 CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     nome_comercial VARCHAR2(30),
-    preco_de_compra NUMBER(4, 2),
-    preco_de_revenda NUMBER(4, 2),
+    preco_de_compra NUMBER(20, 2),
+    preco_de_revenda NUMBER(20, 2),
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
@@ -178,19 +182,12 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT (
 
 /
 
-CREATE OR REPLACE TYPE tp_nt_produto AS TABLE OF tp_produto;
-
+CREATE OR REPLACE TYPE tp_fornece AS TABLE OF tp_produto;
 /
 
 -- Tipo Produto --
 
-CREATE OR REPLACE TYPE tp_tipo_produto AS OBJECT (
-    tipo_produto VARCHAR2(30)
-);
-
-/
-
-CREATE OR REPLACE TYPE tp_varr_tipos_produto AS VARRAY (4) OF tp_tipo_produto;
+CREATE OR REPLACE TYPE tp_tipos_produtos_fornecidos AS VARRAY (2) OF VARCHAR2(255);
 
 /
 
@@ -199,9 +196,8 @@ CREATE OR REPLACE TYPE tp_varr_tipos_produto AS VARRAY (4) OF tp_tipo_produto;
 CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
     cnpj CHAR(14),
     nome VARCHAR2(255),
-    tipos_produto tp_varr_tipos_produto,
-    produtos tp_nt_produto
-    
+    tipos_produtos tp_tipos_produtos_fornecidos,
+    produtos tp_fornece
 );
 
 /
@@ -211,7 +207,7 @@ CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
 CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
-    produto_compra tp_nt_produto
+    produto_compra REF tp_produto
 );
 
 /
@@ -220,7 +216,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 
 CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
     tipo_servico VARCHAR2 (255),
-    preco_servico NUMBER(4, 2),
+    preco_servico NUMBER(20, 2),
     ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER
 );
 
@@ -262,19 +258,16 @@ CREATE OR REPLACE TYPE tp_atende AS OBJECT (
 
 -- Consulta --
 
-CREATE OR REPLACE TYPE tp_nt_medicamentos AS TABLE OF tp_medicamento;
+CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF tp_medicamento;
 
 /
 
 CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medico_consulta REF tp_medico,
     cliente_consulta REF tp_cliente,
-    medicamentos_prescritos tp_nt_medicamentos
+    medicamentos_prescritos tp_prescreve,
+    datahora_consulta TIMESTAMP
 );
-
-/
-
-ALTER TYPE tp_consulta ADD ATTRIBUTE (datahora_consulta TIMESTAMP) CASCADE;
 
 /
  
