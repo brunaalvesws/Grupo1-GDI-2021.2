@@ -390,7 +390,7 @@ INSERT INTO tb_compra VALUES (
         TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         tp_fornece(
-            (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44328278000168') p WHERE p.nome = 'Actine')
+            (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44328278000168') p WHERE p.nome_comercial = 'Actine')
         )
     )
 );
@@ -400,7 +400,7 @@ INSERT INTO tb_compra VALUES (
         TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         tp_fornece(
-            (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome = 'Acnen')
+            (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome_comercial = 'Acnen')
         )
     )
 );
@@ -409,7 +409,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('05-03-2022 16:26', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
     tp_fornece(
-        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome = 'Hidramais')
+        (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome_comercial = 'Hidramais')
     )
 );
 
@@ -417,7 +417,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('25-01-2022 14:17', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
     tp_fornece(
-        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44037886000113') p WHERE p.nome = 'Acnex')
+        (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44037886000113') p WHERE p.nome_comercial = 'Acnex')
     )
 );
 
@@ -425,7 +425,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('16-03-2022 08:13', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
     tp_fornece(
-        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '56823657000103') p WHERE p.nome = 'Sunless')
+        (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '56823657000103') p WHERE p.nome_comercial = 'Sunless')
     )
 );
 
@@ -433,6 +433,6 @@ INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('24-02-2022 10:05', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
     tp_fornece(
-        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '67873558000152') p WHERE p.nome = 'UVSafe')
+        (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '67873558000152') p WHERE p.nome_comercial = 'UVSafe')
     )
 );
