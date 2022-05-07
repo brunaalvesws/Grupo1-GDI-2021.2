@@ -38,10 +38,10 @@ CREATE TABLE tb_fornecedor OF tp_fornecedor (  /*usa produto como nt */
 
 CREATE TABLE tb_compra OF tp_compra (
     datahora_compra PRIMARY KEY,
-    cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL,
+    cliente_compra WITH ROWID REFERENCES tb_cliente NOT NULL
     -- produto_compra WITH ROWID REFERENCES tb_produto NOT NULL
-    produto_compra NOT NULL
-);
+    -- produto_compra NOT NULL
+) NESTED TABLE produto_compra STORE AS nt_compra_produtos;
 
 CREATE TABLE tb_preco_servico OF tp_preco_servico (
     tipo_servico PRIMARY KEY,

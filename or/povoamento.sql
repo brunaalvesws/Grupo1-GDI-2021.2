@@ -389,42 +389,50 @@ INSERT INTO tb_compra VALUES (
     tp_compra(
         TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
-        (SELECT VALUE(p) FROM tb_fornecedor f, TABLE(f.produtos) p WHERE p.nome = 'Actine')
+        tp_fornece(
+            (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44328278000168') p WHERE p.nome = 'Actine')
+        )
     )
 );
 
 INSERT INTO tb_compra VALUES (
-    tp_compra (),
-    ,
-    tp_nt_produto(tp_produto('Actine', 5.99, 109.99, 10, to_date('12/12/2021', 'dd/mm/yyyy'), to_date('12/12/2026', 'dd/mm/yyyy'), 876))
-);
-
-INSERT INTO tb_compra VALUES (
-    tp_compra (TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI')),
-    (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
-    tp_nt_produto(tp_produto('Acnen', 8.99, 200.00, 5, to_date('08/10/2021', 'dd/mm/yyyy'), to_date('20/07/2025', 'dd/mm/yyyy'), 9591))
+    tp_compra(
+        TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI'),
+        (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
+        tp_fornece(
+            (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome = 'Acnen')
+        )
+    )
 );
 
 INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('05-03-2022 16:26', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
-    tp_nt_produto(tp_produto('Hidramais', 5.99, 30.00, 40, to_date('01/04/2020', 'dd/mm/yyyy'), to_date('12/08/2023', 'dd/mm/yyyy'), 109))
+    tp_fornece(
+        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome = 'Hidramais')
+    )
 );
 
 INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('25-01-2022 14:17', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
-    tp_nt_produto(tp_produto('Acnex', 1.99, 110.98, 3, to_date('03/06/2018', 'dd/mm/yyyy'), to_date('21/03/2025', 'dd/mm/yyyy'), 74))
+    tp_fornece(
+        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44037886000113') p WHERE p.nome = 'Acnex')
+    )
 );
 
 INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('16-03-2022 08:13', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
-    tp_nt_produto(tp_produto('Sunless', 20.50, 50.98, 40, to_date('02/09/2021', 'dd/mm/yyyy'), to_date('11/04/2024', 'dd/mm/yyyy'), 1756))
+    tp_fornece(
+        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '56823657000103') p WHERE p.nome = 'Sunless')
+    )
 );
 
 INSERT INTO tb_compra VALUES (
     tp_compra (TO_TIMESTAMP('24-02-2022 10:05', 'DD-MM-YYYY HH24:MI')),
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
-    tp_nt_produto(tp_produto('UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887))
+    tp_fornece(
+        (SELECT VALUE(p) TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '67873558000152') p WHERE p.nome = 'UVSafe')
+    )
 );

@@ -198,7 +198,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
     -- produto_compra REF tp_produto
-    produto_compra tp_produto
+    produto_compra tp_fornece
 );
 
 /
