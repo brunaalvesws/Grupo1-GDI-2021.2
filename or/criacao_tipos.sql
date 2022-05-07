@@ -151,16 +151,6 @@ END;
 
 /
 
--- Supervisiona --
-/*
-CREATE OR REPLACE TYPE tp_supervisiona AS OBJECT (
-    supervisor REF tp_funcionario,
-    supervisionado REF tp_funcionario,
-    avaliacao VARCHAR2(255)
-);
-
-/
-*/
 -- Mendicamento --
 
 CREATE OR REPLACE TYPE tp_medicamento AS OBJECT (

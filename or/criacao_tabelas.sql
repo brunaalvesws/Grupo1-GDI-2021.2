@@ -30,23 +30,6 @@ CREATE TABLE tb_medico OF tp_medico (
     crm NOT NULL
 );
 
-/*
-CREATE TABLE tb_supervisiona OF tp_supervisiona (
-    supervisor  WITH ROWID REFERENCES tb_funcionario,
-    supervisionado WITH ROWID REFERENCES tb_funcionario,
-    avaliacao NOT NULL
-);
-*/
-
-/*
-CREATE TABLE tb_produto OF tp_produto (
-    nome_comercial PRIMARY KEY,
-    preco_de_compra CHECK (preco_de_compra >= 0.00),
-    CHECK (preco_de_revenda > preco_de_compra),
-    estoque CHECK (estoque >= 0)
-);
-*/
-
 CREATE TABLE tb_fornecedor OF tp_fornecedor (  /*usa produto como nt */
     cnpj PRIMARY KEY,
     nome NOT NULL
@@ -87,10 +70,3 @@ CREATE TABLE tb_consulta OF tp_consulta (
 CREATE TABLE tb_medicamento OF tp_medicamento(
     nome PRIMARY KEY
 );
-
-/* novas */
-/*
-CREATE TABLE tb_tipo_produto OF tp_tipo_produto (
-    tipo_produto PRIMARY KEY
-);
-*/

@@ -229,23 +229,7 @@ INSERT INTO tb_atende VALUES (
     )
 
 );
-/*
-INSERT INTO tb_tipo_produto VALUES (
-    tp_tipo_produto('Acne')
-);
 
-INSERT INTO tb_tipo_produto VALUES (
-    tp_tipo_produto('Hidratante')
-);
-
-INSERT INTO tb_tipo_produto VALUES (
-    tp_tipo_produto('Filtro Solar')
-);
-
-INSERT INTO tb_tipo_produto VALUES (
-    tp_tipo_produto('Pomada')
-);
-*/
 INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '44328278000168',
@@ -312,79 +296,7 @@ INSERT INTO tb_fornecedor VALUES (
         )
     )
 );
-/*
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('44328278000168', 'Grupo Acripel');
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('54640597000168', 'Dermage');
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('44037886000113', 'Pharmapele');
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('67873558000152', 'DISTRIFARMA');
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('72727498000108', 'Amigo Fiel');
-INSERT INTO tb_fornecedor VALUES tp_fornecedor('56823657000103', 'Centralerg');
-*/
-/* povoamento de TipoProduto */
-/*
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('44328278000168', 'Acne');
 
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('54640597000168', 'Acne');
-
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('54640597000168', 'Hidratante');
-
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('44037886000113', 'Acne');
-
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('56823657000103', 'Filtro Solar');
-
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('67873558000152', 'Filtro Solar');
-
-INSERT INTO TipoProduto (cnpj_fornecedor, tipo_produto)
-    VALUES ('72727498000108', 'Pomada');
-*/
-
-/* povoamento de Produto */
-
-/*
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('44328278000168', 'Actine', 5.99, 109.99, 10, to_date('12/12/2021', 'dd/mm/yyyy'), to_date('12/12/2026', 'dd/mm/yyyy'), 876);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('54640597000168', 'Acnen', 8.99, 200.00, 5, to_date('08/10/2021', 'dd/mm/yyyy'), to_date('20/07/2025', 'dd/mm/yyyy'), 9591);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('54640597000168', 'Hidramais', 5.99, 30.00, 40, to_date('01/04/2020', 'dd/mm/yyyy'), to_date('12/08/2023', 'dd/mm/yyyy'), 109);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('44037886000113', 'Acnex', 1.99, 110.98, 3, to_date('03/06/2018', 'dd/mm/yyyy'), to_date('21/03/2025', 'dd/mm/yyyy'), 74);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('56823657000103', 'Sunless', 20.50, 50.98, 40, to_date('02/09/2021', 'dd/mm/yyyy'), to_date('11/04/2024', 'dd/mm/yyyy'), 1756);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('67873558000152', 'UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887);
-
-INSERT INTO Produto (cnpj_fornecedor, nome_comercial, preco_de_compra, preco_de_revenda, estoque, data_de_fabricacao, data_de_vencimento, lote)
-    VALUES ('72727498000108', 'Hipoalergenico', 12.50, 40.99, 69, to_date('02/05/2020', 'dd/mm/yyyy'), to_date('11/03/2026', 'dd/mm/yyyy'), 975);
-
-/* final quest */
-
---FALTA PASSAR PARA OR:
-
-/* povoamento de Fornecedor - TODO falta ajeitar e fazer o select da ref de produto */
-
-/*povoamento de consulta (CPF_med, CP_cliente e nome_medicamento precisam existir nas outras tabelas*/
-/*
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Xeomin') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Aloxidil') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Pantogar Neo') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Avicis') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Finalop') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Finasterida') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Restylane') );
-INSERT INTO tb_medicamento VALUES ( tp_medicamento('Helioral') );
-*/
 INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
@@ -473,14 +385,11 @@ INSERT INTO tb_consulta VALUES (
 );
 
 
-/*
-
-
 INSERT INTO tb_compra VALUES (
     tp_compra(
         TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
-        (SELECT REF(p) FROM tb_fornecedor f, TABLE(f.produtos) p WHERE p.nome = 'Actine')
+        (SELECT VALUE(p) FROM tb_fornecedor f, TABLE(f.produtos) p WHERE p.nome = 'Actine')
     )
 );
 
@@ -519,5 +428,3 @@ INSERT INTO tb_compra VALUES (
     (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
     tp_nt_produto(tp_produto('UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887))
 );
-
-*/
