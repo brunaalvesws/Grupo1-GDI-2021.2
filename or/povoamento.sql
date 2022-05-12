@@ -192,15 +192,15 @@ INSERT INTO tb_atende VALUES (
 
 -- POVOAMENTO SERVICO
 
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL,  (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT REF(a) FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL,  (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
+INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = tb_servico.id))) );
 
 
 
