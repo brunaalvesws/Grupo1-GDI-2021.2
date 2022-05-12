@@ -249,7 +249,7 @@ CREATE OR REPLACE TYPE tp_atende AS OBJECT (
 
 -- Consulta --
 
-CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF REF tp_medicamento;
+CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF tp_medicamento;
 
 /
 

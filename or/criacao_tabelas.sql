@@ -65,8 +65,3 @@ CREATE TABLE tb_consulta OF tp_consulta (
     cliente_consulta WITH ROWID REFERENCES tb_cliente NOT NULL,
     datahora_consulta PRIMARY KEY                                    
 ) NESTED TABLE medicamentos_prescritos STORE AS nt_medicamentos_consulta;
-
-
-CREATE TABLE tb_medicamento OF tp_medicamento(
-    nome PRIMARY KEY
-);

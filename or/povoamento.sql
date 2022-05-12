@@ -104,7 +104,7 @@ INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FR
 INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = 'Curetagem')) );
 
 /* povoamento de Medicamentos */
-
+/*
 INSERT INTO tb_medicamento VALUES (
     tp_medicamento('Xeomin')
 );
@@ -136,7 +136,7 @@ INSERT INTO tb_medicamento VALUES (
 INSERT INTO tb_medicamento VALUES (
     tp_medicamento('Helioral')
 );
-
+*/
 
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
 
@@ -302,8 +302,8 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Helioral'),
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Pantogar Neo')
+            tp_medicamento('Helioral'),
+            tp_medicamento('Pantogar Neo')
         ),
         TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI')
     )
@@ -314,7 +314,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Xeomin')
+            tp_medicamento('Xeomin')
         ),
         TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI')
     )
@@ -325,7 +325,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '67885321900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finasterida')
+            tp_medicamento('Finasterida')
         ),
         TO_TIMESTAMP('06-12-2021 10:04', 'DD-MM-YYYY HH24:MI')
     )
@@ -336,7 +336,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Avicis')
+            tp_medicamento('Avicis')
         ),
         TO_TIMESTAMP('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI')
     )
@@ -347,7 +347,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Restylane')
+            tp_medicamento('Restylane')
         ),
         TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')
     )
@@ -358,7 +358,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '12246221900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Aloxidil')
+            tp_medicamento('Aloxidil')
         ),
         TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI')
     )
@@ -369,7 +369,7 @@ INSERT INTO tb_consulta VALUES (
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '55511121900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
         tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finalop')
+            tp_medicamento('Finalop')
         ),
         TO_TIMESTAMP('27-02-2022 09:18', 'DD-MM-YYYY HH24:MI')
     )
