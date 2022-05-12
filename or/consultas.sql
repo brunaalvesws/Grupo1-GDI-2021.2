@@ -38,6 +38,12 @@ SELECT COUNT(*) as Quantidade, to_char(C.datahora_consulta, 'MM') as Mês
     GROUP BY to_char(C.datahora_consulta, 'MM')
     order by 1;
 
+----Consulta os serviços que tem preço entre 50 e 200----
+SELECT * FROM tb_preco_servico WHERE preco_servico BETWEEN 50 AND 200;
+
+----Consulta retorna o id o serviço e o valor sendo ordenado do menor valor para o maior valor----
+SELECT id, S.preco.tipo_servico,  S.preco.preco_servico FROM tb_servico S ORDER BY S.preco.preco_servico;
+
 /**
 Gustavo:
     Fornecedor e Consulta 
