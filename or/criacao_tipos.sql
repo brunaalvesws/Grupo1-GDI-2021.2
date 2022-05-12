@@ -208,7 +208,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
 CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
     tipo_servico VARCHAR2 (255),
     preco_servico NUMBER(20, 2),
-    ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER
+    ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, x tp_preco_servico) RETURN NUMBER
 );
 
 /
