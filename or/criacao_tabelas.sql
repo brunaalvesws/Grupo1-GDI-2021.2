@@ -34,7 +34,7 @@ CREATE TABLE tb_fornecedor OF tp_fornecedor (  /*usa produto como nt */
     cnpj PRIMARY KEY,
     nome NOT NULL,
     tipos_produtos NOT NULL
-) NESTED TABLE produtos STORE AS nt_tp_fornece;
+) NESTED TABLE produtos STORE AS nt_fornece;
 
 
 CREATE TABLE tb_compra OF tp_compra (
@@ -54,7 +54,7 @@ CREATE TABLE tb_atende OF tp_atende (
     id NOT NULL,
     cliente_atendimento WITH ROWID REFERENCES tb_cliente NOT NULL,
     funcionario_atendimento WITH ROWID REFERENCES tb_funcionario NOT NULL,
-    servico_atendimento WITH ROWID REFERENCES tb_servico NOT NULL,
+    servico_atendimento NOT NULL,
     datahora_atendimento PRIMARY KEY
 );
 
@@ -67,4 +67,4 @@ CREATE TABLE tb_consulta OF tp_consulta (
     medico_consulta WITH ROWID REFERENCES tb_medico NOT NULL,
     cliente_consulta WITH ROWID REFERENCES tb_cliente NOT NULL,
     datahora_consulta PRIMARY KEY                                    
-) NESTED TABLE medicamentos_prescritos STORE AS nt_tp_prescreve;
+) NESTED TABLE medicamentos_prescritos STORE AS nt_prescreve;
