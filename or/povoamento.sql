@@ -92,7 +92,6 @@ INSERT INTO tb_preco_servico VALUES ( tp_preco_servico('Curetagem', 50.00) );
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Consulta',
@@ -103,7 +102,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Dermatoscopia',
@@ -114,7 +112,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Cirurgia Dermatológica',
@@ -125,7 +122,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Toxina botulínica',
@@ -136,7 +132,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Biópsia',
@@ -147,7 +142,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Exames básicos',
@@ -158,7 +152,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Cauterização química',
@@ -169,7 +162,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Crioterapia',
@@ -180,7 +172,6 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Curetagem',
@@ -191,15 +182,15 @@ INSERT INTO tb_atende VALUES (
 
 -- POVOAMENTO SERVICO
 
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL,  (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
-INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.id = id))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('07-08-2021 09:32', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('07-08-2021 09:15', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('10-09-2021 16:08', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('08-02-2022 10:47', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('11-02-2022 15:12', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('27-02-2022 09:10', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('06-01-2021 07:00', 'DD-MM-YYYY HH24:MI')))) );
+INSERT INTO tb_servico VALUES ( tp_servico((SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = (SELECT a.servico_atendimento FROM tb_atende a WHERE a.datahora_atendimento = TO_TIMESTAMP('12-02-2021 10:47', 'DD-MM-YYYY HH24:MI')))) );
 
 
 

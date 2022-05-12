@@ -233,7 +233,6 @@ END;
 -- Atende --
 
 CREATE OR REPLACE TYPE tp_atende AS OBJECT (
-    id INTEGER,
     cliente_atendimento REF tp_cliente,
     funcionario_atendimento REF tp_funcionario,
     servico_atendimento VARCHAR2(255),

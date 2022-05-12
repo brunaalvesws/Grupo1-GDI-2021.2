@@ -51,7 +51,6 @@ CREATE TABLE tb_preco_servico OF tp_preco_servico (
 
 
 CREATE TABLE tb_atende OF tp_atende (
-    id NOT NULL,
     cliente_atendimento WITH ROWID REFERENCES tb_cliente NOT NULL,
     funcionario_atendimento WITH ROWID REFERENCES tb_funcionario NOT NULL,
     servico_atendimento NOT NULL,
@@ -66,5 +65,5 @@ CREATE TABLE tb_servico OF tp_servico (
 CREATE TABLE tb_consulta OF tp_consulta (
     medico_consulta WITH ROWID REFERENCES tb_medico NOT NULL,
     cliente_consulta WITH ROWID REFERENCES tb_cliente NOT NULL,
-    datahora_consulta PRIMARY KEY                                    
+    datahora_consulta PRIMARY KEY                              
 ) NESTED TABLE medicamentos_prescritos STORE AS nt_prescreve;
