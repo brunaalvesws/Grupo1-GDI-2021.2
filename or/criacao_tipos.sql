@@ -213,12 +213,6 @@ CREATE OR REPLACE TYPE tp_preco_servico AS OBJECT (
 
 /
 
-CREATE OR REPLACE TYPE tp_servico AS OBJECT (
-    id INTEGER,
-    preco REF tp_preco_servico
-);
-
-/
 
 /*Compara o preço do serviço e retorna 1 caso um serviço sejá mais barato que outro,
  0 caso um serviço sejá mais caro e -1 caso seja o mesmo preço*/
@@ -239,10 +233,19 @@ END;
 -- Atende --
 
 CREATE OR REPLACE TYPE tp_atende AS OBJECT (
+    id INTEGER,
     cliente_atendimento REF tp_cliente,
     funcionario_atendimento REF tp_funcionario,
-    servico_atendimento REF tp_servico,
+    servico_atendimento VARCHAR2(255),
     datahora_atendimento TIMESTAMP
+);
+
+/
+
+
+CREATE OR REPLACE TYPE tp_servico AS OBJECT (
+    id INTEGER,
+    preco REF tp_preco_servico
 );
 
 /

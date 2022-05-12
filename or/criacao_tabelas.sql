@@ -49,16 +49,18 @@ CREATE TABLE tb_preco_servico OF tp_preco_servico (
     preco_servico NOT NULL
 );
 
-CREATE TABLE tb_servico OF tp_servico (
-    id PRIMARY KEY,
-    preco WITH ROWID REFERENCES tb_preco_servico
-);
 
 CREATE TABLE tb_atende OF tp_atende (
+    id NOT NULL,
     cliente_atendimento WITH ROWID REFERENCES tb_cliente NOT NULL,
     funcionario_atendimento WITH ROWID REFERENCES tb_funcionario NOT NULL,
     servico_atendimento WITH ROWID REFERENCES tb_servico NOT NULL,
     datahora_atendimento PRIMARY KEY
+);
+
+CREATE TABLE tb_servico OF tp_servico (
+    id PRIMARY KEY,
+    preco WITH ROWID REFERENCES tb_preco_servico
 );
 
 CREATE TABLE tb_consulta OF tp_consulta (
