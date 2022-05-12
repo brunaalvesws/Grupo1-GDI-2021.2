@@ -1,10 +1,6 @@
 CREATE SEQUENCE servico_id INCREMENT BY 1 START WITH 1;
 ALTER SESSION SET NLS_TIMESTAMP_FORMAT='DD-MON-YY HH24:MI';
 
--- TODO Nos atributos que são REF os povoamentos devem ser com select
-
--- TODO falta povoar fornecedor, produto, tipo produto e consulta
-
 -- POVOAMENTO PESSOA
 
 INSERT INTO tb_cliente VALUES (
@@ -103,40 +99,6 @@ INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FR
 INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = 'Crioterapia')) );
 INSERT INTO tb_servico VALUES ( tp_servico(servico_id.NEXTVAL, (SELECT REF(p) FROM tb_preco_servico p WHERE p.tipo_servico = 'Curetagem')) );
 
-/* povoamento de Medicamentos */
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Xeomin')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Aloxidil')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Pantogar Neo')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Avicis')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Finalop')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Finasterida')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Restylane')
-);
-
-INSERT INTO tb_medicamento VALUES (
-    tp_medicamento('Helioral')
-);
-
 
 /*povoamento de Atende (CPF_func, CP_cliente e id_serviço precisam existir nas outras tabelas*/ 
 
@@ -234,8 +196,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '44328278000168',
         'Grupo Acripel',
-        tp_tipos_produtos_fornecidos('Acne', NULL),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Acne', NULL),
+        nt_tp_fornece(
             tp_produto('Actine', 5.99, 109.99, 10, to_date('12/12/2021', 'dd/mm/yyyy'), to_date('12/12/2026', 'dd/mm/yyyy'), 876)
         )
     )
@@ -245,8 +207,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '54640597000168',
         'Dermage',
-        tp_tipos_produtos_fornecidos('Acne', 'Hidratante'),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Acne', 'Hidratante'),
+        nt_tp_fornece(
             tp_produto('Acnen', 8.99, 200.00, 5, to_date('08/10/2021', 'dd/mm/yyyy'), to_date('20/07/2025', 'dd/mm/yyyy'), 9591),
             tp_produto('Hidramais', 5.99, 30.00, 40, to_date('01/04/2020', 'dd/mm/yyyy'), to_date('12/08/2023', 'dd/mm/yyyy'), 109)
         )
@@ -257,8 +219,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '44037886000113',
         'Pharmapele',
-        tp_tipos_produtos_fornecidos('Acne', NULL),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Acne', NULL),
+        nt_tp_fornece(
             tp_produto('Acnex', 1.99, 110.98, 3, to_date('03/06/2018', 'dd/mm/yyyy'), to_date('21/03/2025', 'dd/mm/yyyy'), 74)
         )
     )
@@ -268,8 +230,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '67873558000152',
         'DISTRIFARMA',
-        tp_tipos_produtos_fornecidos('Filtro Solar', NULL),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Filtro Solar', NULL),
+        nt_tp_fornece(
             tp_produto('UVSafe', 25.50, 69.99, 25, to_date('01/09/2020', 'dd/mm/yyyy'), to_date('09/03/2022', 'dd/mm/yyyy'), 4887)
         )
     )
@@ -279,8 +241,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '72727498000108',
         'Amigo Fiel',
-        tp_tipos_produtos_fornecidos('Pomada', NULL),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Pomada', NULL),
+        nt_tp_fornece(
             tp_produto('Hipoalergenico', 12.50, 40.99, 69, to_date('02/05/2020', 'dd/mm/yyyy'), to_date('11/03/2026', 'dd/mm/yyyy'), 975)
         )
     )
@@ -290,8 +252,8 @@ INSERT INTO tb_fornecedor VALUES (
     tp_fornecedor(
         '56823657000103',
         'Centralerg',
-        tp_tipos_produtos_fornecidos('Filtro Solar', NULL),
-        tp_fornece(
+        tp_arr_tipos_produtos_fornecidos('Filtro Solar', NULL),
+        nt_tp_fornece(
             tp_produto('Sunless', 20.50, 50.98, 40, to_date('02/09/2021', 'dd/mm/yyyy'), to_date('11/04/2024', 'dd/mm/yyyy'), 1756)
         )
     )
@@ -301,9 +263,9 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Helioral'),
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Pantogar Neo')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Helioral'),
+            (tp_medicamento = 'Pantogar Neo')
         ),
         TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI')
     )
@@ -313,8 +275,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '32246678900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Xeomin')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Xeomin')
         ),
         TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI')
     )
@@ -324,8 +286,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '67885321900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finasterida')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Finasterida')
         ),
         TO_TIMESTAMP('06-12-2021 10:04', 'DD-MM-YYYY HH24:MI')
     )
@@ -335,8 +297,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Avicis')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Avicis')
         ),
         TO_TIMESTAMP('06-01-2021 07:07', 'DD-MM-YYYY HH24:MI')
     )
@@ -346,8 +308,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '17846781900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Restylane')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Restylane')
         ),
         TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')
     )
@@ -357,8 +319,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '12246221900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Aloxidil')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Aloxidil')
         ),
         TO_TIMESTAMP('12-02-2022 10:50', 'DD-MM-YYYY HH24:MI')
     )
@@ -368,8 +330,8 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '55511121900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
-        tp_prescreve( 
-            (SELECT REF(m) FROM tb_medicamento m WHERE m.nome = 'Finalop')
+        nt_tp_prescreve( 
+            (tp_medicamento = 'Finalop')
         ),
         TO_TIMESTAMP('27-02-2022 09:18', 'DD-MM-YYYY HH24:MI')
     )

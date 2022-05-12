@@ -172,12 +172,12 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT (
 
 /
 
-CREATE OR REPLACE TYPE tp_fornece AS TABLE OF tp_produto;
+CREATE OR REPLACE TYPE nt_tp_fornece AS TABLE OF tp_produto;
 /
 
 -- Tipo Produto --
 
-CREATE OR REPLACE TYPE tp_tipos_produtos_fornecidos AS VARRAY (2) OF VARCHAR2(255);
+CREATE OR REPLACE TYPE tp_arr_tipos_produtos_fornecidos AS VARRAY (2) OF VARCHAR2(255);
 
 /
 
@@ -186,8 +186,8 @@ CREATE OR REPLACE TYPE tp_tipos_produtos_fornecidos AS VARRAY (2) OF VARCHAR2(25
 CREATE OR REPLACE TYPE tp_fornecedor AS OBJECT (
     cnpj CHAR(14),
     nome VARCHAR2(255),
-    tipos_produtos tp_tipos_produtos_fornecidos,
-    produtos tp_fornece
+    tipos_produtos tp_arr_tipos_produtos_fornecidos,
+    produtos nt_tp_fornece
 );
 
 /
@@ -198,7 +198,7 @@ CREATE OR REPLACE TYPE tp_compra AS OBJECT (
     datahora_compra TIMESTAMP,
     cliente_compra REF tp_cliente,
     -- produto_compra REF tp_produto
-    produto_compra tp_fornece
+    produto_compra nt_tp_fornece
 );
 
 /
@@ -249,14 +249,14 @@ CREATE OR REPLACE TYPE tp_atende AS OBJECT (
 
 -- Consulta --
 
-CREATE OR REPLACE TYPE tp_prescreve AS TABLE OF REF tp_medicamento;
+CREATE OR REPLACE TYPE nt_tp_prescreve AS TABLE OF tp_medicamento;
 
 /
 
 CREATE OR REPLACE TYPE tp_consulta AS OBJECT (
     medico_consulta REF tp_medico,
     cliente_consulta REF tp_cliente,
-    medicamentos_prescritos tp_prescreve,
+    medicamentos_prescritos nt_tp_prescreve,
     datahora_consulta TIMESTAMP
 );
 
