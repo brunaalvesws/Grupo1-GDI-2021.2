@@ -226,11 +226,11 @@ CREATE OR REPLACE TYPE BODY tp_servico AS
 ORDER MEMBER FUNCTION compararpservico (SELF IN OUT NOCOPY tp_preco_servico, p tp_preco_servico) RETURN NUMBER IS
     BEGIN 
         IF SELF.preco_servico < p.tp_servico THEN
-            RETURN 1;
-        ELSIF SELF.preco_servico > p.tp_servico THEN
-            RETURN 0;
-        ELSE
             RETURN -1;
+        ELSIF SELF.preco_servico > p.tp_servico THEN
+            RETURN 1;
+        ELSE
+            RETURN 0;
         END IF;
     END;
 END;
