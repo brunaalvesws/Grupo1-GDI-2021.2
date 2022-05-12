@@ -92,7 +92,7 @@ INSERT INTO tb_preco_servico VALUES ( tp_preco_servico('Curetagem', 50.00) );
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Consulta',
@@ -103,7 +103,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Dermatoscopia',
@@ -114,7 +114,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Cirurgia Dermatológica',
@@ -125,7 +125,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Toxina botulínica',
@@ -136,7 +136,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Biópsia',
@@ -147,7 +147,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Exames básicos',
@@ -158,7 +158,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Cauterização química',
@@ -169,7 +169,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146678900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146578900'),
         'Crioterapia',
@@ -180,7 +180,7 @@ INSERT INTO tb_atende VALUES (
 
 INSERT INTO tb_atende VALUES (
     tp_atende(
-        atende_id.NEXT_VAL,
+        atende_id.NEXTVAL,
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
         (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '32146679900'),
         'Curetagem',
@@ -322,7 +322,7 @@ INSERT INTO tb_consulta VALUES (
         nt_tp_prescreve( 
             (tp_medicamento('Restylane'))
         ),
-        TO_TIMESTAMP('06-02-2022 14:20', 'DD-MM-YYYY HH24:MI')
+        TO_TIMESTAMP('06-02-2022 14:21', 'DD-MM-YYYY HH24:MI')
     )
 );
 
@@ -352,7 +352,7 @@ INSERT INTO tb_consulta VALUES (
     tp_consulta(
         (SELECT REF(m) FROM tb_medico m WHERE m.cpf = '55511121900'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
-        tp_prescreve(),
+        nt_tp_prescreve(),
         TO_TIMESTAMP('14-03-2022 10:50', 'DD-MM-YYYY HH24:MI')
     )
 );
@@ -362,7 +362,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra(
         TO_TIMESTAMP('12-02-2022 15:25', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32145678900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44328278000168') p WHERE p.nome_comercial = 'Actine')
         )
     )
@@ -372,7 +372,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra(
         TO_TIMESTAMP('13-02-2022 09:15', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome_comercial = 'Acnen')
         )
     )
@@ -382,7 +382,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra(
         TO_TIMESTAMP('05-03-2022 16:26', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '54640597000168') p WHERE p.nome_comercial = 'Hidramais')
         )
     )
@@ -392,7 +392,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (
         TO_TIMESTAMP('25-01-2022 14:17', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '12146678900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '44037886000113') p WHERE p.nome_comercial = 'Acnex')
         )
     )
@@ -402,7 +402,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (
         TO_TIMESTAMP('16-03-2022 08:13', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146670900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '56823657000103') p WHERE p.nome_comercial = 'Sunless')
         )
     )
@@ -412,7 +412,7 @@ INSERT INTO tb_compra VALUES (
     tp_compra (
         TO_TIMESTAMP('24-02-2022 10:05', 'DD-MM-YYYY HH24:MI'),
         (SELECT REF(c) FROM tb_cliente c WHERE c.cpf = '32146677900'),
-        tp_fornece(
+        nt_tp_fornece(
             (SELECT VALUE(p) FROM TABLE(SELECT f.produtos FROM tb_fornecedor f WHERE f.cnpj = '67873558000152') p WHERE p.nome_comercial = 'UVSafe')
         )
     )
