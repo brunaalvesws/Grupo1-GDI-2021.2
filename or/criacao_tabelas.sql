@@ -54,7 +54,7 @@ CREATE TABLE tb_atende OF tp_atende (
     id NOT NULL,
     cliente_atendimento WITH ROWID REFERENCES tb_cliente NOT NULL,
     funcionario_atendimento WITH ROWID REFERENCES tb_funcionario NOT NULL,
-    servico_atendimento WITH ROWID REFERENCES tb_servico NOT NULL,
+    servico_atendimento NOT NULL,
     datahora_atendimento PRIMARY KEY
 );
 
