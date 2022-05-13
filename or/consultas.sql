@@ -17,11 +17,15 @@ SELECT DEREF(C.cliente_consulta).cpf, DEREF(C.medico_consulta).cpf, datahora_con
 /
 
 ---- Quantidade de medicamentos por consulta ----
-select DEREF(C.cliente_consulta).nome, C.datahora_consulta, (select count(*) from table(C.medicamentos_prescritos))
-    from tb_consulta C;
+SELECT DEREF(C.cliente_consulta).nome, C.datahora_consulta, (SELECT count(*) FROM TABLE(C.medicamentos_prescritos))
+    FROM tb_consulta C;
 /
 
-select DEREF(C.cliente_consulta).nome, C.datahora_consulta from tb_consulta C where (select count(*) from table(C.medicamentos_prescritos)) = 0;
+-- Consultas onde não foram dados medicamentos --
+
+SELECT DEREF(C.cliente_consulta).nome, C.datahora_consulta 
+    FROM tb_consulta C
+    WHERE (SELECT count(*) from table(C.medicamentos_prescritos)) = 0;
 /
 
 ---- Quantidades de consultas em um mês por ano ----
@@ -30,20 +34,35 @@ SELECT COUNT(*) as Quantidade, to_char(C.datahora_consulta, 'YYYY-MM') as Mês
     FROM tb_consulta C
     GROUP BY to_char(C.datahora_consulta, 'YYYY-MM')
     order by 1;
-
+/
 ---- Quantidades de consultas em um mês ----
 
 SELECT COUNT(*) as Quantidade, to_char(C.datahora_consulta, 'MM') as Mês
     FROM tb_consulta C
     GROUP BY to_char(C.datahora_consulta, 'MM')
     order by 1;
+/
+---- Todos medicamentos em uma consulta ----
+SELECT * FROM TABLE(SELECT C.medicamentos_prescritos
+    FROM tb_consulta C WHERE C.datahora_consulta = TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI'));
+SELECT * FROM TABLE(SELECT C.medicamentos_prescritos
+    FROM tb_consulta C WHERE C.datahora_consulta = TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI'));
+SELECT * FROM TABLE(SELECT C.medicamentos_prescritos
+    FROM tb_consulta C WHERE C.datahora_consulta = TO_TIMESTAMP('06-12-2021 10:04', 'DD-MM-YYYY HH24:MI'));
+/
+
+---- Todos medicamentos em todas consultas ----
+SELECT C.cliente_consulta.nome, C.datahora_consulta, M.nome
+    FROM tb_consulta C, TABLE(C.medicamentos_prescritos) M;
+/
 
 ----Consulta os serviços que tem preço entre 50 e 200----
 SELECT * FROM tb_preco_servico WHERE preco_servico BETWEEN 50 AND 200;
-
+/
 ----Consulta retorna o id o serviço e o valor sendo ordenado do menor valor para o maior valor----
-SELECT id, S.preco.tipo_servico,  S.preco.preco_servico FROM tb_servico S ORDER BY S.preco.preco_servico;
 
+SELECT id, S.preco.tipo_servico,  S.preco.preco_servico FROM tb_servico S ORDER BY S.preco.preco_servico;
+/
 
 ----ORDER MEMBER FUNCTION----
 
@@ -63,6 +82,7 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('O produto: ' || TO_CHAR(preco1.tipo_servico) || 'é mais caro!');
     END IF;
 END;
+/
 /**
 Gustavo: consultas com varrays
 */
