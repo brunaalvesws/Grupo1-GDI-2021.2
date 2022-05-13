@@ -44,6 +44,25 @@ SELECT * FROM tb_preco_servico WHERE preco_servico BETWEEN 50 AND 200;
 ----Consulta retorna o id o serviço e o valor sendo ordenado do menor valor para o maior valor----
 SELECT id, S.preco.tipo_servico,  S.preco.preco_servico FROM tb_servico S ORDER BY S.preco.preco_servico;
 
+
+----ORDER MEMBER FUNCTION----
+
+DECLARE
+    aux NUMBER;
+    preco1 tp_preco_servico;
+    preco2 tp_preco_servico;
+BEGIN
+    SELECT VALUE(p) INTO preco1 FROM tb_preco_servico p WHERE tipo_servico = 'Dermatoscopia';
+    SELECT VALUE(p) INTO preco2 FROM tb_preco_servico p WHERE tipo_servico = 'Crioterapia';
+    aux := preco1.compararpservico(preco2);
+    IF aux = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Os serviços têm o mesmo preço');
+    ELSIF aux = -1 THEN
+        DBMS_OUTPUT.PUT_LINE('O produto: ' || TO_CHAR(preco2.tipo_servico) || 'é mais caro!');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('O produto: ' || TO_CHAR(preco1.tipo_servico) || 'é mais caro!');
+    END IF;
+END;
 /**
 Gustavo:
     Fornecedor e Consulta 
