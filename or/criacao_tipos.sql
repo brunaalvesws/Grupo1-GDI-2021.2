@@ -30,8 +30,7 @@ CREATE OR REPLACE TYPE tp_pessoa AS OBJECT (
     telefones tp_arr_telefones,
     endereco tp_endereco,
 
-    MEMBER PROCEDURE print_info,
-    MAP MEMBER FUNCTION comparaSalario RETURN NUMBER  /*Será implementado no subtipo funcionario*/
+    MEMBER PROCEDURE print_info
 
 ) NOT FINAL NOT INSTANTIABLE;
 
@@ -77,9 +76,7 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa (
     salario NUMBER(20, 2),
     data_admissao DATE,
     OVERRIDING MEMBER PROCEDURE print_info,
-    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT,
-    MEMBER FUNCTION salarioAnual RETURN NUMBER,
-    OVERRIDING MAP MEMBER FUNCTION comparaSalario RETURN NUMBER    
+    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT    
 ) NOT FINAL;
 
 /
@@ -101,7 +98,7 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         DBMS_OUTPUT.PUT_LINE(data_admissao);
     End;
     
-    CONSTRUCTOR FUNCTION tp_funcionario (new_func tp_funcionario) RETURN SELF AS RESULT BEGIN
+    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT BEGIN
         cpf := new_func.cpf;
         nome := new_func.nome;
         data_nascimento := new_func.data_nascimento;
@@ -114,15 +111,6 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
         RETURN;
     END;
 
-    MEMBER FUNCTION salarioAnual RETURN NUMBER IS
-    BEGIN
-        RETURN salario*12;
-    END;
-
-    OVERRIDING MAP MEMBER FUNCTION comparaSalario IS
-    BEGIN
-        RETURN salario;
-    End;
 END;
 
 /
@@ -130,7 +118,8 @@ END;
 CREATE OR REPLACE TYPE tp_medico UNDER tp_funcionario (
     crm VARCHAR2(255),
 
-    OVERRIDING MEMBER PROCEDURE print_info
+    OVERRIDING MEMBER PROCEDURE print_info,
+    MEMBER FUNCTION salarioAnual RETURN NUMBER
 );
 
 /
@@ -147,6 +136,12 @@ CREATE OR REPLACE TYPE BODY tp_medico AS
         DBMS_OUTPUT.PUT_LINE(data_admissao);
         DBMS_OUTPUT.PUT_LINE(crm);
     End;
+
+    MEMBER FUNCTION salarioAnual RETURN NUMBER IS
+    BEGIN
+        RETURN salario*12;
+    END;
+
 END;
 
 /
@@ -167,8 +162,18 @@ CREATE OR REPLACE TYPE tp_produto AS OBJECT (
     estoque INTEGER,
     data_de_fabricacao DATE,
     data_de_vencimento DATE,
-    lote INTEGER
+    lote INTEGER,
+    MAP MEMBER FUNCTION comparaEstoque RETURN INTEGER
 );
+/
+
+CREATE OR REPLACE TYPE BODY tp_produto AS
+
+    MAP MEMBER FUNCTION comparaEstoque RETURN INTEGER IS
+    BEGIN
+        RETURN estoque;
+    END;
+END;
 
 /
 
