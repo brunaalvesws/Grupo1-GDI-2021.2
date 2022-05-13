@@ -3,9 +3,60 @@ SELECT C.nome FROM tb_cliente C WHERE C.endereco.complemento = 'Casa';
 -- Clientes que são mulheres
 SELECT nome FROM tb_cliente WHERE genero = 'M';
 
----- CONSULTAs Compra ----
+---- Consultas Compra ----
+SELECT DEREF(C.cliente_compra).nome, C.datahora_compra FROM tb_compra C;
+SELECT C.cliente_compra.nome AS cliente, C.datahora_compra AS DataHora FROM tb_compra C;
+/
 
----- Consulta Primária Compra ----
+---- Consultas no mês de março ----
+SELECT DEREF(C.cliente_compra).nome, datahora_compra FROM tb_compra C    
+    WHERE TO_CHAR(C.datahora_compra,'DD-MM-YYYY HH24:MI') LIKE '__-03-2022%';
+/
+
+---- Quantidade de produtos por compra ----
+SELECT DEREF(C.cliente_compra).nome, C.datahora_compra, 
+    (SELECT count(*) FROM TABLE(C.produto_compra))
+    FROM tb_compra C;
+/
+
+---- Compras com mais de um produto ----
+SELECT DEREF(C.cliente_compra).nome, C.datahora_compra 
+    FROM tb_compra C
+    WHERE (SELECT count(*) from table(C.produto_compra)) > 1;
+/
+
+---- Quantidades de compras em um mês ----
+
+SELECT COUNT(*) as Quantidade, to_char(C.datahora_compra, 'YYYY-MM') as Mês
+    FROM tb_compra C
+    GROUP BY to_char(C.datahora_compra, 'YYYY-MM')
+    order by 1;
+/
+---- Quantidades de consultas em um mês ----
+
+SELECT COUNT(*) as Quantidade, to_char(C.datahora_compra, 'MM') as Mês
+    FROM tb_compra C
+    GROUP BY to_char(C.datahora_compra, 'MM')
+    order by 1;
+/
+
+---- Todos medicamentos em uma consulta ----
+SELECT * FROM TABLE(SELECT C.produto_compra
+    FROM tb_compra C WHERE C.datahora_compra = TO_TIMESTAMP('06-02-2022 14:28', 'DD-MM-YYYY HH24:MI'));
+SELECT * FROM TABLE(SELECT C.produto_compra
+    FROM tb_compra C WHERE C.datahora_compra = TO_TIMESTAMP('06-12-2021 11:05', 'DD-MM-YYYY HH24:MI'));
+SELECT * FROM TABLE(SELECT C.produto_compra
+    FROM tb_compra C WHERE C.datahora_compra = TO_TIMESTAMP('06-12-2021 10:04', 'DD-MM-YYYY HH24:MI'));
+/
+
+---- Todos medicamentos em todas consultas ----
+SELECT C.cliente_compra.nome, C.datahora_compra, M.nome_comercial
+    FROM tb_compra C, TABLE(C.produto_compra) M;
+/
+
+---- Consultas Consulta ----
+
+---- Consulta Primária Consulta ----
 SELECT DEREF(C.cliente_consulta).cpf, DEREF(C.medico_consulta).cpf, datahora_consulta FROM tb_consulta C;
 /
 SELECT C.cliente_consulta.cpf AS cliente, C.medico_consulta.cpf AS medico, datahora_consulta FROM tb_consulta C;
