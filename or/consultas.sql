@@ -45,9 +45,62 @@ SELECT * FROM tb_preco_servico WHERE preco_servico BETWEEN 50 AND 200;
 SELECT id, S.preco.tipo_servico,  S.preco.preco_servico FROM tb_servico S ORDER BY S.preco.preco_servico;
 
 /**
-Gustavo:
-    Fornecedor e Consulta 
+Gustavo: consultas com varrays
+*/
+-- Imprime os tipos de produtos fornecidos pelo fornecedor de CNPJ 54640597000168 em ordem descrescente
+DECLARE
+    arr tp_arr_tipos_produtos_fornecidos;
+BEGIN
+    SELECT f.tipos_produtos INTO arr FROM tb_fornecedor f WHERE f.cnpj = '54640597000168';
+    FOR rec IN ( SELECT COLUMN_VALUE tipo_produto FROM TABLE (arr) ORDER BY tipo_produto DESC )  
+    LOOP 
+        DBMS_OUTPUT.PUT_LINE(rec.tipo_produto);  
+    END LOOP;
+END;
+/
+/*Output:
+Hidratante
+Acne
+*/
+-- Médicos que possuem ao menos um telefone reserva
+DECLARE
+    arr tp_arr_telefones;
+BEGIN
+    FOR cur IN ( SELECT m.telefones, m.nome FROM tb_medico m )  
+    LOOP
+        IF cur.telefones.COUNT > 1 THEN
+            DBMS_OUTPUT.PUT_LINE(cur.nome || ' possui ao menos um telefone reserva');  
+        END IF;
+    END LOOP;
+END;
+/
+/*Output:
+Maria do Socorro Alves possui ao menos um telefone reserva
+Jean Carlos possui ao menos um telefone reserva
+*/
+-- Consulta primária a VARRAY telefones da tabela de clientes (antes do update)
+SELECT c.nome, c.cpf, t.* FROM tb_cliente c, TABLE(c.telefones) t;
+/
 
+-- Caso o cliente tenha um telefone reserva, ele deve vir DEPOIS na ordem lexicográfica
+DECLARE
+    arr tp_arr_telefones;
+BEGIN
+    FOR cur IN ( SELECT c.telefones, c.cpf, c.nome FROM tb_cliente c )  
+    LOOP
+        IF cur.telefones.COUNT = 2 AND cur.telefones(1).telefone > cur.telefones(2).telefone THEN
+            arr := tp_arr_telefones(cur.telefones(2), cur.telefones(1));
+            UPDATE tb_cliente c SET c.telefones = arr WHERE c.cpf = cur.cpf;
+        END IF;
+    END LOOP;
+END;
+/
+
+-- Consulta primária a VARRAY telefones da tabela de clientes (após o update)
+SELECT c.nome, c.cpf, t.* FROM tb_cliente c, TABLE(c.telefones) t;
+/
+
+/**
 Filipe:
     Compra
 
