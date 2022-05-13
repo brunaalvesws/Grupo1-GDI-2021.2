@@ -139,6 +139,22 @@ END;
 SELECT c.nome, c.cpf, t.* FROM tb_cliente c, TABLE(c.telefones) t;
 /
 
+--- Retorna cpf, nome e salario dos funcionários que residem na cidade do Recife.
+SELECT F.cpf, F.nome, F.salario FROM tb_funcionario F WHERE F.endereco.cidade = 'Recife';
+/
+--- Retorna cpf, nome e salario dos médicos que são funcionários e ganham mais de 3000.00 ---
+SELECT M.crm, M.nome FROM tb_medico M WHERE M.salario > 3000.00
+/
+--- Retorna os clientes atendidos e os serviços vendidos pelo funcionário (a) Raissa Heimann ---
+SELECT DEREF(A.cliente_atendimento).nome, A.servico_atendimento FROM tb_atende A WHERE DEREF(A.funcionario_atendimento).nome = 'Raissa Heimann';
+/
+--ORDENA OS PRODUTOS, DO MAIOR PRO MENOR, POR QUANTIDADE EM ESTOQUE
+SELECT P.nome_comercial, P.estoque FROM nt_produtos_compra P ORDER BY P.comparaEstoque() DESC;
+/
+-- Retorna o salário anual dos médicos que ganham mais do que 30mil no ano
+SELECT M.crm, M.salarioAnual() FROM tb_medico M WHERE M.salarioAnual() > 30000.00;
+/
+
 /**
 Filipe:
     Compra
